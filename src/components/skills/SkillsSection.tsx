@@ -7,7 +7,6 @@ import { SkillExpandedCard } from "./SkillCard3D";
 import { TechKeyboard } from "@/components/keyboard/TechKeyboard";
 import { skills } from "@/data/skills";
 import type { Skill } from "@/types";
-import { Badge } from "@/components/ui/Badge";
 
 // Mobile fallback: skill grid
 function MobileSkillGrid() {
@@ -95,23 +94,6 @@ export function SkillsSection() {
           </motion.div>
         </div>
 
-        {/* Category legend */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-10 flex flex-wrap gap-3 justify-center"
-        >
-          {[
-            { label: "Language", color: "#4F8EF7" },
-            { label: "Framework", color: "#A78BFA" },
-            { label: "Tool", color: "#F59E0B" },
-            { label: "Concept", color: "#34D399" },
-            { label: "Cloud", color: "#F87171" },
-          ].map((cat) => (
-            <Badge key={cat.label} label={cat.label} color={cat.color} />
-          ))}
-        </motion.div>
       </div>
     </section>
   );

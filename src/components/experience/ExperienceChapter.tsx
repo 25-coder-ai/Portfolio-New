@@ -125,7 +125,7 @@ export function ExperienceChapter({
           </motion.p>
           <motion.span
             variants={item}
-            className="mt-2 block font-display font-bold leading-[0.82] tracking-tight"
+            className="mt-2 block font-display font-bold leading-[0.95] pb-[0.12em] tracking-tight"
             style={{
               fontSize: "clamp(4.5rem,15vw,12rem)",
               backgroundImage: `linear-gradient(155deg, #E8EEFF 35%, ${color})`,
@@ -138,7 +138,7 @@ export function ExperienceChapter({
           </motion.span>
           <motion.p
             variants={item}
-            className="mt-1 font-mono-custom text-xs tracking-wider text-[#4A5568]"
+            className="mt-1 font-mono-custom text-xs tracking-wider text-[#E8EEFF]"
           >
             {formatRange(experience)}
             {experience.location ? ` · ${experience.location}` : ""}
@@ -165,7 +165,7 @@ export function ExperienceChapter({
 
           <motion.p
             variants={item}
-            className="mt-5 text-base font-medium leading-relaxed text-[#AEB8CC]"
+            className="mt-5 text-base font-medium leading-relaxed text-[#E8EEFF]"
           >
             {experience.description}
           </motion.p>
