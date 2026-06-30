@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN SYSTEM — PORTFOLIO
+   Global background: #111B2F (never convert to RGB)
+   ============================================================ */
+
+@theme inline {
+  --color-background: #111B2F;
+  --color-surface: #1A2540;
+  --color-surface-elevated: #1F2D4A;
+  --color-text-primary: #E8EEFF;
+  --color-text-secondary: #8892A4;
+  --color-text-muted: #4A5568;
+  --color-accent-blue: #4F8EF7;
+  --color-accent-purple: #A78BFA;
+  --color-accent-green: #34D399;
+  --color-accent-amber: #F59E0B;
+  --color-accent-red: #F87171;
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono-custom: "JetBrains Mono", "Fira Code", monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #243055 #111B2F;
+}
+
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: #111B2F; }
+html::-webkit-scrollbar-thumb { background: #243055; border-radius: 3px; }
+
+body {
+  background-color: #111B2F;
+  color: #E8EEFF;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid #4F8EF7;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(79, 142, 247, 0.25);
+  color: #E8EEFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utilities */
+.font-display { font-family: "Playfair Display", "Georgia", serif; }
+.font-mono-custom { font-family: "JetBrains Mono", "Fira Code", monospace; }
+
+.glass {
+  background: rgba(26, 37, 64, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #4F8EF7 0%, #A78BFA 50%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,142,247,0.2), transparent);
+}
+
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(79,142,247,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,142,247,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+canvas { display: block; outline: none; }
+
+/* Animations */
+@keyframes belt-move {
+  from { background-position: 0 0; }
+  to { background-position: -60px 0; }
+}
+
+.belt-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 0px,
+    rgba(255,255,255,0.05) 20px,
+    rgba(255,255,255,0.02) 20px,
+    rgba(255,255,255,0.02) 40px,
+    transparent 40px,
+    transparent 60px
+  );
+  background-size: 60px 100%;
+  animation: belt-move 1.5s linear infinite;
+}
+
+@keyframes steam-rise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.6; }
+  100% { transform: translateY(-24px) scaleX(1.5); opacity: 0; }
+}
+
+.steam-particle { animation: steam-rise 2s ease-out infinite; }
+
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes holographic-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.holographic {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 60%
+  );
+  background-size: 200% auto;
+  animation: holographic-shimmer 3s linear infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Custom cursor */
+.cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 8px;
+  height: 8px;
+  background: #4F8EF7;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(79, 142, 247, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
