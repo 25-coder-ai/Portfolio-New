@@ -34,18 +34,19 @@ export function useSceneMotion(
   const yIn = isFirst ? [0, d] : isLast ? [1 - d, 1] : [c - d, c, c + d];
   const yOut = isFirst ? [0, -70] : isLast ? [70, 0] : [70, 0, -70];
 
-  const sIn = isFirst ? [0, d] : isLast ? [1 - d, 1] : [c - d, c, c + d];
-  const sOut = isFirst ? [1, 0.95] : isLast ? [0.965, 1] : [0.965, 1, 0.95];
-
+  // The intro headline is crisp on the first viewport, then fades out quickly —
+  // fully gone before the first chapter becomes legible — so the oversized
+  // "Experience" word never bleeds through and obscures chapter content.
   const oIn = isFirst
-    ? [0, 0.3 * d, 0.62 * d]
+    ? [0, 0.15 * d, 0.35 * d]
     : isLast
       ? [1 - 0.62 * d, 1 - 0.3 * d, 1]
       : [c - 0.62 * d, c - 0.3 * d, c + 0.3 * d, c + 0.62 * d];
   const oOut = isFirst ? [1, 1, 0] : isLast ? [0, 1, 1] : [0, 1, 1, 0];
 
+  // No scale transform: scaling rasterised text makes it blur until it settles.
+  // Slide (y) + fade (opacity) keep the cinematic motion while text stays crisp.
   const y = useTransform(progress, yIn, yOut);
-  const scale = useTransform(progress, sIn, sOut);
   const opacity = useTransform(progress, oIn, oOut);
 
   // Reveal content once the scene is meaningfully on-screen (with hysteresis
@@ -55,7 +56,7 @@ export function useSceneMotion(
     setShown((prev) => (v > 0.22 ? true : v < 0.05 ? false : prev));
   });
 
-  return { y, scale, opacity, shown };
+  return { y, opacity, shown };
 }
 
 const container: Variants = {
@@ -71,8 +72,8 @@ const tagGroup: Variants = {
   show: { transition: { staggerChildren: 0.05 } },
 };
 const tag: Variants = {
-  hide: { opacity: 0, y: 14, scale: 0.96 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: EASE } },
+  hide: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
 };
 
 interface ChapterProps {
@@ -92,7 +93,7 @@ export function ExperienceChapter({
   span,
   active,
 }: ChapterProps) {
-  const { y, scale, opacity, shown } = useSceneMotion(progress, sceneIndex, span);
+  const { y, opacity, shown } = useSceneMotion(progress, sceneIndex, span);
   const color = experience.color;
 
   const accentVars = {
@@ -102,9 +103,9 @@ export function ExperienceChapter({
 
   return (
     <motion.article
-      style={{ y, scale, opacity, pointerEvents: active ? "auto" : "none" }}
+      style={{ y, opacity, pointerEvents: active ? "auto" : "none" }}
       aria-hidden={!active}
-      className="absolute inset-0 flex items-center justify-center px-6 will-change-transform sm:px-10 lg:px-16"
+      className="absolute inset-0 flex items-center justify-center px-6 sm:px-10 lg:px-16"
       aria-label={`${experience.title} at ${experience.organization}`}
     >
       <motion.div
@@ -164,7 +165,7 @@ export function ExperienceChapter({
 
           <motion.p
             variants={item}
-            className="mt-5 text-base leading-relaxed text-[#8892A4]"
+            className="mt-5 text-base font-medium leading-relaxed text-[#AEB8CC]"
           >
             {experience.description}
           </motion.p>

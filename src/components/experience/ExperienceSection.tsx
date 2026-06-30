@@ -4,6 +4,7 @@ import {
   motion,
   AnimatePresence,
   useScroll,
+  useTransform,
   useMotionValueEvent,
   type MotionValue,
 } from "framer-motion";
@@ -33,12 +34,17 @@ function IntroScene({
   progress: MotionValue<number>;
   span: number;
 }) {
-  const { y, scale, opacity } = useSceneMotion(progress, 0, span);
+  const { y } = useSceneMotion(progress, 0, span);
+  // Fade the intro out fully and keep it gone for the rest of the scroll — the
+  // full [0,1] input range means it can never snap back to full opacity and
+  // overpower the chapter content. The faint background watermark carries the
+  // word "Experience" from here on.
+  const opacity = useTransform(progress, [0, 0.05, 1], [1, 0, 0]);
 
   return (
     <motion.div
-      style={{ y, scale, opacity }}
-      className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center will-change-transform"
+      style={{ y, opacity }}
+      className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
     >
       <motion.p
         initial={{ opacity: 0, y: 14 }}
@@ -163,6 +169,21 @@ function CinematicExperience() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
             style={{ background: "linear-gradient(to top, rgba(13,21,38,0.6), transparent)" }}
           />
+
+          {/* persistent faint watermark — the word "Experience" lives on behind
+              every chapter, kept extremely translucent so the chapter content
+              in front of it always reads clearly. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+          >
+            <span
+              className="select-none whitespace-nowrap font-display font-bold uppercase leading-none tracking-tight text-[#E8EEFF] opacity-[0.025]"
+              style={{ fontSize: "clamp(2.25rem, 14vw, 14rem)" }}
+            >
+              Experience
+            </span>
+          </div>
 
           {/* scenes */}
           <IntroScene progress={scrollYProgress} span={span} />
