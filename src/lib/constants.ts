@@ -38,6 +38,16 @@ export const CURSOR_TRAIL = {
   cardLifetime: 2800,       // ms before card exits
 } as const;
 
+// Hero image-trail (Codrops-style): images spawn at uniform spacing as the
+// cursor moves, then fade out after a fixed lifetime. Hero section only.
+export const IMAGE_TRAIL = {
+  spawnDistance: 175,       // px between images — ~1/8 of the 200px width overlaps
+  imageLifetime: 700,     // ms each image lives (long → many coexist = ribbon)
+  maxImages: 70,            // hard cap on simultaneous trail images
+  width: 200,               // px
+  height: 250,              // px
+} as const;
+
 export const NAV_ITEMS = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },

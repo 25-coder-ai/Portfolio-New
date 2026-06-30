@@ -25,6 +25,10 @@ export interface Project {
   techStack: string[];
   features: string[];
   images: string[];
+  /** Optional looping demo video embedded in the project card (autoplay, muted). */
+  video?: string;
+  /** Optional poster shown before the video loads / as fallback. */
+  poster?: string;
   demoUrl?: string;
   githubUrl?: string;
   category: string;
@@ -67,9 +71,17 @@ export interface Experience {
   description: string;
   responsibilities: string[];
   technologies: string[];
+  /** Headline outcomes shown last in the unfolded sheet. */
+  achievements?: string[];
   location?: string;
   color: string;
   icon: string;
+  /** Optional supporting imagery for the cinematic chapter (paths under /public). */
+  images?: string[];
+  /** Optional headline metrics, e.g. { value: "96%", label: "Accuracy" }. */
+  metrics?: { value: string; label: string }[];
+  /** Optional call-to-action shown at the end of the chapter. */
+  cta?: { label: string; url: string };
 }
 
 export type AchievementType =
@@ -89,6 +101,10 @@ export interface Achievement {
   image?: string;
   credentialUrl?: string;
   rank?: string;
+  /** Skills gained, shown as chips in the modal. */
+  skills?: string[];
+  /** Extra context shown last in the modal. */
+  notes?: string;
   color: string;
 }
 
@@ -122,5 +138,6 @@ export interface NavItem {
 export interface ContactFormData {
   name: string;
   email: string;
+  subject: string;
   message: string;
 }

@@ -20,9 +20,19 @@ export const experiences: Experience[] = [
       "Implemented data quality checks reducing errors by 90%",
     ],
     technologies: ["Python", "Apache Airflow", "PostgreSQL", "AWS S3", "Tableau"],
+    achievements: [
+      "40% faster reporting cycle, adopted org-wide",
+      "Data quality errors down 90%",
+      "Return offer extended at end of term",
+    ],
     location: "Chennai, India",
     color: "#4F8EF7",
     icon: "💼",
+    metrics: [
+      { value: "40%", label: "Faster reporting" },
+      { value: "90%", label: "Fewer data errors" },
+      { value: "5", label: "ETL pipelines" },
+    ],
   },
   {
     id: "hackathon-1",
@@ -39,8 +49,18 @@ export const experiences: Experience[] = [
       "Presented solution to panel of 20+ industry experts",
     ],
     technologies: ["Python", "YOLOv8", "FastAPI", "React", "Raspberry Pi"],
+    achievements: [
+      "1st of 480 teams, national finals",
+      "96% detection accuracy on field data",
+      "Solution shortlisted for incubation",
+    ],
     color: "#F59E0B",
     icon: "🏆",
+    metrics: [
+      { value: "1st", label: "of 480 teams" },
+      { value: "96%", label: "Detection accuracy" },
+      { value: "<200ms", label: "API latency" },
+    ],
   },
   {
     id: "leadership-1",
@@ -57,8 +77,18 @@ export const experiences: Experience[] = [
       "Managed club's technical blog reaching 2000+ monthly readers",
     ],
     technologies: ["Event Management", "Teaching", "Community Building"],
+    achievements: [
+      "Grew active membership from 60 to 200",
+      "8 workshops, 150+ attendees each",
+      "Mentored 30 juniors into data roles",
+    ],
     color: "#A78BFA",
     icon: "👑",
+    metrics: [
+      { value: "200", label: "Members grown to" },
+      { value: "8", label: "Workshops led" },
+      { value: "30", label: "Students mentored" },
+    ],
   },
   {
     id: "research-1",
@@ -75,8 +105,18 @@ export const experiences: Experience[] = [
       "Maintained reproducible experiment pipeline with MLflow",
     ],
     technologies: ["Python", "PyTorch", "DGL", "MLflow", "LaTeX"],
+    achievements: [
+      "Co-authored paper submitted to ICML 2024",
+      "Beat baseline GNN by 4.2% on ogbn-arxiv",
+      "Built fully reproducible experiment suite",
+    ],
     color: "#34D399",
     icon: "🔬",
+    metrics: [
+      { value: "4.2%", label: "Above baseline" },
+      { value: "3", label: "GNN models built" },
+      { value: "25+", label: "Papers reviewed" },
+    ],
   },
   {
     id: "volunteering-1",
@@ -92,6 +132,11 @@ export const experiences: Experience[] = [
       "Conducted 24 weekly sessions both online and in-person",
     ],
     technologies: ["Python", "HTML/CSS", "Scratch"],
+    achievements: [
+      "Taught 50+ first-time coders over 6 months",
+      "Designed a zero-prerequisite curriculum",
+      "24 sessions across 4 rural schools",
+    ],
     color: "#F87171",
     icon: "❤️",
   },
@@ -110,8 +155,17 @@ export const experiences: Experience[] = [
       "Dean's List: Semester 1, 2, 3, 4",
     ],
     technologies: ["ML", "Big Data", "Cloud Computing", "DSA"],
+    achievements: [
+      "CGPA 8.5 / 10, Dean's List ×4 semesters",
+      "Big Data Analytics specialization",
+      "Consistent top-decile standing",
+    ],
     color: "#4F8EF7",
     icon: "🎓",
+    metrics: [
+      { value: "8.5", label: "CGPA / 10" },
+      { value: "×4", label: "Dean's List" },
+    ],
   },
   {
     id: "club-1",
@@ -127,6 +181,11 @@ export const experiences: Experience[] = [
       "Organized annual AI Symposium with 500+ registrations",
     ],
     technologies: ["Python", "TensorFlow", "PyTorch", "Kaggle"],
+    achievements: [
+      "Contributed to 3 open-source ML projects",
+      "Organized AI Symposium, 500+ registrations",
+      "Monthly paper reviews for 50+ members",
+    ],
     color: "#A78BFA",
     icon: "🤖",
   },

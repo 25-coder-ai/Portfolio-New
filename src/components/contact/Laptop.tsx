@@ -5,10 +5,14 @@ import type { ContactFormData } from "@/types";
 import { Send, CheckCircle } from "lucide-react";
 import { profile } from "@/data/profile";
 
+const FIELD_BASE =
+  "w-full rounded-lg px-3 py-2 text-sm text-[#E8EEFF] border border-white/[0.08] placeholder:text-[#3F4860] transition-all duration-300 focus:outline-none focus:border-[#4F8EF7]/60 focus:shadow-[0_0_0_3px_rgba(79,142,247,0.16)]";
+
 export function Laptop() {
   const [form, setForm] = useState<ContactFormData>({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -18,10 +22,9 @@ export function Laptop() {
     e.preventDefault();
     setLoading(true);
 
-    // Mailto fallback — opens default mail client
-    const subject = encodeURIComponent(`Portfolio Message from ${form.name}`);
+    const subject = encodeURIComponent(form.subject || `Portfolio message from ${form.name}`);
     const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
     );
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
 
@@ -31,110 +34,122 @@ export function Laptop() {
     }, 800);
   };
 
+  const update = (key: keyof ContactFormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+
   return (
-    <div className="relative mx-auto" style={{ maxWidth: 380 }}>
-      {/* Laptop base */}
+    <div className="relative mx-auto" style={{ maxWidth: 400 }}>
+      {/* Lid / screen */}
       <div
-        className="relative rounded-2xl border border-white/10 overflow-hidden"
-        style={{
-          background: "#1A2540",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
-        }}
+        className="relative rounded-t-2xl border border-white/10"
+        style={{ background: "#0C1322", boxShadow: "0 24px 60px -20px rgba(0,0,0,0.7)" }}
       >
-        {/* Screen bezel */}
-        <div
-          className="relative p-3 rounded-t-2xl"
-          style={{ background: "#0D1526" }}
-        >
+        {/* camera */}
+        <div className="flex justify-center pt-2" aria-hidden="true">
+          <span className="h-1 w-1 rounded-full bg-white/20" />
+        </div>
+
+        <div className="px-3 pb-3 pt-2">
           {/* Screen */}
           <div
-            className="relative rounded-xl overflow-hidden p-5"
+            className="relative overflow-hidden rounded-xl p-5"
             style={{
-              background: "#111B2F",
-              minHeight: 300,
-              boxShadow: "inset 0 0 40px rgba(79,142,247,0.06)",
+              background: "linear-gradient(180deg, #101B30 0%, #0E1729 100%)",
+              minHeight: 332,
+              boxShadow: "inset 0 0 50px rgba(79,142,247,0.06), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}
           >
-            {/* Screen glow */}
+            {/* screen glow */}
             <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.08) 0%, transparent 70%)",
-              }}
               aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "radial-gradient(ellipse 80% 55% at 50% 0%, rgba(79,142,247,0.1) 0%, transparent 70%)" }}
+            />
+            {/* glass reflection sheen */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-60"
+              style={{ background: "linear-gradient(125deg, rgba(255,255,255,0.06) 0%, transparent 28%)" }}
             />
 
-            {/* Screen status bar */}
-            <div className="flex items-center gap-1.5 mb-4" aria-hidden="true">
-              <div className="w-2 h-2 rounded-full bg-[#F87171]/60" />
-              <div className="w-2 h-2 rounded-full bg-[#F59E0B]/60" />
-              <div className="w-2 h-2 rounded-full bg-[#34D399]/60" />
-              <div className="ml-2 flex-1 h-4 rounded bg-white/[0.04] flex items-center justify-center">
-                <span className="text-[8px] text-[#4A5568] font-mono-custom">message.send</span>
+            {/* window chrome */}
+            <div className="relative mb-4 flex items-center gap-1.5" aria-hidden="true">
+              <div className="h-2 w-2 rounded-full bg-[#F87171]/50" />
+              <div className="h-2 w-2 rounded-full bg-[#F59E0B]/50" />
+              <div className="h-2 w-2 rounded-full bg-[#34D399]/50" />
+              <div className="ml-2 flex h-4 flex-1 items-center justify-center rounded bg-white/[0.04]">
+                <span className="font-mono-custom text-[8px] text-[#4A5568]">new-message</span>
               </div>
             </div>
 
             {submitted ? (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center h-48 text-center gap-3"
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="flex h-56 flex-col items-center justify-center gap-3 text-center"
               >
                 <CheckCircle className="text-[#34D399]" size={40} />
-                <p className="text-[#E8EEFF] font-semibold">Message sent!</p>
-                <p className="text-[#4A5568] text-xs">Opening your mail client…</p>
+                <p className="font-semibold text-[#E8EEFF]">Message ready to send</p>
+                <p className="text-xs text-[#4A5568]">Opening your mail client…</p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3 relative z-10">
-                <div>
-                  <label className="text-[#4A5568] text-[10px] font-mono-custom uppercase tracking-widest block mb-1">
-                    Name
-                  </label>
+              <form onSubmit={handleSubmit} className="relative z-10 space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <Field label="Name">
+                    <input
+                      type="text"
+                      value={form.name}
+                      onChange={update("name")}
+                      required
+                      className={FIELD_BASE}
+                      style={{ background: "rgba(255,255,255,0.04)" }}
+                      placeholder="Your name"
+                    />
+                  </Field>
+                  <Field label="Email">
+                    <input
+                      type="email"
+                      value={form.email}
+                      onChange={update("email")}
+                      required
+                      className={FIELD_BASE}
+                      style={{ background: "rgba(255,255,255,0.04)" }}
+                      placeholder="you@example.com"
+                    />
+                  </Field>
+                </div>
+                <Field label="Subject">
                   <input
                     type="text"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    required
-                    className="w-full px-3 py-2 rounded-lg text-sm text-[#E8EEFF] border border-white/[0.08] focus:border-[#4F8EF7]/50 focus:outline-none transition-colors"
+                    value={form.subject}
+                    onChange={update("subject")}
+                    className={FIELD_BASE}
                     style={{ background: "rgba(255,255,255,0.04)" }}
-                    placeholder="Your name"
+                    placeholder="What's this about?"
                   />
-                </div>
-                <div>
-                  <label className="text-[#4A5568] text-[10px] font-mono-custom uppercase tracking-widest block mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    required
-                    className="w-full px-3 py-2 rounded-lg text-sm text-[#E8EEFF] border border-white/[0.08] focus:border-[#4F8EF7]/50 focus:outline-none transition-colors"
-                    style={{ background: "rgba(255,255,255,0.04)" }}
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="text-[#4A5568] text-[10px] font-mono-custom uppercase tracking-widest block mb-1">
-                    Message
-                  </label>
+                </Field>
+                <Field label="Message">
                   <textarea
                     value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    onChange={update("message")}
                     required
                     rows={3}
-                    className="w-full px-3 py-2 rounded-lg text-sm text-[#E8EEFF] border border-white/[0.08] focus:border-[#4F8EF7]/50 focus:outline-none transition-colors resize-none"
+                    className={`${FIELD_BASE} resize-none`}
                     style={{ background: "rgba(255,255,255,0.04)" }}
                     placeholder="Let's build something together…"
                   />
-                </div>
-                <button
+                </Field>
+                <motion.button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  whileHover={loading ? undefined : { scale: 1.015 }}
+                  whileTap={loading ? undefined : { scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold text-white"
                   style={{
-                    background: "#4F8EF7",
-                    boxShadow: "0 4px 20px rgba(79,142,247,0.3)",
+                    background: "linear-gradient(135deg, #4F8EF7 0%, #6BA2FF 100%)",
+                    boxShadow: "0 6px 22px -6px rgba(79,142,247,0.55)",
                     opacity: loading ? 0.7 : 1,
                   }}
                 >
@@ -142,7 +157,7 @@ export function Laptop() {
                     <motion.span
                       animate={{ rotate: 360 }}
                       transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                      className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
+                      className="inline-block h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
                     />
                   ) : (
                     <>
@@ -150,28 +165,39 @@ export function Laptop() {
                       Send Message
                     </>
                   )}
-                </button>
+                </motion.button>
               </form>
             )}
           </div>
         </div>
-
-        {/* Laptop keyboard base */}
-        <div
-          className="h-6 flex items-center justify-center"
-          style={{ background: "#1A2540" }}
-          aria-hidden="true"
-        >
-          <div className="w-16 h-1 rounded-full bg-white/[0.06]" />
-        </div>
       </div>
 
-      {/* Subtle bottom glow */}
+      {/* Hinge + deck */}
       <div
-        className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 rounded-full blur-xl pointer-events-none"
+        className="relative mx-auto h-3 rounded-b-xl"
+        style={{ width: "104%", marginLeft: "-2%", background: "linear-gradient(180deg, #1A2540, #0D1526)", boxShadow: "0 14px 30px -10px rgba(0,0,0,0.7)" }}
+        aria-hidden="true"
+      >
+        <div className="absolute left-1/2 top-1/2 h-1 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.07]" />
+      </div>
+
+      {/* desk reflection */}
+      <div
+        className="pointer-events-none absolute -bottom-5 left-1/2 h-5 w-3/4 -translate-x-1/2 rounded-[50%] blur-xl"
         style={{ background: "rgba(79,142,247,0.12)" }}
         aria-hidden="true"
       />
     </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="mb-1 block font-mono-custom text-[10px] uppercase tracking-widest text-[#4A5568]">
+        {label}
+      </span>
+      {children}
+    </label>
   );
 }

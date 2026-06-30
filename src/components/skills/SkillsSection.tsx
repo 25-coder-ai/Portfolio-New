@@ -1,27 +1,13 @@
 "use client";
-import { useState, useCallback, Suspense } from "react";
-import dynamic from "next/dynamic";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { SkillTooltip, SkillExpandedCard } from "./SkillCard3D";
+import { SkillExpandedCard } from "./SkillCard3D";
+import { TechKeyboard } from "@/components/keyboard/TechKeyboard";
 import { skills } from "@/data/skills";
 import type { Skill } from "@/types";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Badge } from "@/components/ui/Badge";
-
-// Lazy-load the heavy 3D canvas
-const KeyboardCanvas = dynamic(
-  () => import("./KeyboardScene").then((m) => ({ default: m.KeyboardCanvas })),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-72 flex items-center justify-center text-[#4A5568] text-sm">
-        <span className="animate-pulse">Loading 3D keyboard…</span>
-      </div>
-    ),
-  }
-);
 
 // Mobile fallback: skill grid
 function MobileSkillGrid() {
@@ -71,73 +57,31 @@ function MobileSkillGrid() {
 
 export function SkillsSection() {
   const { ref, inView } = useScrollAnimation();
-  const prefersReduced = useReducedMotion();
-  const [hoveredSkill, setHoveredSkill] = useState<Skill | null>(null);
-  const [expandedSkill, setExpandedSkill] = useState<Skill | null>(null);
-
-  const handleSkillHover = useCallback((skill: Skill | null) => {
-    setHoveredSkill(skill);
-  }, []);
-
-  const handleSkillClick = useCallback((skill: Skill) => {
-    setExpandedSkill((prev) => (prev?.id === skill.id ? null : skill));
-  }, []);
 
   return (
     <section id="skills" className="section-padding px-6 relative" ref={ref}>
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           label="Skills"
-          title="The Keyboard of My Craft"
-          subtitle="Each key is a skill. Hover to inspect. Click to explore. Drag to rotate the keyboard."
+          title="Tech Stack"
+          subtitle="Hover over a button"
           inView={inView}
         />
 
-        {/* Desktop: 3D Keyboard */}
+        {/* Desktop: interactive 3D Spline keyboard (contained) */}
         <div className="hidden md:block">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="relative"
+          <div
+            className="relative w-full h-[600px] rounded-2xl overflow-hidden border border-white/[0.06]"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, #16203a 0%, #0c1424 70%, #0a1020 100%)",
+            }}
           >
-            {/* Keyboard canvas */}
-            <div
-              className="relative rounded-2xl overflow-hidden border border-white/[0.06]"
-              style={{
-                height: 440,
-                background: "radial-gradient(ellipse at center, #1A2540 0%, #111B2F 100%)",
-              }}
-            >
-              <KeyboardCanvas
-                skills={skills}
-                onSkillHover={handleSkillHover}
-                onSkillClick={handleSkillClick}
-              />
-
-              {/* Tooltip — appears at fixed bottom-left of canvas */}
-              <div className="absolute bottom-6 left-6 w-64 pointer-events-none">
-                <SkillTooltip skill={hoveredSkill} />
-              </div>
-
-              {/* Hint */}
-              <p className="absolute bottom-4 right-6 text-[#4A5568] text-xs font-mono-custom">
-                Drag to rotate · Click a key
-              </p>
-            </div>
-
-            {/* Expanded skill card — appears below canvas */}
-            <AnimatePresence>
-              {expandedSkill && (
-                <div className="mt-6 flex justify-center">
-                  <SkillExpandedCard
-                    skill={expandedSkill}
-                    onClose={() => setExpandedSkill(null)}
-                  />
-                </div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+            {/* Mounted only once the section scrolls into view to defer WebGL */}
+            {inView && (
+              <TechKeyboard theme="dark" enableScrollSections={false} />
+            )}
+          </div>
         </div>
 
         {/* Mobile fallback */}
