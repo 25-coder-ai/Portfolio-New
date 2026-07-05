@@ -27,15 +27,15 @@ const PATHS: PathDef[] = [
 ];
 
 const LAYERS = [
-  { blur: 6, alpha: 0.05, width: 1, parallax: 0.2, color: "120,170,255" },
-  { blur: 2.5, alpha: 0.075, width: 1.2, parallax: 0.45, color: "140,200,255" },
-  { blur: 0, alpha: 0.095, width: 1.4, parallax: 0.7, color: "175,225,255" },
+  { blur: 6, alpha: 0.026, width: 1, parallax: 0.16, color: "120,170,255" },
+  { blur: 2.5, alpha: 0.038, width: 1.1, parallax: 0.36, color: "140,200,255" },
+  { blur: 0, alpha: 0.05, width: 1.2, parallax: 0.56, color: "175,225,255" },
 ];
 
 // Which path each packet rides (some paths get none, others two → variation).
 const PARTICLE_PATHS = [0, 2, 3, 3, 4, 5, 5, 6, 1];
 
-const AMP = 60; // px of parallax travel
+const AMP = 44; // px of parallax travel
 const CURSOR_R = 130; // px radius of the (very faint) cursor influence
 
 function p(x: number, y: number): Pt {
@@ -130,8 +130,8 @@ export function FlowingPaths() {
       return {
         path,
         t: rand(-gap, 1),
-        speed: rand(0.018, 0.042),
-        size: rand(1.6, 3),
+        speed: rand(0.008, 0.019),
+        size: rand(1.3, 2.4),
         gap,
       };
     });
@@ -150,9 +150,9 @@ export function FlowingPaths() {
           const x = pos.x * W;
           const y = pos.y * H + off;
           const d = Math.hypot(x - pointer.x, y - pointer.y);
-          const near = d < CURSOR_R ? (1 - d / CURSOR_R) * 0.4 : 0;
+          const near = d < CURSOR_R ? (1 - d / CURSOR_R) * 0.22 : 0;
           const r = pt.size * (1 + near * 0.5);
-          ctx.globalAlpha = 0.5 + near;
+          ctx.globalAlpha = 0.3 + near;
           ctx.drawImage(sprite, x - r * 2, y - r * 2, r * 4, r * 4);
         }
       }

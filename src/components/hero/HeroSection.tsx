@@ -93,15 +93,6 @@ export function HeroSection() {
         initial="hidden"
         animate="visible"
       >
-        {/* Top eyebrow */}
-        <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
-          <span className="h-px w-10 bg-[#4F8EF7]/50" />
-          <span className="text-[#4F8EF7] text-xs font-semibold tracking-[0.25em] uppercase font-mono-custom">
-            Portfolio
-          </span>
-          <span className="h-px w-10 bg-[#4F8EF7]/50" />
-        </motion.div>
-
         {/* Name — Parisian-style display font */}
         <motion.h1
           variants={itemVariants}
@@ -130,14 +121,6 @@ export function HeroSection() {
             <span className="text-[#4F8EF7] font-semibold">Big Data Analytics</span>
           </p>
         </motion.div>
-
-        {/* Bio teaser */}
-        <motion.p
-          variants={itemVariants}
-          className="text-[#4A5568] text-sm md:text-base max-w-md leading-relaxed mb-10"
-        >
-          {profile.tagline}
-        </motion.p>
 
         {/* CTA row */}
         <motion.div variants={itemVariants} className="flex items-center gap-4 flex-wrap justify-center">

@@ -50,13 +50,13 @@ export function AboutSection() {
       {/* Soft gradient blobs for depth. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-16 h-96 w-96 rounded-full opacity-20 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(79,142,247,0.35), transparent 70%)" }}
+        className="pointer-events-none absolute -left-32 top-16 h-96 w-96 rounded-full opacity-[0.1] blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(79,142,247,0.28), transparent 70%)" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 bottom-12 h-80 w-80 rounded-full opacity-15 blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(167,139,250,0.3), transparent 70%)" }}
+        className="pointer-events-none absolute -right-24 bottom-12 h-80 w-80 rounded-full opacity-[0.08] blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(167,139,250,0.24), transparent 70%)" }}
       />
 
       <div className="relative mx-auto max-w-5xl">
@@ -89,51 +89,53 @@ export function AboutSection() {
           ))}
         </h2>
 
-        {/* Big introductory statement */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
-          className="mt-8 max-w-3xl text-2xl font-medium leading-snug text-[#E8EEFF] md:text-3xl"
-        >
-          I enjoy building intelligent software where data, design, and
-          technology work together to solve{" "}
-          <span className="gradient-text">meaningful problems</span>.
-        </motion.p>
-
+        {/* Reading-guide beat 2 — a thin accent line grows beneath the heading */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}
-          className="divider my-12"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
+          style={{ transformOrigin: "left" }}
+          className="mt-7 h-px w-28 bg-gradient-to-r from-[#4F8EF7] via-[#A78BFA] to-transparent"
         />
 
+        {/* Reading-guide beat 3 — the paragraph fades in */}
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
+          className="mt-8 max-w-3xl text-2xl font-medium leading-snug text-[#E8EEFF] md:text-3xl"
+        >
+          I build software that transforms complex data into simple,{" "}
+          <span className="gradient-text">meaningful experiences</span>.
+        </motion.p>
+
         {/* Two-column content */}
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+        <div className="mt-14 grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
           {/* Left — narrative + rotating keywords */}
           <div>
-            {[
-              "I'm a Computer Science student specializing in Big Data Analytics, drawn to the point where large-scale data meets thoughtful engineering. What started as curiosity about how systems make decisions has grown into a focus on building tools that turn raw information into something people can actually trust.",
-              "I care about clarity — in code, in interfaces, and in how data is communicated. My goal is to keep working at the intersection of analytics, machine learning, and clean software design: building products that feel calm and dependable, no matter how complex they are underneath.",
-            ].map((para, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: 18 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, ease: EASE, delay: 0.65 + i * 0.12 }}
-                className="mb-5 max-w-xl leading-relaxed text-[#8892A4]"
-              >
-                {para}
-              </motion.p>
-            ))}
+            {/* Main paragraph — animates only once on enter (fade + rise), then still */}
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.9 }}
+              className="max-w-xl leading-relaxed text-[#8892A4]"
+            >
+              I&rsquo;m a Computer Science student specializing in Big Data
+              Analytics with a passion for machine learning, cloud computing,
+              and full-stack development. I enjoy designing scalable software
+              that&rsquo;s reliable, intuitive, and built with purpose&mdash;from
+              the architecture behind the scenes to the experience users
+              interact with.
+            </motion.p>
 
+            {/* Reading-guide beat 4 — "Currently Exploring" begins cycling last */}
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.95 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 1.15 }}
               className="mt-8"
             >
-              <RotatingKeyword />
+              <RotatingKeyword start={inView} />
             </motion.div>
           </div>
 
@@ -152,15 +154,15 @@ export function AboutSection() {
 // ---------------------------------------------------------------------------
 // Rotating "Currently Exploring" keyword.
 // ---------------------------------------------------------------------------
-function RotatingKeyword() {
+function RotatingKeyword({ start }: { start: boolean }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
 
   useEffect(() => {
-    if (reduce) return;
-    const id = setInterval(() => setI((p) => (p + 1) % KEYWORDS.length), 1000);
+    if (reduce || !start) return;
+    const id = setInterval(() => setI((p) => (p + 1) % KEYWORDS.length), 1800);
     return () => clearInterval(id);
-  }, [reduce]);
+  }, [reduce, start]);
 
   return (
     <div>
