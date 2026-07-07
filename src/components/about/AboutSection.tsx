@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { FlowingPaths } from "./FlowingPaths";
+import { LeetCodeCard } from "./LeetCodeCard";
+import { SkillsCard } from "./SkillsCard";
 
 // Exact background — do not convert to RGB.
 const ABOUT_BACKGROUND = "#111B2F";
@@ -19,17 +21,18 @@ const KEYWORDS = [
 ];
 
 type Stat = {
-  label: string;
-  value: number;
+  title: string; // small label under the number
+  value: number; // large metric — counts up on enter
   decimals?: number;
+  prefix?: string;
   suffix?: string;
+  secondary?: string; // optional muted line (LeetCode: problems solved)
 };
 
-// Placeholder figures — edit freely.
+// Placeholder figures — edit freely. Skills & LeetCode are custom cards below.
 const STATS: Stat[] = [
-  { label: "CGPA", value: 8.8, decimals: 1 },
-  { label: "Projects", value: 12, suffix: "+" },
-  { label: "Skills", value: 15, suffix: "+" },
+  { title: "CGPA", value: 9.32, decimals: 2 },
+  { title: "Projects", value: 18 },
 ];
 
 export function AboutSection() {
@@ -139,11 +142,14 @@ export function AboutSection() {
             </motion.div>
           </div>
 
-          {/* Right — stat cards */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          {/* Right — compact 2×2 metric grid (single column on mobile).
+              CGPA / Projects are static; Skills previews the stack; LeetCode is live. */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {STATS.map((stat, i) => (
-              <StatCard key={stat.label} stat={stat} inView={inView} index={i} />
+              <StatCard key={stat.title} stat={stat} inView={inView} index={i} />
             ))}
+            <SkillsCard inView={inView} index={STATS.length} />
+            <LeetCodeCard inView={inView} index={STATS.length + 1} />
           </div>
         </div>
       </div>
@@ -201,27 +207,32 @@ function RotatingKeyword({ start }: { start: boolean }) {
 }
 
 // ---------------------------------------------------------------------------
-// Glass stat card with count-up.
+// Compact metric card — subtle glass, large number over a small title.
+// Supports the paragraph rather than competing with it.
 // ---------------------------------------------------------------------------
 function StatCard({ stat, inView, index }: { stat: Stat; inView: boolean; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, ease: EASE, delay: 0.75 + index * 0.1 }}
-      className="group relative rounded-2xl border border-white/[0.07] bg-[#1A2540]/60 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-[#4F8EF7]/40 hover:shadow-[0_14px_30px_-12px_rgba(79,142,247,0.4)]"
+      transition={{ duration: 0.55, ease: EASE, delay: 0.9 + index * 0.08 }}
+      className="group flex h-full flex-col justify-center rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.55)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.10] hover:bg-white/[0.05] hover:shadow-[0_16px_34px_-18px_rgba(0,0,0,0.7)]"
     >
-      <p className="font-display text-4xl font-bold text-[#E8EEFF]">
+      <p className="font-display text-3xl font-bold leading-none tracking-tight text-[#E8EEFF]">
         <CountUp
           value={stat.value}
           decimals={stat.decimals ?? 0}
+          prefix={stat.prefix ?? ""}
           suffix={stat.suffix ?? ""}
           start={inView}
         />
       </p>
-      <p className="mt-2 font-mono-custom text-[11px] uppercase tracking-[0.16em] text-[#8892A4]">
-        {stat.label}
+      <p className="mt-2 font-mono-custom text-[11px] font-medium uppercase tracking-[0.18em] text-[#8892A4]">
+        {stat.title}
       </p>
+      {stat.secondary && (
+        <p className="mt-1 text-[11px] text-[#4A5568]">{stat.secondary}</p>
+      )}
     </motion.div>
   );
 }
@@ -229,11 +240,13 @@ function StatCard({ stat, inView, index }: { stat: Stat; inView: boolean; index:
 function CountUp({
   value,
   decimals,
+  prefix,
   suffix,
   start,
 }: {
   value: number;
   decimals: number;
+  prefix: string;
   suffix: string;
   start: boolean;
 }) {
@@ -244,7 +257,7 @@ function CountUp({
     if (!start || reduce) return;
     let raf = 0;
     const t0 = performance.now();
-    const duration = 1500;
+    const duration = 1000;
     const tick = (now: number) => {
       const p = Math.min(1, (now - t0) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
@@ -259,6 +272,7 @@ function CountUp({
 
   return (
     <>
+      {prefix}
       {shown.toFixed(decimals)}
       {suffix}
     </>

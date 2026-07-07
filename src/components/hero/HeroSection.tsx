@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { CursorTrail } from "./CursorTrail";
 import { profile } from "@/data/profile";
 import { HERO_BACKGROUND, ANIMATION } from "@/lib/constants";
-import { Mail, ArrowDown } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
+import { ArrowDown } from "lucide-react";
+import { GithubIcon, LinkedinIcon, LeetCodeIcon } from "@/components/ui/Icons";
 
 const STAGGER_DELAY = 0.12;
 
@@ -165,11 +165,13 @@ export function HeroSection() {
           </a>
           <span className="w-px h-4 bg-white/10" />
           <a
-            href={`mailto:${profile.email}`}
+            href={profile.leetcode}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hover:text-[#E8EEFF] transition-colors"
-            aria-label="Email"
+            aria-label="LeetCode"
           >
-            <Mail size={20} />
+            <LeetCodeIcon size={20} />
           </a>
         </motion.div>
       </motion.div>

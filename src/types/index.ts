@@ -10,11 +10,20 @@ export interface Profile {
   phone: string;
   github: string;
   linkedin: string;
+  leetcode: string;
   cgpa: string;
   location: string;
   bio: string;
   resumeUrl: string;
   profileImage: string;
+}
+
+/** Live statistics pulled from a LeetCode profile. */
+export interface LeetCodeStats {
+  /** Total accepted problems solved (all difficulties). */
+  totalSolved: number;
+  /** Current consecutive-day submission streak. */
+  streak: number;
 }
 
 export interface Project {
