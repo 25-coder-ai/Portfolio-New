@@ -36,6 +36,13 @@ html::-webkit-scrollbar { width: 6px; }
 html::-webkit-scrollbar-track { background: #111B2F; }
 html::-webkit-scrollbar-thumb { background: #243055; border-radius: 3px; }
 
+/* When Lenis is driving (class added to <html>), native smooth scrolling must
+   step aside — otherwise the browser animates each frame Lenis sets and the two
+   fight, producing the exact jank we're trying to remove. */
+html.lenis {
+  scroll-behavior: auto;
+}
+
 body {
   background-color: #111B2F;
   color: #E8EEFF;

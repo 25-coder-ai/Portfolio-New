@@ -5,8 +5,10 @@ import { NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { Menu, X } from "lucide-react";
+import { useLenis } from "./SmoothScroll";
 
 export function Navigation() {
+  const getLenis = useLenis();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +36,11 @@ export function Navigation() {
     setMenuOpen(false);
     const id = href.slice(1);
     const el = document.getElementById(id);
-    if (el) {
+    if (!el) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(el);
+    } else {
       el.scrollIntoView({ behavior: "smooth" });
     }
   };

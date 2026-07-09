@@ -5,7 +5,7 @@ import type { Profile } from "@/types";
 // ============================================================
 
 export const profile: Profile = {
-  name: "Your Name",                           // REPLACE: Your full name
+  name: "V Dakshithaa",                           // REPLACE: Your full name
   tagline: "Building the future with data.",   // REPLACE: Your personal tagline
   subtitle: "Computer Science Student · Big Data Analytics",
   email: "your.email@example.com",            // REPLACE: Your email

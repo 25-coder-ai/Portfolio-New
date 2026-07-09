@@ -3,7 +3,7 @@
 // ============================================================
 // Drop your photos into  public/images/trail/  and list them here, in the
 // order you want them to cycle through the trail. Paths are relative to the
-// `public/` folder, so a file at  public/images/trail/01.jpg  is "/images/trail/01.jpg".
+// `public/` folder, so a file at  public/images/trail/01.jpeg  is "/images/trail/01.jpeg".
 //
 // Any entries whose file does not exist yet are skipped automatically, so it
 // is safe to leave placeholders here until you add the real images.
@@ -12,10 +12,12 @@
 // cursor moves across the hero.
 
 export const trailImages: string[] = [
-  "/images/trail/01.jpg",
-  "/images/trail/02.jpg",
-  "/images/trail/03.jpg",
-  "/images/trail/04.jpg",
-  "/images/trail/05.jpg",
-  "/images/trail/06.jpg",
+  "/images/trail/01.jpeg",
+  "/images/trail/02.jpeg",
+  "/images/trail/03.jpeg",
+  "/images/trail/04.jpeg",
+  "/images/trail/05.jpeg",
+  "/images/trail/06.jpeg",
+  "/images/trail/07.jpeg",
+  "/images/trail/08.jpeg",
 ];

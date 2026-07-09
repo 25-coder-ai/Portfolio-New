@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { CursorTrail } from "./CursorTrail";
+import { useLenis } from "@/components/layout/SmoothScroll";
 import { profile } from "@/data/profile";
 import { HERO_BACKGROUND, ANIMATION } from "@/lib/constants";
 import { ArrowDown } from "lucide-react";
@@ -48,10 +49,19 @@ function HeroBackground() {
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const getLenis = useLenis();
 
-  // Scroll-to-about helper
-  const scrollToAbout = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+  // Smoothly scroll to an in-page section, routing through Lenis when active
+  // so the glide matches the rest of the site (falls back to native).
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(el);
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const containerVariants = {
@@ -125,18 +135,18 @@ export function HeroSection() {
         {/* CTA row */}
         <motion.div variants={itemVariants} className="flex items-center gap-4 flex-wrap justify-center">
           <button
-            onClick={scrollToAbout}
+            onClick={() => scrollToSection("about")}
             className="px-7 py-3 rounded-xl bg-[#4F8EF7] text-white font-semibold text-sm hover:bg-[#4F8EF7]/90 transition-all hover:scale-[1.03] active:scale-[0.97]"
             style={{ boxShadow: "0 0 32px rgba(79,142,247,0.25)" }}
           >
             Explore Work
           </button>
-          <a
-            href={`mailto:${profile.email}`}
+          <button
+            onClick={() => scrollToSection("contact")}
             className="px-7 py-3 rounded-xl border border-white/10 text-[#E8EEFF] font-semibold text-sm hover:border-[#4F8EF7]/40 hover:bg-white/[0.03] transition-all"
           >
             Get in Touch
-          </a>
+          </button>
         </motion.div>
 
         {/* Social links */}
@@ -181,7 +191,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}
-        onClick={scrollToAbout}
+        onClick={() => scrollToSection("about")}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[#4A5568] hover:text-[#8892A4] transition-colors group"
         aria-label="Scroll to About"
       >

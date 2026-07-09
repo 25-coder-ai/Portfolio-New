@@ -11,6 +11,7 @@ import {
 import { experiences } from "@/data/experience";
 import type { Experience } from "@/types";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useLenis } from "@/components/layout/SmoothScroll";
 import { ExperienceChapter, useSceneMotion } from "./ExperienceChapter";
 import { TYPE_LABEL, formatRange, bigYear, navYear } from "./chapterMeta";
 
@@ -112,6 +113,7 @@ function IntroScene({
 // ============================================================
 function CinematicExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const getLenis = useLenis();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -131,7 +133,13 @@ function CinematicExperience() {
     if (!el) return;
     const start = el.getBoundingClientRect().top + window.scrollY;
     const range = el.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: start + (sceneIndex / span) * range, behavior: "smooth" });
+    const top = start + (sceneIndex / span) * range;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(top);
+    } else {
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
 
   const activeColor = active >= 1 ? CHAPTERS[active - 1].color : "#4F8EF7";
