@@ -16,8 +16,9 @@ const HEADING_LINES = ["I don't just", "write code."];
 const KEYWORDS = [
   "Machine Learning",
   "Cloud Computing",
-  "Big Data Analytics",
+  "Data Structures & Algorithms",
   "Full Stack Development",
+  "AI Agents",
 ];
 
 type Stat = {
