@@ -7,26 +7,24 @@ import type { Achievement } from "@/types";
 export const achievements: Achievement[] = [
   {
     id: "ach-1",
-    title: "Smart India Hackathon 2024 — Winner", // REPLACE
-    issuer: "Ministry of Education, India",        // REPLACE
-    type: "hackathon",
-    date: "2024-03",                               // REPLACE
-    description: "National-level grand prize for building a real-time crop disease detection system. Competed against 10,000+ teams nationwide.", // REPLACE
-    image: "/images/achievements/hackathon-1.jpg", // REPLACE: Add image
-    rank: "1st Place",
-    skills: ["Computer Vision", "FastAPI", "Team Leadership", "Edge Deployment"],
-    notes: "Led a team of six from prototype to a working field demo in 36 hours; solution shortlisted for incubation.",
-    color: "#F59E0B",
+    title: "Perfect 10.0 GPA — 4 Consecutive Semesters",// REPLACE
+    issuer: "SRM University",                        // REPLACE
+    type: "academic",
+    date: "2024-0",                                 // REPLACE
+    description: "Recognized for the top of the department with a perfect 10 / 10 CGPA for four consecutive semesters.", // REPLACE
+    skills: ["Consistency", "Time Management", "Core CS Foundations"],
+    notes: "Maintained standing while working in an internship and leading club activities",
+    color: "#34D399",
   },
   {
     id: "ach-2",
     title: "AWS Certified Cloud Practitioner",    // REPLACE
     issuer: "Amazon Web Services",                // REPLACE
     type: "certificate",
-    date: "2024-01",                              // REPLACE
+    date: "2025-07",                              // REPLACE
     description: "Foundational AWS certification validating cloud concepts, core services, security, and pricing models.", // REPLACE
     image: "/images/achievements/aws-cert.jpg",   // REPLACE: Add image
-    credentialUrl: "https://aws.amazon.com/verification", // REPLACE
+    credentialUrl: "https://www.credly.com/users/dakshithaa-venkatesan", // REPLACE
     skills: ["AWS Core Services", "Cloud Security", "Cost Optimization"],
     notes: "Foundation for hands-on work with S3, EC2 and IAM across later projects.",
     color: "#FF9900",
@@ -75,7 +73,7 @@ export const achievements: Achievement[] = [
     issuer: "VIT University",                        // REPLACE
     type: "academic",
     date: "2024-06",                                 // REPLACE
-    description: "Recognized for academic excellence with a CGPA above 8.5 for four consecutive semesters, placing in the top 10% of the department.", // REPLACE
+    description: "Recognized for academic excellence with a perfect 10 / 10 CGPA for four consecutive semesters, placing in the top 10% of the department.", // REPLACE
     rank: "Top 10%",
     skills: ["Consistency", "Time Management", "Core CS Foundations"],
     notes: "Maintained standing while leading club activities and side projects.",

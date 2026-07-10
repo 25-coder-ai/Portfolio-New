@@ -38,37 +38,48 @@ export function LeetCodeCard({ inView, index }: { inView: boolean; index: number
       initial={{ opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, ease: EASE, delay: 0.9 + index * 0.08 }}
-      className="group relative flex h-full min-h-[176px] flex-col justify-center overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.55)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/20 hover:bg-white/[0.05] hover:shadow-[0_16px_34px_-18px_rgba(0,0,0,0.7)]"
+      className="group relative h-full min-h-[176px] [perspective:1200px]"
     >
-      {/* Subtle warm-amber corner glow — never bright orange */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(80% 60% at 100% 0%, ${AMBER}22, transparent 55%)`,
-        }}
-      />
+      {/* Flipper — shows the FRONT (stats) at rest; rotates 180° on hover or
+          keyboard focus to reveal the BACK (a clickable profile link). */}
+      <div className="relative h-full w-full transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus-within:[transform:rotateY(180deg)] motion-reduce:transition-none">
+        {/* ---- FRONT: statistics ---- */}
+        <div className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-2xl border border-white/[0.06] bg-[#141F38] p-5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.55)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+          {/* Subtle warm-amber corner glow — never bright orange */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-70"
+            style={{
+              background: `radial-gradient(80% 60% at 100% 0%, ${AMBER}22, transparent 55%)`,
+            }}
+          />
+          <div className="relative">
+            {state.status === "loading" && <LoadingState />}
+            {state.status === "error" && <ErrorState />}
+            {state.status === "ok" && (
+              <StatsState data={state.data} start={inView} />
+            )}
+          </div>
+        </div>
 
-      {/* --- Statistics layer (fades out on hover/focus) --- */}
-      <div className="relative transition-opacity duration-300 group-hover:opacity-0 group-focus-within:opacity-0">
-        {state.status === "loading" && <LoadingState />}
-        {state.status === "error" && <ErrorState />}
-        {state.status === "ok" && (
-          <StatsState data={state.data} start={inView} />
-        )}
-      </div>
-
-      {/* --- Profile link overlay (fades in on hover/focus) --- */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+        {/* ---- BACK: the whole face is the profile link ---- */}
         <a
           href={LEETCODE_PROFILE_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit LeetCode profile (opens in a new tab)"
-          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-amber-300/90 outline-none transition-colors hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-400/40"
+          className="absolute inset-0 flex items-center justify-center gap-1.5 overflow-hidden rounded-2xl border border-amber-400/20 bg-[#17223C] p-5 text-sm font-medium text-amber-300/90 shadow-[0_16px_34px_-18px_rgba(0,0,0,0.7)] outline-none transition-colors [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)] hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-400/40 focus-visible:ring-offset-0"
         >
-          Visit Profile
-          <span aria-hidden>→</span>
+          {/* warmer amber wash on the back so the flip reads as a distinct face */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: `radial-gradient(90% 70% at 50% 0%, ${AMBER}26, transparent 60%)`,
+            }}
+          />
+          <span className="relative">Visit Profile</span>
+          <span aria-hidden className="relative">→</span>
         </a>
       </div>
     </motion.div>
@@ -122,10 +133,10 @@ function StatsState({ data, start }: { data: LeetCodeStats; start: boolean }) {
         LeetCode
       </p>
 
-      {/* Current streak — the hero metric */}
+      {/* Max streak — the hero metric */}
       <p
         className="mt-2 font-display text-3xl font-bold leading-none tracking-tight text-[#E8EEFF]"
-        aria-label={`Current streak: ${data.streak} days`}
+        aria-label={`Max streak: ${data.streak} days`}
       >
         <span aria-hidden>🔥 </span>
         <span aria-hidden>
@@ -133,7 +144,7 @@ function StatsState({ data, start }: { data: LeetCodeStats; start: boolean }) {
         </span>
       </p>
       <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-[#4A5568]">
-        Current Streak
+        Max Streak
       </p>
 
       <div className="my-3 h-px w-full bg-gradient-to-r from-amber-400/25 via-amber-400/[0.08] to-transparent" />
@@ -149,12 +160,6 @@ function StatsState({ data, start }: { data: LeetCodeStats; start: boolean }) {
       </p>
       <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-[#4A5568]">
         Problems Solved
-      </p>
-
-      {/* Live indicator — deliberately quiet, GitHub-online-status style */}
-      <p className="mt-3.5 flex items-center gap-1.5 text-[10px] font-medium text-[#4A5568]">
-        <LiveDot />
-        Synced Live
       </p>
     </div>
   );
@@ -180,24 +185,6 @@ function Shimmer({ className = "" }: { className?: string }) {
         />
       )}
     </div>
-  );
-}
-
-function LiveDot() {
-  const reduce = useReducedMotion();
-  return (
-    <span className="relative flex h-1.5 w-1.5">
-      {!reduce && (
-        <span
-          className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
-          style={{ backgroundColor: "#F59E0B" }}
-        />
-      )}
-      <span
-        className="relative inline-flex h-1.5 w-1.5 rounded-full"
-        style={{ backgroundColor: "#F59E0B" }}
-      />
-    </span>
   );
 }
 

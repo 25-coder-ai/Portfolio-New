@@ -32,7 +32,7 @@ type Stat = {
 
 // Placeholder figures — edit freely. Skills & LeetCode are custom cards below.
 const STATS: Stat[] = [
-  { title: "CGPA", value: 9.32, decimals: 2 },
+  { title: "CGPA", value: 10, suffix: "/10" },
   { title: "Projects", value: 18 },
 ];
 

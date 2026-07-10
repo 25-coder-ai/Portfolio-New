@@ -7,25 +7,26 @@ import type { Experience } from "@/types";
 export const experiences: Experience[] = [
   {
     id: "internship-1",
-    title: "Data Engineering Intern",             // REPLACE
-    organization: "Tech Company Pvt. Ltd.",       // REPLACE
+    title: "Technical Intern",             // REPLACE
+    organization: "Central Institute of Classical Tamil, Central Government",       // REPLACE
     type: "internship",
-    startDate: "2024-05",                         // REPLACE: YYYY-MM format
-    endDate: "2024-08",                           // REPLACE
-    description: "Built and maintained ETL pipelines processing millions of records daily for business intelligence reporting.", // REPLACE
+    startDate: "2026-04",                         // REPLACE: YYYY-MM format
+    endDate: "2026-10",                           // REPLACE
+    description: "Contributing to the full-stack development of scalable web platforms for Tamil language learning and digital corpus exploration, integrating modern web technologies and language processing tools.", // REPLACE
     responsibilities: [
-      "Developed 5 ETL pipelines using Python and Apache Airflow",
-      "Optimized SQL queries reducing report generation time by 40%",
-      "Collaborated with cross-functional teams to define data models",
-      "Implemented data quality checks reducing errors by 90%",
+    "Design and develop full-stack web applications for Tamil language education and digital corpus platforms",
+    "Implement responsive user interfaces using React and integrate backend services",
+    "Prepare and preprocess linguistic datasets for language-focused applications",
+    "Implement reusable frontend and backend components",
+
     ],
-    technologies: ["Python", "Apache Airflow", "PostgreSQL", "AWS S3", "Tableau"],
+    technologies: ["React", "Node.js", "Tailwind CSS", "Git", "Python"],
     achievements: [
-      "40% faster reporting cycle, adopted org-wide",
-      "Data quality errors down 90%",
-      "Return offer extended at end of term",
+      "Developing a scalable platform for interactive Tamil language education",
+      "Empowering researchers through a searchable corpus containing thousands of linguistic records",
+      "Integrating intelligent language tools using modern full-stack technologies"
     ],
-    location: "Chennai, India",
+    location: "CICT, Chennai",
     color: "#4F8EF7",
     icon: "💼",
     metrics: [
@@ -35,12 +36,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: "hackathon-1",
-    title: "1st Place — Smart India Hackathon",   // REPLACE
-    organization: "Ministry of Education, India", // REPLACE
-    type: "hackathon",
-    startDate: "2024-03",                         // REPLACE
-    endDate: "2024-03",                           // REPLACE
+    id: "club-1",
+    title: "Events Head of the Literary Club",   // REPLACE
+    organization: "SRM University, Chennai", // REPLACE
+    type: "club",
+    startDate: "2024-06",                         // REPLACE
+    endDate: "Present",                           // REPLACE
     description: "Won national-level hackathon with a real-time crop disease detection system using computer vision and IoT integration.", // REPLACE
     responsibilities: [
       "Led team of 6 members across design, ML, and backend",
@@ -63,13 +64,13 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: "leadership-1",
-    title: "Technical Lead",                      // REPLACE
-    organization: "Computer Science Student Association", // REPLACE
-    type: "leadership",
-    startDate: "2023-07",                         // REPLACE
-    endDate: "2024-06",                           // REPLACE
-    description: "Led technical initiatives for a 200-member student community, organizing workshops, hackathons, and coding competitions.", // REPLACE
+    id: "internship-2",
+    title: "Research Intern",             // REPLACE
+    organization: "IIT Madras",       // REPLACE
+    type: "internship",
+    startDate: "2025-12",                         // REPLACE: YYYY-MM format
+    endDate: "2025-12",                         // REPLACE
+    description: "Contributed to precision agriculture research by engineering experimental datasets and deriving data-driven insights for technology-enabled farming solutions.", // REPLACE
     responsibilities: [
       "Organized 8 technical workshops with 150+ attendees each",
       "Mentored 30 junior students in data science fundamentals",
@@ -91,9 +92,9 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    id: "research-1",
-    title: "Research Assistant",                  // REPLACE
-    organization: "Department of Computer Science, VIT", // REPLACE
+    id: "club-2",
+    title: "Technical Member of Chipset Club",                  // REPLACE
+    organization: "SRM University, Chennai", // REPLACE
     type: "research",
     startDate: "2023-01",                         // REPLACE
     endDate: "2023-12",                           // REPLACE
@@ -149,26 +150,26 @@ export const experiences: Experience[] = [
     endDate: "2026-05",                          // REPLACE
     description: "Specialization in Big Data Analytics. Relevant coursework: Machine Learning, Database Systems, Big Data Technologies, Cloud Computing, Data Structures & Algorithms.", // REPLACE
     responsibilities: [
-      "CGPA: 8.5 / 10 (Current)",
+      "CGPA: 10 / 10 (Current)",
       "Specialization: Big Data Analytics",
       "Relevant: ML, DBMS, Big Data Tech, Cloud Computing, DSA",
       "Dean's List: Semester 1, 2, 3, 4",
     ],
     technologies: ["ML", "Big Data", "Cloud Computing", "DSA"],
     achievements: [
-      "CGPA 8.5 / 10, Dean's List ×4 semesters",
+      "CGPA 10 / 10, Dean's List ×4 semesters",
       "Big Data Analytics specialization",
       "Consistent top-decile standing",
     ],
     color: "#4F8EF7",
     icon: "🎓",
     metrics: [
-      { value: "8.5", label: "CGPA / 10" },
+      { value: "10", label: "CGPA / 10" },
       { value: "×4", label: "Dean's List" },
     ],
   },
   {
-    id: "club-1",
+    id: "club-11",
     title: "Core Member — AI/ML Club",           // REPLACE
     organization: "VIT AI Research Club",        // REPLACE
     type: "club",

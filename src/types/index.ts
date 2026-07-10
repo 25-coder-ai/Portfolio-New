@@ -22,7 +22,7 @@ export interface Profile {
 export interface LeetCodeStats {
   /** Total accepted problems solved (all difficulties). */
   totalSolved: number;
-  /** Current consecutive-day submission streak. */
+  /** Longest (max) consecutive-day submission streak. */
   streak: number;
 }
 

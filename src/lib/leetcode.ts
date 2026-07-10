@@ -45,12 +45,11 @@ interface GraphQLResponse {
 const SECONDS_PER_DAY = 86_400;
 
 /**
- * Derive the *current* consecutive-day streak from the submission calendar.
- * LeetCode's `streak` field can report the year's best streak rather than the
- * live one, so we count backwards from today (with a one-day grace period so a
- * streak stays "current" until you miss a full day).
+ * Derive the *longest* (max) consecutive-day streak from the submission
+ * calendar. This is a fixed, historical figure — it never shrinks as days pass,
+ * so the card can display it without needing to stay "live".
  */
-function computeCurrentStreak(submissionCalendar: string | null): number {
+function computeMaxStreak(submissionCalendar: string | null): number {
   if (!submissionCalendar) return 0;
 
   let calendar: Record<string, number>;
@@ -60,23 +59,25 @@ function computeCurrentStreak(submissionCalendar: string | null): number {
     return 0;
   }
 
-  const activeDays = new Set<number>();
+  const activeDays: number[] = [];
   for (const [ts, count] of Object.entries(calendar)) {
-    if (count > 0) activeDays.add(Math.floor(Number(ts) / SECONDS_PER_DAY));
+    if (count > 0) activeDays.push(Math.floor(Number(ts) / SECONDS_PER_DAY));
   }
-  if (activeDays.size === 0) return 0;
+  if (activeDays.length === 0) return 0;
 
-  const today = Math.floor(Date.now() / 1000 / SECONDS_PER_DAY);
-  // Anchor to today if active, otherwise yesterday (grace period).
-  let day = activeDays.has(today) ? today : today - 1;
-  if (!activeDays.has(day)) return 0;
+  activeDays.sort((a, b) => a - b);
 
-  let streak = 0;
-  while (activeDays.has(day)) {
-    streak += 1;
-    day -= 1;
+  let best = 1;
+  let run = 1;
+  for (let i = 1; i < activeDays.length; i++) {
+    if (activeDays[i] === activeDays[i - 1] + 1) {
+      run += 1;
+    } else if (activeDays[i] !== activeDays[i - 1]) {
+      run = 1;
+    }
+    if (run > best) best = run;
   }
-  return streak;
+  return best;
 }
 
 /**
@@ -112,8 +113,8 @@ export async function fetchLeetCodeStats(username: string): Promise<LeetCodeStat
     user.submitStatsGlobal.acSubmissionNum.find((d) => d.difficulty === "All")
       ?.count ?? 0;
 
-  // Prefer the computed live streak; fall back to the reported field.
-  const computed = computeCurrentStreak(user.userCalendar?.submissionCalendar);
+  // Longest streak from the calendar; fall back to the reported field.
+  const computed = computeMaxStreak(user.userCalendar?.submissionCalendar);
   const streak = computed || user.userCalendar?.streak || 0;
 
   return { totalSolved, streak };
