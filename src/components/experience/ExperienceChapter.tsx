@@ -295,10 +295,26 @@ export function ExperienceChapter({
   );
 }
 
+// Per-logo zoom/nudge so differently-framed source images read at a consistent
+// size inside the circle. iit fills its frame edge-to-edge (reference = 1); the
+// others have padding, so they're zoomed to match. Tweak these freely.
+// Every logo is shown whole (object-contain by default — nothing is cropped);
+// `scale` nudges each to a consistent visual size. Set `fit: "cover"` only if
+// you deliberately want a logo to fill/crop.
+const WATERMARK_ADJUST: Record<
+  string,
+  { scale: number; x?: string; y?: string; fit?: "cover" | "contain" }
+> = {
+  "/images/experience/iit.png": { scale: 1 },
+  "/images/experience/cict.png": { scale: 1 }, // squared+centered disc, fills circle
+  "/images/experience/literary.png": { scale: 1.1 },
+  "/images/experience/chipset.png": { scale: 1 },
+};
+
 // ------------------------------------------------------------
 // Org identity as an ambient backdrop for the Key Contributions block.
 // Fills its parent (the KC block) and sizes the circular logo to span the
-// whole timeline, ~3.5% opacity, slightly blurred, with a barely-there float.
+// whole timeline, very subtle, slightly blurred, with a barely-there float.
 // ------------------------------------------------------------
 function ChapterWatermark({
   experience,
@@ -313,12 +329,14 @@ function ChapterWatermark({
   // quietly fall back to the org monogram rather than showing a broken image.
   const [imgFailed, setImgFailed] = useState(false);
   const useImage = Boolean(experience.watermark) && !imgFailed;
+  const adjust =
+    (experience.watermark && WATERMARK_ADJUST[experience.watermark]) || { scale: 1 };
 
   return (
     <motion.div
       aria-hidden="true"
       initial={{ opacity: 0, scale: 0.96 }}
-      animate={shown ? { opacity: 0.04, scale: 1 } : { opacity: 0, scale: 0.96 }}
+      animate={shown ? { opacity: 0.03, scale: 1 } : { opacity: 0, scale: 0.96 }}
       transition={{ duration: 1.5, ease: EASE }}
       className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
     >
@@ -330,15 +348,26 @@ function ChapterWatermark({
         className="flex h-full items-center justify-center blur-[2px]"
       >
         {useImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={experience.watermark}
-            alt=""
-            loading="lazy"
-            onError={() => setImgFailed(true)}
-            style={{ height: "115%", aspectRatio: "1 / 1" }}
-            className="w-auto max-w-none bg-transparent object-contain"
-          />
+          // A fixed circular frame; the logo is zoomed inside it (per WATERMARK_
+          // ADJUST) so all orgs read at a consistent size regardless of padding.
+          <div
+            style={{ height: "90%", aspectRatio: "1 / 1" }}
+            className="overflow-hidden rounded-full"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={experience.watermark}
+              alt=""
+              loading="lazy"
+              onError={() => setImgFailed(true)}
+              style={{
+                transform: `scale(${adjust.scale}) translate(${adjust.x ?? "0px"}, ${adjust.y ?? "0px"})`,
+              }}
+              className={`h-full w-full bg-transparent ${
+                adjust.fit === "cover" ? "object-cover" : "object-contain"
+              }`}
+            />
+          </div>
         ) : (
           <span
             className="block font-display font-bold uppercase leading-none tracking-tight"
