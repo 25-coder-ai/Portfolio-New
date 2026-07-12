@@ -178,21 +178,6 @@ function CinematicExperience() {
             style={{ background: "linear-gradient(to top, rgba(13,21,38,0.6), transparent)" }}
           />
 
-          {/* persistent faint watermark — the word "Experience" lives on behind
-              every chapter, kept extremely translucent so the chapter content
-              in front of it always reads clearly. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
-          >
-            <span
-              className="select-none whitespace-nowrap font-display font-bold uppercase leading-none tracking-tight text-[#E8EEFF] opacity-[0.025]"
-              style={{ fontSize: "clamp(2.25rem, 14vw, 14rem)" }}
-            >
-              Experience
-            </span>
-          </div>
-
           {/* scenes */}
           <IntroScene progress={scrollYProgress} span={span} />
           {CHAPTERS.map((exp, i) => (

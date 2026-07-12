@@ -39,6 +39,7 @@ export const experiences: Experience[] = [
 
     color: "#3B82F6",
     icon: "Languages",
+    watermark: "/images/experience/cict.png",
   },
 
   {
@@ -75,6 +76,7 @@ export const experiences: Experience[] = [
 
     color: "#8B5CF6",
     icon: "Microscope",
+     watermark: "/images/experience/iit.png",
   },
 
   {
@@ -111,6 +113,7 @@ export const experiences: Experience[] = [
 
     color: "#F59E0B",
     icon: "CalendarDays",
+    watermark: "/images/experience/literary.png",
   },
 
   {
@@ -147,5 +150,7 @@ export const experiences: Experience[] = [
 
     color: "#10B981",
     icon: "Cpu",
+    watermark: "/images/experience/chipset.png",
   },
 ];
+

@@ -333,7 +333,7 @@ function ChapterWatermark({
             alt=""
             loading="lazy"
             onError={() => setImgFailed(true)}
-            className="h-auto w-[clamp(16rem,32vw,30rem)]"
+            className="h-[clamp(16rem,30vw,28rem)] w-[clamp(16rem,30vw,28rem)] rounded-full bg-transparent object-cover"
           />
         ) : (
           <span
