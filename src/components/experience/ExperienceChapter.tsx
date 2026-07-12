@@ -221,13 +221,13 @@ export function ExperienceChapter({
 
         {/* ============ RIGHT — the execution ============ */}
         <div className="relative lg:pt-1">
-          {/* --- Oversized org watermark behind the right column --- */}
-          <ChapterWatermark experience={experience} color={color} shown={shown} />
-
           <div className="relative z-10">
-            {/* Key Contributions — premium vertical timeline */}
+            {/* Key Contributions — premium vertical timeline, with the org
+                logo as an ambient backdrop covering the whole block. */}
             {contributions.length > 0 && (
-              <motion.div variants={contribSequence}>
+              <div className="relative">
+                <ChapterWatermark experience={experience} color={color} shown={shown} />
+                <motion.div variants={contribSequence} className="relative z-10">
                 <motion.h4
                   variants={contribHeading}
                   className="font-mono-custom text-xs uppercase tracking-[0.28em] text-[#8892A4]"
@@ -261,7 +261,8 @@ export function ExperienceChapter({
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+                </motion.div>
+              </div>
             )}
 
             {/* Thin divider — appears after the last contribution */}
@@ -295,8 +296,9 @@ export function ExperienceChapter({
 }
 
 // ------------------------------------------------------------
-// Oversized org identity behind the right column — enormous, ~5% opacity,
-// slightly blurred. Fades + scales in, then drifts almost imperceptibly.
+// Org identity as an ambient backdrop for the Key Contributions block.
+// Fills its parent (the KC block) and sizes the circular logo to span the
+// whole timeline, ~3.5% opacity, slightly blurred, with a barely-there float.
 // ------------------------------------------------------------
 function ChapterWatermark({
   experience,
@@ -315,16 +317,17 @@ function ChapterWatermark({
   return (
     <motion.div
       aria-hidden="true"
-      initial={{ opacity: 0, scale: 1.34 }}
-      animate={shown ? { opacity: 0.05, scale: 1.4 } : { opacity: 0, scale: 1.34 }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={shown ? { opacity: 0.04, scale: 1 } : { opacity: 0, scale: 0.96 }}
       transition={{ duration: 1.5, ease: EASE }}
       className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
     >
-      {/* inner element carries the perpetual, barely-there float */}
+      {/* inner element carries the perpetual, barely-there float, and stretches
+          to the full height of the KC block so the logo can span it */}
       <motion.div
         animate={{ y: [0, -4, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        className="blur-[2px]"
+        className="flex h-full items-center justify-center blur-[2px]"
       >
         {useImage ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -333,12 +336,13 @@ function ChapterWatermark({
             alt=""
             loading="lazy"
             onError={() => setImgFailed(true)}
-            className="h-[clamp(16rem,30vw,28rem)] w-[clamp(16rem,30vw,28rem)] rounded-full bg-transparent object-cover"
+            style={{ height: "115%", aspectRatio: "1 / 1" }}
+            className="w-auto max-w-none bg-transparent object-contain"
           />
         ) : (
           <span
             className="block font-display font-bold uppercase leading-none tracking-tight"
-            style={{ fontSize: "clamp(10rem,26vw,22rem)", color }}
+            style={{ fontSize: "clamp(8rem,18vw,15rem)", color }}
           >
             {monogram(experience)}
           </span>
