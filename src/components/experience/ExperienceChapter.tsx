@@ -7,15 +7,19 @@ import {
   type MotionValue,
   type Variants,
 } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import type { Experience } from "@/types";
-import { TYPE_LABEL, formatRange, bigYear } from "./chapterMeta";
+import { TYPE_LABEL, formatRange, monogram } from "./chapterMeta";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+// At most five contributions are shown — the timeline guides the eye, it
+// shouldn't become a wall of text.
+const MAX_CONTRIBUTIONS = 5;
+
 // ------------------------------------------------------------
-// Scroll-driven scene motion: a chapter fades / lifts / scales
-// as it passes through the centre of the sticky stage.
+// Scroll-driven scene motion. Each chapter slides in, settles onto a plateau
+// (where the identity block reads as "pinned"), then releases upward on exit —
+// so a chapter has a satisfying ending before the next fades in.
 // ------------------------------------------------------------
 export function useSceneMotion(
   progress: MotionValue<number>,
@@ -27,27 +31,38 @@ export function useSceneMotion(
   const isFirst = sceneIndex === 0;
   const isLast = sceneIndex === span;
 
-  // All input breakpoints MUST stay within [0, 1] and be strictly increasing:
-  // framer-motion 12 can hand scroll-driven values to the native WAAPI keyframe
-  // path, which rejects out-of-range / non-monotonic offsets. The first and last
-  // scenes have no neighbour on one side, so their ranges are built one-sided.
-  const yIn = isFirst ? [0, d] : isLast ? [1 - d, 1] : [c - d, c, c + d];
-  const yOut = isFirst ? [0, -70] : isLast ? [70, 0] : [70, 0, -70];
+  // Input breakpoints MUST stay within [0, 1] and be strictly increasing —
+  // framer-motion 12 can route scroll-driven values through native WAAPI, which
+  // rejects out-of-range / non-monotonic offsets. Plateau = the flat middle
+  // where y holds at 0 (pinned); the edges slide in / release.
+  const yIn = isFirst
+    ? [0, d]
+    : isLast
+      ? [1 - d, 1 - 0.4 * d, 1]
+      : [c - d, c - 0.4 * d, c + 0.4 * d, c + d];
+  const yOut = isFirst ? [0, -70] : isLast ? [70, 0, 0] : [70, 0, 0, -70];
 
-  // The intro headline is crisp on the first viewport, then fades out quickly —
-  // fully gone before the first chapter becomes legible — so the oversized
-  // "Experience" word never bleeds through and obscures chapter content.
+  // Opacity holds a touch longer past centre — a brief pause to absorb the
+  // finished chapter — then fades as the chapter releases upward.
   const oIn = isFirst
     ? [0, 0.15 * d, 0.35 * d]
     : isLast
       ? [1 - 0.62 * d, 1 - 0.3 * d, 1]
-      : [c - 0.62 * d, c - 0.3 * d, c + 0.3 * d, c + 0.62 * d];
+      : [c - 0.62 * d, c - 0.3 * d, c + 0.4 * d, c + 0.66 * d];
   const oOut = isFirst ? [1, 1, 0] : isLast ? [0, 1, 1] : [0, 1, 1, 0];
 
-  // No scale transform: scaling rasterised text makes it blur until it settles.
-  // Slide (y) + fade (opacity) keep the cinematic motion while text stays crisp.
   const y = useTransform(progress, yIn, yOut);
   const opacity = useTransform(progress, oIn, oOut);
+
+  // Description parallax — a gentle drift so the copy reads as if it is
+  // scrolling beneath the pinned identity block.
+  const dLo = isFirst ? 0 : Math.max(0, c - 0.45 * d);
+  const dHi = isFirst ? d : Math.min(1, c + 0.45 * d);
+  const descY = useTransform(
+    progress,
+    dLo === dHi ? [0, 1] : [dLo, dHi],
+    [24, -24],
+  );
 
   // Reveal content once the scene is meaningfully on-screen (with hysteresis
   // so adjacent chapters can briefly coexist during the cross-fade).
@@ -56,24 +71,47 @@ export function useSceneMotion(
     setShown((prev) => (v > 0.22 ? true : v < 0.05 ? false : prev));
   });
 
-  return { y, opacity, shown };
+  return { y, opacity, shown, descY };
 }
 
-const container: Variants = {
+// Explicit-delay entrance so the sequence is exact: title → org → summary →
+// duration, then the description arrives only after the summary has settled.
+const rise = (delay: number, y = 14): Variants => ({
+  hide: { opacity: 0, y },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE, delay } },
+});
+
+// Container just propagates show/hide; children own their timing.
+const container: Variants = { hide: {}, show: {} };
+
+// Key Contributions — heading, then the timeline draws while each contribution
+// rises into place beside it.
+const contribSequence: Variants = {
   hide: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } },
+  show: { transition: { delayChildren: 0.5, staggerChildren: 0.08 } },
 };
-const item: Variants = {
-  hide: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+const contribHeading: Variants = {
+  hide: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
-const tagGroup: Variants = {
-  hide: {},
-  show: { transition: { staggerChildren: 0.05 } },
+const timelineLine: Variants = {
+  hide: { scaleY: 0 },
+  show: { scaleY: 1, transition: { duration: 0.9, ease: EASE } },
 };
-const tag: Variants = {
+const contribItem: Variants = {
   hide: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
+
+// Divider fades in after the last contribution; Technologies animates as ONE
+// block (not per-chip) shortly after.
+const dividerVar: Variants = {
+  hide: { opacity: 0, scaleX: 0 },
+  show: { opacity: 1, scaleX: 1, transition: { duration: 0.5, ease: EASE, delay: 1.55 } },
+};
+const techBlock: Variants = {
+  hide: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE, delay: 1.75 } },
 };
 
 interface ChapterProps {
@@ -86,6 +124,14 @@ interface ChapterProps {
   totalChapters: number;
 }
 
+// Split the story into a one-sentence summary + the remaining description.
+export function splitStory(exp: Experience): { summary: string; desc: string } {
+  if (exp.roleSummary) return { summary: exp.roleSummary, desc: exp.description };
+  const m = exp.description.match(/^(.*?[.!?])\s+([\s\S]+)$/);
+  if (m) return { summary: m[1], desc: m[2] };
+  return { summary: exp.description, desc: "" };
+}
+
 export function ExperienceChapter({
   experience,
   progress,
@@ -93,13 +139,16 @@ export function ExperienceChapter({
   span,
   active,
 }: ChapterProps) {
-  const { y, opacity, shown } = useSceneMotion(progress, sceneIndex, span);
+  const { y, opacity, shown, descY } = useSceneMotion(progress, sceneIndex, span);
   const color = experience.color;
 
   const accentVars = {
     "--accent": color,
     "--accent-soft": `${color}33`,
   } as CSSProperties;
+
+  const contributions = experience.responsibilities.slice(0, MAX_CONTRIBUTIONS);
+  const { summary, desc } = splitStory(experience);
 
   return (
     <motion.article
@@ -113,133 +162,188 @@ export function ExperienceChapter({
         initial="hide"
         animate={shown ? "show" : "hide"}
         style={accentVars}
-        className="grid w-full max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.35fr)] lg:gap-16"
+        className="grid w-full max-w-6xl grid-cols-1 items-start gap-12 md:gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16"
       >
-        {/* ---- Left: oversized year anchor ---- */}
-        <div className="lg:pr-4">
+        {/* ================= LEFT — the story ================= */}
+        <div className="max-w-xl">
           <motion.p
-            variants={item}
+            variants={rise(0.02)}
             className="font-mono-custom text-xs uppercase tracking-[0.3em] text-[color:var(--accent)]"
           >
             {TYPE_LABEL[experience.type]}
           </motion.p>
-          <motion.span
-            variants={item}
-            className="mt-2 block font-display font-bold leading-[0.95] pb-[0.12em] tracking-tight"
-            style={{
-              fontSize: "clamp(4.5rem,15vw,12rem)",
-              backgroundImage: `linear-gradient(155deg, #E8EEFF 35%, ${color})`,
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            {bigYear(experience)}
-          </motion.span>
-          <motion.p
-            variants={item}
-            className="mt-1 font-mono-custom text-xs tracking-wider text-[#E8EEFF]"
-          >
-            {formatRange(experience)}
-            {experience.location ? ` · ${experience.location}` : ""}
-          </motion.p>
-        </div>
 
-        {/* ---- Right: the story ---- */}
-        <div className="max-w-xl">
+          {/* Job Title — largest, bold */}
           <motion.h3
-            variants={item}
-            className="font-display text-3xl font-bold leading-tight text-[#E8EEFF] md:text-4xl"
+            variants={rise(0.08)}
+            className="mt-3 font-display text-4xl font-bold leading-[1.05] tracking-tight text-[#E8EEFF] md:text-5xl"
           >
             {experience.title}
           </motion.h3>
 
-          <motion.p variants={item} className="mt-2 flex items-center gap-2 text-lg text-[#8892A4]">
-            <span
-              aria-hidden="true"
-              className="inline-block h-1.5 w-1.5 rounded-full"
-              style={{ background: color }}
-            />
+          {/* Organization — bold, slightly smaller */}
+          <motion.p
+            variants={rise(0.2)}
+            className="mt-3 font-display text-xl font-bold text-[#C6D2EC] md:text-2xl"
+          >
             {experience.organization}
           </motion.p>
 
+          {/* Role Summary — one professional sentence */}
           <motion.p
-            variants={item}
-            className="mt-5 text-base font-medium leading-relaxed text-[#E8EEFF]"
+            variants={rise(0.32)}
+            className="mt-4 max-w-md text-lg leading-snug text-[#8892A4]"
           >
-            {experience.description}
+            {summary}
           </motion.p>
 
-          {/* metrics */}
-          {experience.metrics && experience.metrics.length > 0 && (
-            <motion.div variants={item} className="mt-7 flex flex-wrap gap-x-10 gap-y-4">
-              {experience.metrics.map((m) => (
-                <div key={m.label}>
-                  <div className="font-display text-2xl font-bold text-[color:var(--accent)] md:text-3xl">
-                    {m.value}
-                  </div>
-                  <div className="mt-0.5 text-xs uppercase tracking-wider text-[#4A5568]">
-                    {m.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          )}
+          {/* Duration — small uppercase metadata */}
+          <motion.p
+            variants={rise(0.44)}
+            className="mt-4 font-mono-custom text-xs uppercase tracking-[0.24em] text-[#4A5568]"
+          >
+            {formatRange(experience)}
+            {experience.location ? ` · ${experience.location}` : ""}
+          </motion.p>
 
-          {/* optional supporting imagery */}
-          {experience.images && experience.images.length > 0 && (
-            <motion.div variants={item} className="mt-7 flex gap-3">
-              {experience.images.slice(0, 3).map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.04 }}
-                  transition={{ duration: 0.3, ease: EASE }}
-                  className="h-20 w-28 overflow-hidden rounded-lg border border-white/[0.08]"
-                  style={{ background: "#1A2540" }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt={`${experience.title} — supporting visual ${i + 1}`}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {/* technology stack — revealed one by one */}
-          <motion.div variants={tagGroup} className="mt-7 flex flex-wrap gap-2">
-            {experience.technologies.map((t) => (
-              <motion.span
-                key={t}
-                variants={tag}
-                whileHover={{ y: -3, boxShadow: `0 8px 20px -8px ${color}66` }}
-                transition={{ duration: 0.2, ease: EASE }}
-                className="cursor-default rounded-full border border-[color:var(--accent-soft)] bg-[#1A2540]/60 px-3 py-1 text-xs text-[#8892A4] transition-colors hover:border-[color:var(--accent)] hover:text-[#E8EEFF]"
+          {/* Description — not pinned; drifts gently while identity holds */}
+          {desc && (
+            <motion.div style={{ y: descY }} className="mt-8">
+              <motion.p
+                variants={rise(0.85)}
+                className="line-clamp-3 max-w-md text-base leading-relaxed text-[#8892A4]"
               >
-                {t}
-              </motion.span>
-            ))}
-          </motion.div>
-
-          {/* optional CTA */}
-          {experience.cta && (
-            <motion.a
-              variants={item}
-              href={experience.cta.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
-              className="mt-8 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--accent)] px-4 py-2 text-sm font-medium text-[#E8EEFF] transition-colors hover:bg-[color:var(--accent-soft)]"
-            >
-              {experience.cta.label}
-              <ArrowUpRight size={15} />
-            </motion.a>
+                {desc}
+              </motion.p>
+            </motion.div>
           )}
+        </div>
+
+        {/* ============ RIGHT — the execution ============ */}
+        <div className="relative lg:pt-1">
+          {/* --- Oversized org watermark behind the right column --- */}
+          <ChapterWatermark experience={experience} color={color} shown={shown} />
+
+          <div className="relative z-10">
+            {/* Key Contributions — premium vertical timeline */}
+            {contributions.length > 0 && (
+              <motion.div variants={contribSequence}>
+                <motion.h4
+                  variants={contribHeading}
+                  className="font-mono-custom text-xs uppercase tracking-[0.28em] text-[#8892A4]"
+                >
+                  Key Contributions
+                </motion.h4>
+
+                <div className="relative mt-6 pl-6">
+                  <motion.span
+                    aria-hidden="true"
+                    variants={timelineLine}
+                    className="pointer-events-none absolute left-[2px] top-1.5 bottom-1.5 w-px origin-top"
+                    style={{
+                      background: `linear-gradient(to bottom, ${color}, ${color}55 70%, transparent)`,
+                    }}
+                  />
+                  <ul className="space-y-4">
+                    {contributions.map((c, i) => (
+                      <motion.li
+                        key={i}
+                        variants={contribItem}
+                        className="relative text-[15px] leading-relaxed text-[#8892A4]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="absolute -left-6 top-[0.5em] h-[5px] w-[5px] -translate-y-1/2 rounded-full ring-2 ring-[#111B2F]"
+                          style={{ background: color }}
+                        />
+                        {c}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Thin divider — appears after the last contribution */}
+            <motion.div
+              aria-hidden="true"
+              variants={dividerVar}
+              className="my-8 h-px w-full origin-left bg-white/[0.08]"
+            />
+
+            {/* Technologies — animates as one block; chips unchanged */}
+            <motion.div variants={techBlock}>
+              <p className="font-mono-custom text-xs uppercase tracking-[0.28em] text-[#4A5568]">
+                Technologies
+              </p>
+              <div className="mt-3.5 flex flex-wrap gap-2">
+                {experience.technologies.map((t) => (
+                  <span
+                    key={t}
+                    className="cursor-default rounded-full border border-[color:var(--accent-soft)] bg-[#1A2540]/60 px-3 py-1 text-xs text-[#8892A4] transition-colors hover:border-[color:var(--accent)] hover:text-[#E8EEFF]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     </motion.article>
+  );
+}
+
+// ------------------------------------------------------------
+// Oversized org identity behind the right column — enormous, ~5% opacity,
+// slightly blurred. Fades + scales in, then drifts almost imperceptibly.
+// ------------------------------------------------------------
+function ChapterWatermark({
+  experience,
+  color,
+  shown,
+}: {
+  experience: Experience;
+  color: string;
+  shown: boolean;
+}) {
+  // Prefer the supplied logo/emblem; if it fails to load (missing / misnamed),
+  // quietly fall back to the org monogram rather than showing a broken image.
+  const [imgFailed, setImgFailed] = useState(false);
+  const useImage = Boolean(experience.watermark) && !imgFailed;
+
+  return (
+    <motion.div
+      aria-hidden="true"
+      initial={{ opacity: 0, scale: 1.34 }}
+      animate={shown ? { opacity: 0.05, scale: 1.4 } : { opacity: 0, scale: 1.34 }}
+      transition={{ duration: 1.5, ease: EASE }}
+      className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
+    >
+      {/* inner element carries the perpetual, barely-there float */}
+      <motion.div
+        animate={{ y: [0, -4, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="blur-[2px]"
+      >
+        {useImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={experience.watermark}
+            alt=""
+            loading="lazy"
+            onError={() => setImgFailed(true)}
+            className="h-auto w-[clamp(16rem,32vw,30rem)]"
+          />
+        ) : (
+          <span
+            className="block font-display font-bold uppercase leading-none tracking-tight"
+            style={{ fontSize: "clamp(10rem,26vw,22rem)", color }}
+          >
+            {monogram(experience)}
+          </span>
+        )}
+      </motion.div>
+    </motion.div>
   );
 }

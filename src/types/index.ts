@@ -78,6 +78,9 @@ export interface Experience {
   startDate: string;
   endDate: string;
   description: string;
+  /** One-sentence essence of the role, shown above the duration. Falls back to
+   *  the first sentence of `description` when absent. */
+  roleSummary?: string;
   responsibilities: string[];
   technologies: string[];
   /** Headline outcomes shown last in the unfolded sheet. */
@@ -91,6 +94,14 @@ export interface Experience {
   metrics?: { value: string; label: string }[];
   /** Optional call-to-action shown at the end of the chapter. */
   cta?: { label: string; url: string };
+  /** Optional logo/emblem (path under /public) used as a faint background
+   *  watermark in the chapter's storytelling column. Falls back to a monogram
+   *  derived from the organization name when absent. */
+  watermark?: string;
+  /** Optional outline buttons shown in the summary column. */
+  certificateUrl?: string;
+  websiteUrl?: string;
+  githubUrl?: string;
 }
 
 export type AchievementType =

@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import {
   motion,
   AnimatePresence,
@@ -12,8 +12,8 @@ import { experiences } from "@/data/experience";
 import type { Experience } from "@/types";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useLenis } from "@/components/layout/SmoothScroll";
-import { ExperienceChapter, useSceneMotion } from "./ExperienceChapter";
-import { TYPE_LABEL, formatRange, bigYear, navYear } from "./chapterMeta";
+import { ExperienceChapter, useSceneMotion, splitStory } from "./ExperienceChapter";
+import { TYPE_LABEL, formatRange, navYear } from "./chapterMeta";
 
 const EXPERIENCE_BACKGROUND = "#111B2F";
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -301,57 +301,92 @@ function ExperienceStatic() {
         </div>
 
         <div className="space-y-20">
-          {CHAPTERS.map((exp) => (
-            <article
-              key={exp.id}
-              className="grid gap-6 border-t border-white/[0.06] pt-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-12"
-            >
-              <div>
-                <p
-                  className="font-mono-custom text-xs uppercase tracking-[0.3em]"
-                  style={{ color: exp.color }}
-                >
-                  {TYPE_LABEL[exp.type]}
-                </p>
-                <p
-                  className="mt-2 font-display text-6xl font-bold leading-none"
-                  style={{ color: "#E8EEFF" }}
-                >
-                  {bigYear(exp)}
-                </p>
-                <p className="mt-1 font-mono-custom text-xs text-[#4A5568]">{formatRange(exp)}</p>
-              </div>
-              <div>
-                <h3 className="font-display text-2xl font-bold text-[#E8EEFF]">{exp.title}</h3>
-                <p className="mt-1 text-[#8892A4]">{exp.organization}</p>
-                <p className="mt-4 leading-relaxed text-[#8892A4]">{exp.description}</p>
-                {exp.metrics && exp.metrics.length > 0 && (
-                  <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-                    {exp.metrics.map((m) => (
-                      <div key={m.label}>
-                        <div className="font-display text-2xl font-bold" style={{ color: exp.color }}>
-                          {m.value}
-                        </div>
-                        <div className="text-xs uppercase tracking-wider text-[#4A5568]">
-                          {m.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {exp.technologies.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-white/[0.08] bg-[#1A2540]/60 px-3 py-1 text-xs text-[#8892A4]"
-                    >
-                      {t}
-                    </span>
-                  ))}
+          {CHAPTERS.map((exp) => {
+            const { summary, desc } = splitStory(exp);
+            return (
+              <article
+                key={exp.id}
+                className="grid gap-10 border-t border-white/[0.06] pt-10 lg:grid-cols-[1.5fr_1fr] lg:gap-12"
+                style={{ "--accent": exp.color } as CSSProperties}
+              >
+                {/* Left — the story */}
+                <div className="max-w-xl">
+                  <p
+                    className="font-mono-custom text-xs uppercase tracking-[0.3em]"
+                    style={{ color: exp.color }}
+                  >
+                    {TYPE_LABEL[exp.type]}
+                  </p>
+                  <h3 className="mt-3 font-display text-4xl font-bold leading-[1.05] text-[#E8EEFF] md:text-5xl">
+                    {exp.title}
+                  </h3>
+                  <p className="mt-3 font-display text-xl font-bold text-[#C6D2EC] md:text-2xl">
+                    {exp.organization}
+                  </p>
+                  <p className="mt-4 max-w-md text-lg leading-snug text-[#8892A4]">{summary}</p>
+                  <p className="mt-4 font-mono-custom text-xs uppercase tracking-[0.24em] text-[#4A5568]">
+                    {formatRange(exp)}
+                  </p>
+                  {desc && (
+                    <p className="mt-8 max-w-md text-base leading-relaxed text-[#8892A4]">{desc}</p>
+                  )}
                 </div>
-              </div>
-            </article>
-          ))}
+
+                {/* Right — the execution */}
+                <div>
+                  {exp.responsibilities.length > 0 && (
+                    <div>
+                      <h4 className="font-mono-custom text-xs uppercase tracking-[0.28em] text-[#8892A4]">
+                        Key Contributions
+                      </h4>
+                      <div className="relative mt-6 pl-6">
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute left-[2px] top-1.5 bottom-1.5 w-px"
+                          style={{
+                            background: `linear-gradient(to bottom, ${exp.color}, ${exp.color}55 70%, transparent)`,
+                          }}
+                        />
+                        <ul className="space-y-4">
+                          {exp.responsibilities.slice(0, 5).map((c, i) => (
+                            <li
+                              key={i}
+                              className="relative text-[15px] leading-relaxed text-[#8892A4]"
+                            >
+                              <span
+                                aria-hidden="true"
+                                className="absolute -left-6 top-[0.5em] h-[5px] w-[5px] -translate-y-1/2 rounded-full ring-2 ring-[#111B2F]"
+                                style={{ background: exp.color }}
+                              />
+                              {c}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  <div aria-hidden="true" className="my-8 h-px w-full bg-white/[0.08]" />
+
+                  <div>
+                    <p className="font-mono-custom text-xs uppercase tracking-[0.28em] text-[#4A5568]">
+                      Technologies
+                    </p>
+                    <div className="mt-3.5 flex flex-wrap gap-2">
+                      {exp.technologies.map((t) => (
+                        <span
+                          key={t}
+                          className="cursor-default rounded-full border border-white/[0.08] bg-[#1A2540]/60 px-3 py-1 text-xs text-[#8892A4] transition-colors hover:border-[color:var(--accent)] hover:text-[#E8EEFF]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
