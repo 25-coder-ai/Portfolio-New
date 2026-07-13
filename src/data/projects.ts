@@ -1,108 +1,178 @@
 import type { Project } from "@/types";
 
-// ============================================================
-// PROJECTS DATA — REPLACE WITH YOUR PROJECTS
-// ============================================================
-
 export const projects: Project[] = [
   {
-    id: "bigdata-pipeline",
-    title: "Real-Time Big Data Pipeline",  // REPLACE: Project title
-    problem: "Traditional batch processing systems could not handle streaming IoT sensor data at scale, causing analysis delays of 4–6 hours.", // REPLACE
-    solution: "Built an end-to-end real-time pipeline using Apache Kafka, Spark Streaming, and a PostgreSQL data warehouse with automated alerting.", // REPLACE
-    techStack: ["Python", "Apache Kafka", "Spark Streaming", "PostgreSQL", "Docker", "AWS EC2"],
-    features: [
-      "Processes 500K+ events/sec with sub-second latency",
-      "Automated anomaly detection with configurable thresholds",
-      "Real-time dashboard with live metric updates",
-      "Horizontal auto-scaling on AWS",
+    id: "ai-job-portal",
+    title: "AI-Powered Job Portal System",
+    problem:
+      "Traditional job portals provide static job listings with limited personalization, making it difficult for candidates to prepare for interviews, optimize resumes, and discover relevant opportunities.",
+    solution:
+      "Built an AI-powered recruitment platform with role-based authentication, intelligent resume matching, AI mock interviews, resume analysis, and real-time application tracking to streamline the hiring process for both job seekers and recruiters.",
+    techStack: [
+      "PostgreSQL",
+      "Supabase",
+      "Node.js",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "OpenAI API"
     ],
-    images: ["/images/projects/project1-1.jpg", "/images/projects/project1-2.jpg"], // REPLACE
-    video: "/videos/projects/bigdata-pipeline.mp4", // REPLACE (optional — drop a muted loop here)
-    demoUrl: "https://your-demo-link.com",  // REPLACE
-    githubUrl: "https://github.com/yourusername/bigdata-pipeline", // REPLACE
-    category: "Big Data",
-    year: "2024",
+    features: [
+      "Role-based authentication for job seekers and recruiters",
+      "AI-powered resume parsing and job matching with match percentage",
+      "AI mock interviews with voice-based evaluation and feedback history",
+      "AI-curated skill recommendations for specific career roles",
+      "Resume builder and interview preparation resources",
+      "Real-time application status tracking",
+      "Dynamic motivational quotes on dashboard",
+      "Character-level highlighted job search"
+    ],
+    images: [
+      "/images/projects/jobportal-1.jpg",
+      "/images/projects/jobportal-2.jpg"
+    ],
+    video: "/videos/projects/jobportal.mp4",
+    demoUrl: "YOUR_DEMO_URL",
+    githubUrl: "YOUR_GITHUB_URL",
+    category: "AI Application",
+    year: "2026",
     color: "#4F8EF7",
   },
+
   {
-    id: "ml-sentiment",
-    title: "Multi-Modal Sentiment Analyzer", // REPLACE
-    problem: "Existing sentiment tools analyzed text only, missing crucial emotional signals from customer support audio and images.", // REPLACE
-    solution: "Developed a multi-modal deep learning system combining NLP (BERT) and CNN models to analyze text, audio features, and image sentiment simultaneously.", // REPLACE
-    techStack: ["Python", "TensorFlow", "BERT", "FastAPI", "React", "Docker"],
-    features: [
-      "94.2% accuracy on multi-modal benchmark dataset",
-      "Real-time API with <100ms response time",
-      "Supports text, audio (wav/mp3), and image inputs",
-      "Interactive web dashboard for batch analysis",
+    id: "ai-data-analysis-agent",
+    title: "AI Data Analysis Agent",
+    problem:
+      "Business users often spend hours performing exploratory data analysis manually before extracting meaningful insights.",
+    solution:
+      "Developed a multi-agent AI system using LangGraph and LLMs that automates exploratory data analysis, visualization, reporting, and competitor research through an intuitive Streamlit interface.",
+    techStack: [
+      "Python",
+      "LangChain",
+      "LangGraph",
+      "Streamlit",
+      "Plotly",
+      "OpenAI API",
+      "Tavily API"
     ],
-    images: ["/images/projects/project2-1.jpg"], // REPLACE
-    video: "/videos/projects/ml-sentiment.mp4", // REPLACE (optional)
-    demoUrl: "https://your-demo-link.com", // REPLACE
-    githubUrl: "https://github.com/yourusername/ml-sentiment", // REPLACE
-    category: "Machine Learning",
-    year: "2024",
+    features: [
+      "Multi-agent workflow orchestration using LangGraph",
+      "Automated EDA and statistical analysis",
+      "Interactive dashboards and visualizations",
+      "CSV/XLSX upload support",
+      "AI-generated reports",
+      "Competitor analysis using external APIs",
+      "Conversational interaction with datasets"
+    ],
+    images: [
+      "/images/projects/dataagent-1.jpg",
+      "/images/projects/dataagent-2.jpg"
+    ],
+    video: "/videos/projects/dataagent.mp4",
+    demoUrl: "YOUR_DEMO_URL",
+    githubUrl: "YOUR_GITHUB_URL",
+    category: "Generative AI",
+    year: "2026",
     color: "#A78BFA",
   },
+
   {
-    id: "data-viz",
-    title: "Interactive Analytics Dashboard", // REPLACE
-    problem: "Business teams needed real-time visibility into KPIs but existing BI tools required technical expertise to operate.", // REPLACE
-    solution: "Built a drag-and-drop analytics dashboard with natural language query support, auto-generated charts, and scheduled email reports.", // REPLACE
-    techStack: ["React", "D3.js", "Python", "FastAPI", "PostgreSQL", "AWS S3"],
-    features: [
-      "Natural language to SQL query converter",
-      "25+ chart types with auto-suggestions",
-      "Scheduled PDF/email report generation",
-      "Role-based access control",
+    id: "bedrock-rag",
+    title: "AWS Bedrock RAG Knowledge Base",
+    problem:
+      "Enterprise documents are difficult to search efficiently using traditional keyword-based systems.",
+    solution:
+      "Built a Retrieval-Augmented Generation (RAG) solution on Amazon Bedrock using S3, Titan Embeddings and OpenSearch Serverless to deliver accurate context-aware AI responses from enterprise datasets.",
+    techStack: [
+      "Amazon Bedrock",
+      "Amazon S3",
+      "IAM",
+      "OpenSearch Serverless",
+      "Titan Embeddings",
+      "Amazon Nova",
+      "RAG"
     ],
-    images: ["/images/projects/project3-1.jpg"], // REPLACE
-    video: "/videos/projects/analytics-dashboard.mp4", // REPLACE (optional)
-    demoUrl: "https://your-demo-link.com", // REPLACE
-    githubUrl: "https://github.com/yourusername/analytics-dashboard", // REPLACE
-    category: "Analytics",
-    year: "2023",
+    features: [
+      "Semantic search using Titan Embeddings",
+      "Knowledge Base integration with Amazon Bedrock",
+      "Automatic document ingestion pipeline",
+      "Context-aware AI responses",
+      "Enterprise-scale vector search",
+      "Automatic knowledge base updates without retraining"
+    ],
+    images: [
+      "/images/projects/rag-1.jpg"
+    ],
+    video: "/videos/projects/rag.mp4",
+    demoUrl: "YOUR_DEMO_URL",
+    githubUrl: "YOUR_GITHUB_URL",
+    category: "Cloud AI",
+    year: "2026",
     color: "#34D399",
   },
+
   {
-    id: "cloud-infra",
-    title: "Serverless Data Processing Platform", // REPLACE
-    problem: "On-premise batch jobs were expensive and lacked scalability during peak loads, causing 30% over-provisioning costs.", // REPLACE
-    solution: "Migrated to an event-driven serverless architecture using AWS Lambda, Step Functions, and S3, reducing costs by 60%.", // REPLACE
-    techStack: ["AWS Lambda", "Step Functions", "S3", "DynamoDB", "Python", "Terraform"],
-    features: [
-      "60% reduction in infrastructure costs",
-      "Auto-scales from 0 to 10K concurrent executions",
-      "Infrastructure-as-code with Terraform",
-      "Full observability with CloudWatch dashboards",
+    id: "data-quality-monitor",
+    title: "AI-Powered Data Quality Monitoring & Auto-Correction System",
+    problem:
+      "Poor-quality datasets containing missing values, duplicates and outliers reduce the reliability of analytics and machine learning models.",
+    solution:
+      "Developed an intelligent data quality platform that evaluates datasets across six quality dimensions, automatically detects issues, and applies corrective actions through an interactive dashboard.",
+    techStack: [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "Streamlit",
+      "Data Visualization"
     ],
-    images: ["/images/projects/project4-1.jpg"], // REPLACE
-    video: "/videos/projects/serverless-platform.mp4", // REPLACE (optional)
-    demoUrl: undefined,
-    githubUrl: "https://github.com/yourusername/serverless-platform", // REPLACE
-    category: "Cloud",
-    year: "2023",
+    features: [
+      "Evaluation across six data quality dimensions",
+      "Missing value detection",
+      "Duplicate identification",
+      "Outlier analysis",
+      "Automatic data correction",
+      "Interactive quality scoring dashboard",
+      "Download cleaned datasets"
+    ],
+    images: [
+      "/images/projects/dataquality-1.jpg"
+    ],
+    video: "/videos/projects/dataquality.mp4",
+    demoUrl: "YOUR_DEMO_URL",
+    githubUrl: "YOUR_GITHUB_URL",
+    category: "Data Engineering",
+    year: "2026",
     color: "#F59E0B",
   },
+
   {
-    id: "fraud-detection",
-    title: "Real-Time Fraud Detection Engine", // REPLACE
-    problem: "Card transactions had to be scored for fraud in under 50ms, but the existing rules engine missed novel attack patterns.", // REPLACE
-    solution: "Built a streaming feature store feeding a gradient-boosted model served behind a low-latency API, with online learning from analyst feedback.", // REPLACE
-    techStack: ["Python", "XGBoost", "Kafka", "Redis", "FastAPI", "Feast"],
-    features: [
-      "Sub-50ms p99 scoring latency at 12K TPS",
-      "Cut false positives by 38% over the legacy rules",
-      "Online feature store with point-in-time correctness",
-      "Human-in-the-loop retraining pipeline",
+    id: "smart-queueing",
+    title: "Smart Queueing System",
+    problem:
+      "Traditional food ordering systems create long physical queues, increasing waiting time and reducing operational efficiency.",
+    solution:
+      "Developed a web-based smart queue management system enabling digital ordering, QR-based verification and real-time order tracking for a seamless contactless pickup experience.",
+    techStack: [
+      "HTML",
+      "CSS",
+      "JavaScript"
     ],
-    images: ["/images/projects/project5-1.jpg"], // REPLACE
-    video: "/videos/projects/fraud-detection.mp4", // REPLACE (optional)
-    demoUrl: "https://your-demo-link.com", // REPLACE
-    githubUrl: "https://github.com/yourusername/fraud-detection", // REPLACE
-    category: "Machine Learning",
-    year: "2024",
+    features: [
+      "Digital food ordering interface",
+      "Real-time queue management",
+      "Unique order ID generation",
+      "QR-based order verification",
+      "Live order status tracking",
+      "Reduced waiting time through asynchronous processing"
+    ],
+    images: [
+      "/images/projects/queue-1.jpg"
+    ],
+    video: "/videos/projects/queue.mp4",
+    demoUrl: "YOUR_DEMO_URL",
+    githubUrl: "YOUR_GITHUB_URL",
+    category: "Full Stack",
+    year: "2026",
     color: "#F87171",
   },
 ];

@@ -10,12 +10,12 @@ export const profile: Profile = {
   subtitle: "Computer Science Student · Big Data Analytics",
   email: "your.email@example.com",            // REPLACE: Your email
   phone: "+91 00000 00000",                   // REPLACE: Your phone number
-  github: "https://github.com/yourusername",  // REPLACE: Your GitHub URL
-  linkedin: "https://linkedin.com/in/yourusername", // REPLACE: Your LinkedIn URL
-  leetcode: "https://leetcode.com/u/yourusername", // REPLACE: Your LeetCode URL
+  github: "https://github.com/25-coder-ai",  // REPLACE: Your GitHub URL
+  linkedin: "https://www.linkedin.com/in/dakshithaa-venkatesan-a0400a332", // REPLACE: Your LinkedIn URL
+  leetcode: "https://leetcode.com/u/Dakshithaa/", // REPLACE: Your LeetCode URL
   cgpa: "10",                               // REPLACE: Your CGPA
   location: "Chennai, India",                 // REPLACE: Your location
   bio: `I'm a Computer Science student specializing in Big Data Analytics, passionate about transforming raw data into meaningful insights. I build scalable systems that turn complexity into clarity.`, // REPLACE: Your bio
-  resumeUrl: "/resume/resume.pdf",            // REPLACE: Add your resume at public/resume/resume.pdf
+  resumeUrl: "/resume/Resume.pdf",            // REPLACE: Add your resume at public/resume/resume.pdf
   profileImage: "/images/profile/avatar.jpg", // REPLACE: Add your photo at public/images/profile/avatar.jpg
 };

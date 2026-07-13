@@ -8,7 +8,7 @@ export const experiences: Experience[] = [
     {
     id: "internship-1",
     title: "Technical Intern",
-    organization: "Central Institute of Classical Tamil, Government of India",
+    organization: "CICT, Government of India",
     type: "internship",
     startDate: "2026-04",
     endDate: "Present",
