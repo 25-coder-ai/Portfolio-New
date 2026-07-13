@@ -185,7 +185,7 @@ function Pedestal({
         className={`relative mt-5 w-full overflow-hidden rounded-2xl border ${borderClass} px-6 pb-9 pt-7 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-2 ${open ? "-translate-y-2" : ""}`}
         style={surface}
       >
-        {/* material detail: brushed streaks (metal) / cool sheen (glass) */}
+        {/* material detail: brushed streaks (metal) */}
         {material === "metal" && (
           <span
             aria-hidden
