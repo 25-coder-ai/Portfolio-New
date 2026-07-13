@@ -9,11 +9,11 @@ export const projects: Project[] = [
     solution:
       "Built an AI-powered recruitment platform with role-based authentication, intelligent resume matching, AI mock interviews, resume analysis, and real-time application tracking to streamline the hiring process for both job seekers and recruiters.",
     techStack: [
+      "React",
       "PostgreSQL",
       "Supabase",
       "Node.js",
       "JavaScript",
-      "HTML",
       "CSS",
       "OpenAI API"
     ],

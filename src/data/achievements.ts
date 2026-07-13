@@ -1,82 +1,46 @@
 import type { Achievement } from "@/types";
 
 // ============================================================
-// ACHIEVEMENTS DATA — REPLACE WITH YOUR ACHIEVEMENTS
+// ACHIEVEMENTS DATA — a curated exhibition of exactly three.
+// Ordered left → right as they appear on their pedestals.
 // ============================================================
 
 export const achievements: Achievement[] = [
   {
-    id: "ach-1",
-    title: "Perfect 10.0 GPA — 4 Consecutive Semesters",// REPLACE
-    issuer: "SRM University",                        // REPLACE
-    type: "academic",
-    date: "2024-0",                                 // REPLACE
-    description: "Recognized for the top of the department with a perfect 10 / 10 CGPA for four consecutive semesters.", // REPLACE
-    skills: ["Consistency", "Time Management", "Core CS Foundations"],
-    notes: "Maintained standing while working in an internship and leading club activities",
-    color: "#34D399",
-  },
-  {
-    id: "ach-2",
-    title: "AWS Certified Cloud Practitioner",    // REPLACE
-    issuer: "Amazon Web Services",                // REPLACE
+    id: "ach-aws",
+    title: "AWS Certified Cloud Practitioner",
+    issuer: "Amazon Web Services",
     type: "certificate",
-    date: "2025-07",                              // REPLACE
-    description: "Foundational AWS certification validating cloud concepts, core services, security, and pricing models.", // REPLACE
-    image: "/images/achievements/aws-cert.jpg",   // REPLACE: Add image
-    credentialUrl: "https://www.credly.com/users/dakshithaa-venkatesan", // REPLACE
+    date: "2025-07",
+    description:
+      "Foundational certification validating cloud concepts, core services, security, and pricing models.",
+    credentialUrl: "https://www.credly.com/users/dakshithaa-venkatesan",
     skills: ["AWS Core Services", "Cloud Security", "Cost Optimization"],
     notes: "Foundation for hands-on work with S3, EC2 and IAM across later projects.",
     color: "#FF9900",
   },
   {
-    id: "ach-3",
-    title: "Kaggle Competition — Top 5%",         // REPLACE
-    issuer: "Kaggle",                             // REPLACE
-    type: "competition",
-    date: "2023-11",                              // REPLACE
-    description: "Achieved top 5% ranking in the Tabular Playground Series competition using an XGBoost ensemble with sophisticated feature engineering.", // REPLACE
-    image: "/images/achievements/kaggle.jpg",     // REPLACE: Add image
-    rank: "Top 5%",
-    skills: ["XGBoost", "Feature Engineering", "Model Ensembling", "Pandas"],
-    notes: "Placed in the top 5% of a field of several thousand competitors.",
-    color: "#20BEFF",
-  },
-  {
-    id: "ach-4",
-    title: "Best Paper Award — ICDE Workshop",    // REPLACE
-    issuer: "IEEE ICDE",                          // REPLACE
-    type: "award",
-    date: "2024-05",                              // REPLACE
-    description: "Best paper award at the Data Engineering workshop for research on efficient streaming graph processing algorithms.", // REPLACE
-    image: "/images/achievements/paper-award.jpg", // REPLACE: Add image
-    skills: ["Graph Algorithms", "Stream Processing", "Technical Writing"],
-    notes: "Recognized among workshop submissions for clarity and practical impact.",
-    color: "#A78BFA",
-  },
-  {
-    id: "ach-5",
-    title: "Google Data Analytics Certificate",  // REPLACE
-    issuer: "Google / Coursera",                 // REPLACE
-    type: "certificate",
-    date: "2023-08",                             // REPLACE
-    description: "Professional certificate covering data analysis process, visualization, SQL, R, and Tableau across 8 comprehensive courses.", // REPLACE
-    image: "/images/achievements/google-cert.jpg", // REPLACE: Add image
-    credentialUrl: "https://coursera.org/verify/your-id", // REPLACE
-    skills: ["SQL", "R", "Tableau", "Data Visualization"],
-    notes: "Eight-course professional track covering the full analytics workflow.",
-    color: "#4285F4",
-  },
-  {
-    id: "ach-6",
-    title: "Dean's List — 4 Consecutive Semesters", // REPLACE
-    issuer: "VIT University",                        // REPLACE
+    id: "ach-gpa",
+    title: "Perfect 10.0 GPA",
+    issuer: "SRM University",
     type: "academic",
-    date: "2024-06",                                 // REPLACE
-    description: "Recognized for academic excellence with a perfect 10 / 10 CGPA for four consecutive semesters, placing in the top 10% of the department.", // REPLACE
-    rank: "Top 10%",
+    date: "2024-06",
+    description:
+      "A flawless 10 / 10 CGPA sustained across four consecutive semesters.",
     skills: ["Consistency", "Time Management", "Core CS Foundations"],
-    notes: "Maintained standing while leading club activities and side projects.",
-    color: "#34D399",
+    notes: "Maintained while working an internship and leading club activities.",
+    color: "#CFE0FF",
+  },
+  {
+    id: "ach-leetcode",
+    title: "LeetCode Streak",
+    issuer: "LeetCode",
+    type: "competition",
+    date: "2026-07",
+    description:
+      "A sustained daily problem-solving streak building lasting algorithmic fluency.",
+    skills: ["Data Structures", "Algorithms", "Problem Solving"],
+    notes: "Consistent daily practice across arrays, graphs, and dynamic programming.",
+    color: "#F59E0B",
   },
 ];
