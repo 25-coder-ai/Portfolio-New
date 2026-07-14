@@ -336,7 +336,7 @@ function ChapterWatermark({
     <motion.div
       aria-hidden="true"
       initial={{ opacity: 0, scale: 0.96 }}
-      animate={shown ? { opacity: 0.03, scale: 1 } : { opacity: 0, scale: 0.96 }}
+      animate={shown ? { opacity: 0.07, scale: 1 } : { opacity: 0, scale: 0.96 }}
       transition={{ duration: 1.5, ease: EASE }}
       className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-visible select-none"
     >

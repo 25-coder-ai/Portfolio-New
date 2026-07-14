@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink } from "lucide-react";
@@ -19,6 +20,19 @@ const PEEK = 58; // px each lower card peeks below the active one (~1/8 of CARD_
 const FLY_Y = 170; // px the active card travels up as it's replaced
 // Depth is built purely from translateY + scale + opacity (no perspective / no
 // translateZ / no rotateX) — that keeps every card perfectly sharp, no blur.
+
+// The card deck's one-time entrance rides ~180ms behind the heading's subtitle,
+// so the sequence reads: label → title → subtitle → (short pause) → cards.
+// Each container observes itself via whileInView — NOT the section-level
+// observer, which is unreliable over the GSAP-pinned stage.
+const EASE = [0.16, 1, 0.3, 1] as const;
+const CARD_INTRO_DELAY = 0.45;
+const CARD_INTRO = {
+  initial: { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.1 } as const,
+  transition: { duration: 0.7, ease: EASE, delay: CARD_INTRO_DELAY },
+};
 
 // ----------------------------------------------------------------------------
 // Shared card visuals (used by both the 3D stack and the mobile fallback)
@@ -146,7 +160,7 @@ function ProjectList({
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       {heading}
-      <div className="mt-10 space-y-6">
+      <motion.div className="mt-10 space-y-6" {...CARD_INTRO}>
         {projects.map((p) => (
           <div
             key={p.id}
@@ -156,7 +170,7 @@ function ProjectList({
             <CardFace project={p} />
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -321,9 +335,10 @@ function WaterfallStack({
         {/* paddingBottom lifts the centred stack toward the top — less empty
             background above the deck, and it leaves a clear band at the bottom
             for the always-visible scroll counter. */}
-        <div
+        <motion.div
           className="absolute inset-0 flex items-center justify-center"
           style={{ paddingBottom: "28vh" }}
+          {...CARD_INTRO}
         >
           <div className="relative">
             {projects.map((p, i) => (
@@ -347,7 +362,7 @@ function WaterfallStack({
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Progress rail — click to glide to any project */}
         <div className="absolute right-6 top-1/2 z-[1100] hidden -translate-y-1/2 flex-col gap-3 lg:flex">

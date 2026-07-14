@@ -39,6 +39,7 @@ export const achievements: Achievement[] = [
     date: "2026-07",
     description:
       "A sustained daily problem-solving streak building lasting algorithmic fluency.",
+      credentialUrl: "https://leetcode.com/u/Dakshithaa/",
     skills: ["Data Structures", "Algorithms", "Problem Solving"],
     notes: "Consistent daily practice across arrays, graphs, and dynamic programming.",
     color: "#F59E0B",

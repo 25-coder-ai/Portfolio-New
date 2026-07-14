@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Inter, Playfair_Display, JetBrains_Mono, Montserrat, Sacramento, Allura, Familjen_Grotesk } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/profile";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
@@ -21,6 +21,38 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  display: "swap",
+});
+
+// Geometric sans for oversized editorial typography (the "Dakshithaa V" banner).
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  display: "swap",
+});
+
+// Thin monoline script for the "signed blueprint" signature accent.
+const sacramento = Sacramento({
+  variable: "--font-sacramento",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+// A flowing, more cursive signature script for the hero "portfolio" accent.
+const allura = Allura({
+  variable: "--font-allura",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+// Modern grotesk for the Projects section title (label + big title + subtitle).
+const familjenGrotesk = Familjen_Grotesk({
+  variable: "--font-familjen",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -49,7 +81,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${playfair.variable} ${jetbrainsMono.variable} ${montserrat.variable} ${sacramento.variable} ${allura.variable} ${familjenGrotesk.variable} h-full antialiased`}
       style={{ colorScheme: "dark" }}
     >
       <body className="min-h-full bg-[#111B2F] text-[#E8EEFF]">

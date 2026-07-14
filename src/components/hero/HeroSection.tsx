@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { CursorTrail } from "./CursorTrail";
+import { HeroNameSignature } from "./HeroNameSignature";
 import { useLenis } from "@/components/layout/SmoothScroll";
 import { profile } from "@/data/profile";
 import { HERO_BACKGROUND, ANIMATION } from "@/lib/constants";
@@ -67,7 +68,8 @@ export function HeroSection() {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: STAGGER_DELAY, delayChildren: 0.3 },
+      // Supporting content settles in after the name has landed.
+      transition: { staggerChildren: STAGGER_DELAY, delayChildren: 0.6 },
     },
   };
 
@@ -97,25 +99,20 @@ export function HeroSection() {
       <CursorTrail />
 
       {/* Content (z-10 — above trail cards) */}
-      <motion.div
-        className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Name — Parisian-style display font */}
-        <motion.h1
-          variants={itemVariants}
-          className="font-display font-bold leading-[1.05] tracking-tight text-[#E8EEFF]"
-          style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)" }}
-        >
-          {profile.name}
-        </motion.h1>
+      <div className="relative z-10 flex w-full flex-col items-center text-center">
+        {/* Oversized name with the written-on "portfolio" signature */}
+        <HeroNameSignature />
 
+        <motion.div
+          className="flex flex-col items-center max-w-5xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
         {/* Gradient underline accent */}
         <motion.div
           variants={itemVariants}
-          className="mt-3 mb-6 h-px w-64 mx-auto"
+          className="mt-8 mb-6 h-px w-64 mx-auto"
           style={{
             background: "linear-gradient(90deg, transparent, #4F8EF7, #A78BFA, transparent)",
           }}
@@ -184,7 +181,8 @@ export function HeroSection() {
             <LeetCodeIcon size={20} />
           </a>
         </motion.div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.button

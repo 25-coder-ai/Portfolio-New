@@ -1,14 +1,11 @@
 "use client";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ProjectsHeading } from "./ProjectsHeading";
 import { ProjectWaterfall } from "./ProjectWaterfall";
 import { projects } from "@/data/projects";
 
 export function ProjectsSection() {
-  const { ref, inView } = useScrollAnimation();
-
   return (
-    <section id="projects" className="relative" ref={ref}>
+    <section id="projects" className="relative">
       {/* Soft depth backdrop */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -20,19 +17,10 @@ export function ProjectsSection() {
 
       {/* The waterfall pins this whole section: scrolling anywhere inside it
           advances the cards, and the next section only appears once every
-          project has been viewed. Heading is passed in so it stays pinned too. */}
+          project has been viewed. Heading is passed in so it stays pinned too.
+          Heading and cards each reveal themselves via their own whileInView. */}
       <div className="relative z-10">
-        <ProjectWaterfall
-          projects={projects}
-          heading={
-            <SectionHeading
-              label="Projects"
-              title="Built to Ship"
-              subtitle="A stack of real, working projects. Scroll to let each one crest forward — or tap a card below to bring it up."
-              inView={inView}
-            />
-          }
-        />
+        <ProjectWaterfall projects={projects} heading={<ProjectsHeading />} />
       </div>
     </section>
   );
