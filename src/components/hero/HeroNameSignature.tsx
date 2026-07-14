@@ -19,7 +19,7 @@ import { profile } from "@/data/profile";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // Teal-blue signature ink — luminous on the navy hero. Tweak freely.
-const TEAL_BLUE = "#2AC7DE";
+const TEAL_BLUE = "#997953";
 
 export function HeroNameSignature() {
   const reduce = useReducedMotion() ?? false;
@@ -112,10 +112,10 @@ export function HeroNameSignature() {
           textAnchor="middle"
           mask="url(#hero-signature-write)"
           fill={TEAL_BLUE}
-          fillOpacity={0.96}
+          fillOpacity={0.62}
           style={{
             fontFamily: "var(--font-allura), cursive",
-            fontSize: "300px",
+            fontSize: "270px",
           }}
         >
           portfolio

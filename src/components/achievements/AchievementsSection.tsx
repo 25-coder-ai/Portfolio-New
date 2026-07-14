@@ -148,29 +148,38 @@ function Pedestal({
         style={{ background: `radial-gradient(circle, ${accent}2e, transparent 70%)` }}
       />
 
-      {/* Medallion — the exhibit object. AWS shows its full natural badge shape
-          (no circular clip, border, or backdrop); the others stay circular. */}
-      <div
-        className={`relative z-10 flex items-center justify-center transition-transform duration-500 ease-out group-hover:-translate-y-2 ${
-          isAws
-            ? "h-24 w-24"
-            : `h-20 w-20 overflow-hidden rounded-full border ${borderClass} shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]`
-        }`}
-        style={isAws ? undefined : surface}
-      >
-        {!isAws && (
-          <span
-            aria-hidden
-            className="absolute inset-0 rounded-full"
-            style={{ boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 22px ${accent}22` }}
-          />
-        )}
-        <Glyph kind={ex.glyph} accent={accent} leetStreak={leetStreak} />
+      {/* Medallion + its cast shadow. On hover only the artifact lifts; the
+          shadow stays on the pedestal, so the gap — and the sense of depth —
+          deepens. AWS shows its full natural badge shape (no circular clip,
+          border, or backdrop); the others stay circular. */}
+      <div className="relative z-10 flex flex-col items-center">
+        {/* soft cast shadow beneath the artifact — deepens on hover */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -bottom-1 h-3 w-16 rounded-[100%] bg-black/50 opacity-35 blur-md transition-all duration-500 ease-out group-hover:scale-x-90 group-hover:opacity-70"
+        />
+        <div
+          className={`relative z-10 flex items-center justify-center transition-transform duration-500 ease-out group-hover:-translate-y-3 ${
+            isAws
+              ? "h-24 w-24"
+              : `h-20 w-20 overflow-hidden rounded-full border ${borderClass} shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]`
+          }`}
+          style={isAws ? undefined : surface}
+        >
+          {!isAws && (
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-full"
+              style={{ boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 22px ${accent}22` }}
+            />
+          )}
+          <Glyph kind={ex.glyph} accent={accent} leetStreak={leetStreak} />
+        </div>
       </div>
 
       {/* Pedestal block with engraved plaque */}
       <div
-        className={`relative mt-5 flex w-full flex-1 flex-col overflow-hidden rounded-2xl border ${borderClass} px-6 pb-9 pt-7 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-2`}
+        className={`relative mt-5 flex w-full flex-1 flex-col overflow-hidden rounded-2xl border ${borderClass} px-6 pb-9 pt-7 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-[2px]`}
         style={surface}
       >
         {/* material detail: brushed streaks (metal) */}
@@ -224,10 +233,10 @@ function Pedestal({
         />
       </div>
 
-      {/* Reflection — a faint mirrored puddle that drifts gently on hover */}
+      {/* Reflection — a faint mirrored puddle that brightens gently on hover */}
       <span
         aria-hidden
-        className="pointer-events-none mt-1 h-8 w-3/4 rounded-[100%] opacity-40 blur-md transition-all duration-700 group-hover:translate-y-1 group-hover:opacity-70"
+        className="pointer-events-none mt-1 h-8 w-3/4 rounded-[100%] opacity-40 blur-md transition-opacity duration-700 group-hover:opacity-70"
         style={{ background: `radial-gradient(60% 100% at 50% 0%, ${accent}2e, transparent 70%)` }}
       />
     </>
@@ -274,7 +283,7 @@ function Glyph({
         className="relative flex flex-col items-center leading-none"
         style={{ color: accent }}
       >
-        <span className="font-display text-[26px] font-bold tracking-tight">10.0</span>
+        <span className="font-display text-[26px] font-bold tracking-tight">10</span>
         <span className="mt-1 text-[11px] font-semibold uppercase tracking-[0.22em]">
           CGPA
         </span>
@@ -283,9 +292,9 @@ function Glyph({
   }
   return (
     <span className="relative flex flex-col items-center leading-none" style={{ color: accent }}>
-      <Flame size={22} />
+      <Flame size={25} />
       {leetStreak !== null && (
-        <span className="mt-0.5 text-[10px] font-bold tabular-nums">{leetStreak}</span>
+        <span className="mt-1 text-[20px] font-bold tabular-nums">{leetStreak}</span>
       )}
     </span>
   );

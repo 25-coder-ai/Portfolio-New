@@ -197,18 +197,7 @@ function CinematicExperience() {
                   <span className="text-[#E8EEFF]">{pad(active)}</span>
                   <span className="text-[#4A5568]">/ {pad(CHAPTERS.length)}</span>
                 </motion.div>
-              ) : (
-                <motion.span
-                  key="intro-label"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="font-mono-custom text-xs uppercase tracking-[0.3em] text-[#4A5568]"
-                >
-                  {pad(CHAPTERS.length)} chapters
-                </motion.span>
-              )}
+              ) : null}
             </AnimatePresence>
           </div>
 

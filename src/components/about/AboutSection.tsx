@@ -33,7 +33,7 @@ type Stat = {
 // Placeholder figures — edit freely. Skills & LeetCode are custom cards below.
 const STATS: Stat[] = [
   { title: "CGPA", value: 10, suffix: "/10" },
-  { title: "Projects", value: 18 },
+  { title: "Projects", value: 5,suffix: "+" },
 ];
 
 export function AboutSection() {
