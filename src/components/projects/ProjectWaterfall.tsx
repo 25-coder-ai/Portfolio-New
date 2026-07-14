@@ -18,6 +18,10 @@ const CARD_W = "min(880px, 92vw)";
 const CARD_H = "min(440px, 50vh)";
 const PEEK = 58; // px each lower card peeks below the active one (~1/8 of CARD_H)
 const FLY_Y = 170; // px the active card travels up as it's replaced
+// Clear space above the heading, INSIDE the pinned stage, so it sits below the
+// fixed navbar (~68px). Living in-flow means the gap above "Featured Projects"
+// looks identical while scrolling in and while paused — no jump at pin.
+const HEADING_TOP = 96; // px
 // Depth is built purely from translateY + scale + opacity (no perspective / no
 // translateZ / no rotateX) — that keeps every card perfectly sharp, no blur.
 
@@ -325,19 +329,22 @@ function WaterfallStack({
       ref={stageRef}
       className="relative flex h-screen w-full flex-col"
     >
-      {/* Heading rides along, fixed at the top while cards flow */}
-      <div className="shrink-0 px-6 pt-[4vh]">
+      {/* Heading rides along below the navbar. The top padding lives inside the
+          pinned stage, so the space above it is the same scrolling-in or paused. */}
+      <div className="shrink-0 px-6" style={{ paddingTop: HEADING_TOP }}>
         <div className="mx-auto max-w-7xl">{heading}</div>
       </div>
 
-      {/* Card theatre */}
-      <div className="relative min-h-0 flex-1">
-        {/* paddingBottom lifts the centred stack toward the top — less empty
-            background above the deck, and it leaves a clear band at the bottom
-            for the always-visible scroll counter. */}
+      {/* Card theatre. overflow-hidden clips cards to this region (which sits
+          below the heading), so a card gliding upward as it's replaced never
+          renders over the title. */}
+      <div className="relative min-h-0 flex-1 overflow-hidden">
+        {/* paddingBottom lifts the centred stack toward the top — but trimmed so
+            the active card keeps clear top clearance below the heading and a
+            card gliding up doesn't reach the title. */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
-          style={{ paddingBottom: "28vh" }}
+          style={{ paddingBottom: "18vh" }}
           {...CARD_INTRO}
         >
           <div className="relative">

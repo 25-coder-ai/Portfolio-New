@@ -47,16 +47,6 @@ function IntroScene({
       style={{ y, opacity }}
       className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
     >
-      <motion.p
-        initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: EASE }}
-        className="font-mono-custom text-xs uppercase tracking-[0.4em] text-[#4F8EF7]"
-      >
-        Experience
-      </motion.p>
-
       <motion.h2
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
