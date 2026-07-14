@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { FlowingPaths } from "./FlowingPaths";
 import { LeetCodeCard } from "./LeetCodeCard";
-import { SkillsCard } from "./SkillsCard";
+import { GitHubCard } from "./GitHubCard";
 
 // Exact background — do not convert to RGB.
 const ABOUT_BACKGROUND = "#111B2F";
@@ -133,12 +133,12 @@ export function AboutSection() {
           </div>
 
           {/* Right — compact 2×2 metric grid (single column on mobile).
-              CGPA / Projects are static; Skills previews the stack; LeetCode is live. */}
+              CGPA / Projects are static; GitHub & LeetCode are live. */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {STATS.map((stat, i) => (
               <StatCard key={stat.title} stat={stat} inView={inView} index={i} />
             ))}
-            <SkillsCard inView={inView} index={STATS.length} />
+            <GitHubCard inView={inView} index={STATS.length} />
             <LeetCodeCard inView={inView} index={STATS.length + 1} />
           </div>
         </div>

@@ -21,12 +21,12 @@ export const achievements: Achievement[] = [
   },
   {
     id: "ach-gpa",
-    title: "Perfect 10.0 GPA",
+    title: "Perfect 10.0 CGPA",
     issuer: "SRM University",
     type: "academic",
     date: "2024-06",
     description:
-      "A flawless 10 / 10 CGPA sustained across four consecutive semesters.",
+      "Achieved a perfect 10 CGPA for 4 consecutive semesters while balancing internships and leadership roles.",
     skills: ["Consistency", "Time Management", "Core CS Foundations"],
     notes: "Maintained while working an internship and leading club activities.",
     color: "#CFE0FF",
