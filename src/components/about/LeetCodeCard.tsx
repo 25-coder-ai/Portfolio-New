@@ -17,17 +17,28 @@ const AMBER = "#F59E0B";
 export function LeetCodeCard({ inView, index }: { inView: boolean; index: number }) {
   const [state, setState] = useState<FetchState>({ status: "loading" });
 
-  // Fetch once, on mount. The server route is cached, so this is cheap.
+  // Fetch on mount, retrying a few times and rejecting a transient all-zero
+  // response (upstream rate-limits) so the card never flashes 0/0.
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/leetcode")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
-      .then((data: LeetCodeStats) => {
-        if (!cancelled) setState({ status: "ok", data });
-      })
-      .catch(() => {
-        if (!cancelled) setState({ status: "error" });
-      });
+    (async () => {
+      for (let i = 0; i < 3 && !cancelled; i++) {
+        try {
+          const r = await fetch("/api/leetcode", { cache: "no-store" });
+          if (r.ok) {
+            const data = (await r.json()) as LeetCodeStats;
+            if (data.totalSolved > 0 || data.streak > 0) {
+              if (!cancelled) setState({ status: "ok", data });
+              return;
+            }
+          }
+        } catch {
+          /* retry */
+        }
+        await new Promise((res) => setTimeout(res, 700 * (i + 1)));
+      }
+      if (!cancelled) setState({ status: "error" });
+    })();
     return () => {
       cancelled = true;
     };

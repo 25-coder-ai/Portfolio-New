@@ -118,6 +118,7 @@ function Pedestal({
     glyph: "gpa" as const,
   };
   const { material, accent } = ex;
+  const isAws = ex.glyph === "aws";
   const link = pedestalLink(achievement);
 
   const surface: CSSProperties =
@@ -135,7 +136,7 @@ function Pedestal({
     animate: inView ? { opacity: 1, y: 0 } : {},
     transition: { duration: 0.6, ease: EASE, delay: 0.15 + index * 0.08 },
     className:
-      "group relative flex w-full flex-col items-center rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-white/25",
+      "group relative flex h-full w-full flex-col items-center rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-white/25",
   } as const;
 
   const body = (
@@ -147,22 +148,29 @@ function Pedestal({
         style={{ background: `radial-gradient(circle, ${accent}2e, transparent 70%)` }}
       />
 
-      {/* Medallion — the exhibit object */}
+      {/* Medallion — the exhibit object. AWS shows its full natural badge shape
+          (no circular clip, border, or backdrop); the others stay circular. */}
       <div
-        className={`relative z-10 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border ${borderClass} shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out group-hover:-translate-y-2`}
-        style={surface}
+        className={`relative z-10 flex items-center justify-center transition-transform duration-500 ease-out group-hover:-translate-y-2 ${
+          isAws
+            ? "h-24 w-24"
+            : `h-20 w-20 overflow-hidden rounded-full border ${borderClass} shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]`
+        }`}
+        style={isAws ? undefined : surface}
       >
-        <span
-          aria-hidden
-          className="absolute inset-0 rounded-full"
-          style={{ boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 22px ${accent}22` }}
-        />
+        {!isAws && (
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-full"
+            style={{ boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 22px ${accent}22` }}
+          />
+        )}
         <Glyph kind={ex.glyph} accent={accent} leetStreak={leetStreak} />
       </div>
 
       {/* Pedestal block with engraved plaque */}
       <div
-        className={`relative mt-5 flex w-full flex-col overflow-hidden rounded-2xl border ${borderClass} px-6 pb-9 pt-7 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-2`}
+        className={`relative mt-5 flex w-full flex-1 flex-col overflow-hidden rounded-2xl border ${borderClass} px-6 pb-9 pt-7 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] transition-transform duration-500 ease-out group-hover:-translate-y-2`}
         style={surface}
       >
         {/* material detail: brushed streaks (metal) */}
@@ -185,14 +193,8 @@ function Pedestal({
 
         {/* Plaque */}
         <div className="relative flex flex-1 flex-col">
-          <p
-            className="font-mono-custom text-[10px] uppercase tracking-[0.32em]"
-            style={{ color: accent }}
-          >
-            N&deg; {String(index + 1).padStart(2, "0")}
-          </p>
           <h3
-            className="mt-3 text-left font-display text-lg font-bold leading-snug text-[#E8EEFF]"
+            className="text-left font-display text-lg font-bold leading-snug text-[#E8EEFF]"
             style={{ textShadow: "0 1px 0 rgba(0,0,0,0.45)" }}
           >
             {achievement.title}
@@ -254,14 +256,14 @@ function Glyph({
   leetStreak: number | null;
 }) {
   if (kind === "aws") {
-    // The AWS logo asset from public/achievements, inside the circular medallion.
+    // The AWS logo fills the whole circular medallion.
     return (
       <Image
         src="/images/achievements/aws.png"
         alt="AWS"
-        width={56}
-        height={56}
-        className="relative h-12 w-12 object-contain"
+        fill
+        sizes="96px"
+        className="object-contain"
       />
     );
   }
@@ -272,8 +274,8 @@ function Glyph({
         className="relative flex flex-col items-center leading-none"
         style={{ color: accent }}
       >
-        <span className="font-display text-xl font-bold tracking-tight">10.0</span>
-        <span className="mt-1 text-[8px] font-semibold uppercase tracking-[0.28em]">
+        <span className="font-display text-[26px] font-bold tracking-tight">10.0</span>
+        <span className="mt-1 text-[11px] font-semibold uppercase tracking-[0.22em]">
           CGPA
         </span>
       </span>

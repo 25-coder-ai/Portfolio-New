@@ -117,5 +117,11 @@ export async function fetchLeetCodeStats(username: string): Promise<LeetCodeStat
   const computed = computeMaxStreak(user.userCalendar?.submissionCalendar);
   const streak = computed || user.userCalendar?.streak || 0;
 
+  // Guard: an all-zero, empty-calendar response is almost always a transient
+  // rate-limit, not a real profile — throw so it isn't cached as "0".
+  if (totalSolved === 0 && streak === 0 && !user.userCalendar?.submissionCalendar) {
+    throw new Error("LeetCode returned an empty profile (likely rate-limited)");
+  }
+
   return { totalSolved, streak };
 }

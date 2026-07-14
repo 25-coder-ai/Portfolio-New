@@ -18,14 +18,25 @@ export function GitHubCard({ inView, index }: { inView: boolean; index: number }
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/github")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
-      .then((d: { lastYear: number; total: number }) => {
-        if (!cancelled) setState({ status: "ok", lastYear: d.lastYear, total: d.total });
-      })
-      .catch(() => {
-        if (!cancelled) setState({ status: "error" });
-      });
+    // Retry a few times and reject a transient 0 — so the card never flashes 0.
+    (async () => {
+      for (let i = 0; i < 3 && !cancelled; i++) {
+        try {
+          const r = await fetch("/api/github", { cache: "no-store" });
+          if (r.ok) {
+            const d = (await r.json()) as { lastYear: number; total: number };
+            if (typeof d.lastYear === "number" && d.lastYear > 0) {
+              if (!cancelled) setState({ status: "ok", lastYear: d.lastYear, total: d.total });
+              return;
+            }
+          }
+        } catch {
+          /* retry */
+        }
+        await new Promise((res) => setTimeout(res, 700 * (i + 1)));
+      }
+      if (!cancelled) setState({ status: "error" });
+    })();
     return () => {
       cancelled = true;
     };
