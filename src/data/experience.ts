@@ -37,7 +37,7 @@ export const experiences: Experience[] = [
       "Building intelligent full-stack applications with AI-powered language tools",
     ],
 
-    color: "#3B82F6",
+    color: "#87AE73",
     icon: "Languages",
     watermark: "/images/experience/cict.png",
   },
@@ -74,7 +74,7 @@ export const experiences: Experience[] = [
       "Produced technical reports supporting precision agriculture initiatives",
     ],
 
-    color: "#8B5CF6",
+    color: "#d6a64f",
     icon: "Microscope",
      watermark: "/images/experience/iit.png",
   },
@@ -84,7 +84,7 @@ export const experiences: Experience[] = [
     title: "Events Head",
     organization: "Literary Club, SRM Institute of Science and Technology",
     type: "club",
-    startDate: "2025-06",
+    startDate: "2026-06",
     endDate: "Present",
     description:
       "Leading the planning and execution of engaging literary and cultural events while creating interactive experiences that foster creativity, collaboration, and student participation.",
@@ -111,7 +111,7 @@ export const experiences: Experience[] = [
       "Currently leading the Events domain for the Literary Club",
     ],
 
-    color: "#F59E0B",
+    color: "#78bceb",
     icon: "CalendarDays",
     watermark: "/images/experience/literary.png",
   },
@@ -148,7 +148,7 @@ export const experiences: Experience[] = [
       "Contributed to organizing technical learning events within the club",
     ],
 
-    color: "#10B981",
+    color: "#eea143",
     icon: "Cpu",
     watermark: "/images/experience/chipset.png",
   },

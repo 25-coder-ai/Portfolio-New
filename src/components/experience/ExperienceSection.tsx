@@ -18,10 +18,9 @@ import { TYPE_LABEL, formatRange, navYear } from "./chapterMeta";
 const EXPERIENCE_BACKGROUND = "#111B2F";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// Newest milestone first — the journey reads from where it stands today, back.
-const CHAPTERS: Experience[] = [...experiences].sort((a, b) =>
-  b.startDate.localeCompare(a.startDate),
-);
+// Fixed narrative order as authored in the data file:
+// CICT → RuTAG (IIT Madras) → Events Head → Chipset.
+const CHAPTERS: Experience[] = [...experiences];
 
 const pad = (n: number) => String(n).padStart(2, "0");
 

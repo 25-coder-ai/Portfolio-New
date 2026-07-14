@@ -64,18 +64,7 @@ export function AboutSection() {
       />
 
       <div className="relative mx-auto max-w-5xl">
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: EASE }}
-          className="mb-6 inline-flex items-center gap-2"
-        >
-          <span className="h-px w-8 bg-[#4F8EF7]/60" />
-          <span className="font-mono-custom text-xs font-semibold uppercase tracking-[0.2em] text-[#4F8EF7]">
-            About Me
-          </span>
-        </motion.div>
+       
 
         {/* Heading — reveals line by line */}
         <h2 className="font-display text-5xl font-bold leading-[1.08] text-[#E8EEFF] md:text-6xl lg:text-7xl">
