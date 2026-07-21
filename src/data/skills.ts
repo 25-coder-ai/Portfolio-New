@@ -6,13 +6,13 @@ import type { Skill } from "@/types";
 
 export const skills: Skill[] = [
   {
-    id: "python",
+    id: "Python",
     name: "Python",
     level: "expert",
     levelPercent: 92,
     category: "language",
     description: "Primary language for data science, ML pipelines, and backend automation. Used in TensorFlow, Pandas, NumPy, and FastAPI projects.",
-    color: "#4F8EF7",
+    color: "#4f8ef7",
     brandColor: "#3776AB",
     keyRow: 1,
     keyCol: 0,
@@ -64,7 +64,7 @@ export const skills: Skill[] = [
     levelPercent: 80,
     category: "framework",
     description: "Component architecture, hooks, context, Next.js App Router, Server Components. Building interactive UIs and SPAs.",
-    color: "#4F8EF7",
+    color: "#4f8ef7",
     brandColor: "#61DAFB",
     keyRow: 2,
     keyCol: 0,
@@ -103,7 +103,7 @@ export const skills: Skill[] = [
     levelPercent: 70,
     category: "tool",
     description: "Containerization, multi-stage builds, Docker Compose for local development, pushing images to registries.",
-    color: "#4F8EF7",
+    color: "#4f8ef7",
     brandColor: "#2496ED",
     keyRow: 2,
     keyCol: 3,

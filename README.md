@@ -254,12 +254,12 @@ To use the actual **Parisian BT** font:
 
 In `src/lib/constants.ts`:
 ```ts
-accentBlue: "#4F8EF7",  // Change this to your preferred accent
+accentBlue: "#4f8ef7",  // Change this to your preferred accent
 ```
 
 Also update in `src/app/globals.css`:
 ```css
---color-accent-blue: #4F8EF7;  // Update to match
+--color-accent-blue: #4f8ef7;  // Update to match
 ```
 
 ### Adjust Cursor Trail Behavior

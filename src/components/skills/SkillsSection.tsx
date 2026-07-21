@@ -19,7 +19,7 @@ function MobileSkillGrid() {
           <button
             key={skill.id}
             onClick={() => setExpanded(expanded?.id === skill.id ? null : skill)}
-            className="glass rounded-xl p-4 text-left border border-white/[0.07] hover:border-[#4F8EF7]/25 transition-all group"
+            className="glass rounded-xl p-4 text-left border border-white/[0.07] hover:border-[#4f8ef7]/25 transition-all group"
             style={{ borderColor: expanded?.id === skill.id ? `${skill.brandColor}40` : undefined }}
           >
             <span className="text-xl block mb-2">{skill.icon}</span>

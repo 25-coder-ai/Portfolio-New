@@ -26,7 +26,7 @@ export const experiences: Experience[] = [
     technologies: [
       "React",
       "Node.js",
-      "Python",
+      "",
       "Machine Learning",
       "REST APIs",
     ],
@@ -54,14 +54,14 @@ export const experiences: Experience[] = [
 
     responsibilities: [
       "Collected and preprocessed agricultural datasets for machine learning workflows",
-      "Performed exploratory data analysis and visualization using Python",
+      "Performed exploratory data analysis and visualization using ",
       "Documented research findings through technical reports and feasibility studies",
       "Collaborated with researchers during field experiments and data collection",
       "Supported the development of data-driven agricultural solutions",
     ],
 
     technologies: [
-      "Python",
+      "",
       "Google Colab",
       "Pandas",
       "NumPy",

@@ -7,31 +7,32 @@
 // `color` / `icon` are used if you want to render a flat HTML fallback grid.
 
 export enum SkillNames {
-  JS = "js",
-  TS = "ts",
-  HTML = "html",
-  CSS = "css",
-  REACT = "react",
-  VUE = "vue",
-  NEXTJS = "nextjs",
-  TAILWIND = "tailwind",
-  NODEJS = "nodejs",
-  EXPRESS = "express",
-  POSTGRES = "postgres",
-  MONGODB = "mongodb",
-  GIT = "git",
-  GITHUB = "github",
-  PRETTIER = "prettier",
-  NPM = "npm",
-  FIREBASE = "firebase",
-  WORDPRESS = "wordpress",
-  LINUX = "linux",
-  DOCKER = "docker",
-  NGINX = "nginx",
-  AWS = "aws",
-  GCP = "gcp",
-  VIM = "vim",
-  VERCEL = "vercel",
+PYTHON = "Python",
+JAVA = "Java",
+CPP = "C++",
+JS = "JS",
+TYPESCRIPT = "TypeScript",
+SQL = "SQL",
+
+MACHINE_LEARNING = "ML",
+LANGCHAIN = "LangChain",
+LANGGRAPH = "LangGraph",
+OPENAI = "OpenAI",
+RAG = "RAG",
+PANDAS = "Pandas",
+
+REACT = "React",
+NODEJS = "Node.js",
+EXPRESS = "Express",
+POSTGRESQL = "Postgres",
+SUPABASE = "Supabase",
+TAILWIND = "Tailwind",
+AWS = "AWS",
+DOCKER = "Docker",
+GIT = "Git",
+GITHUB = "GitHub",
+LINUX = "Linux",
+DSA = "DSA",
 }
 
 export type Skill = {
@@ -46,210 +47,241 @@ export type Skill = {
 export const SKILLS: Record<SkillNames, Skill> = {
   [SkillNames.JS]: {
     id: 1,
-    name: "js",
-    label: "JavaScript",
-    shortDescription: "yeeting code into the DOM since '95, no cap! 💯🚀",
-    color: "#f0db4f",
+    name: "JS",
+    label: "JS",
+    shortDescription:
+      "Drove AI Job Portal • CICT Platforms • Portfolio Website",
+    color: "#F7DF1E",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
-  [SkillNames.TS]: {
+
+  [SkillNames.TYPESCRIPT]: {
     id: 2,
     name: "ts",
     label: "TypeScript",
     shortDescription:
-      "JavaScript's overachieving cousin who's always flexing 💯🔒",
-    color: "#007acc",
+      "Enabled Portfolio Development • Modern React Apps • Type-Safe Components",
+    color: "#3178C6",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   },
-  [SkillNames.HTML]: {
+  
+  [SkillNames.CPP]: {
     id: 3,
-    name: "html",
-    label: "HTML",
-    shortDescription: "the internet's granddad,  still bussin' fr fr! 💀🔥",
-    color: "#e34c26",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    name: "cpp",
+    label: "C++",
+    shortDescription:
+      "Strengthened LeetCode Practice • Competitive Programming • Algorithm Design",
+    color: "#00599C",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
   },
-  [SkillNames.CSS]: {
+
+  [SkillNames.PYTHON]: {
     id: 4,
-    name: "css",
-    label: "CSS",
-    shortDescription: "styling with the ultimate drip, no cap 💁‍♂️🔥",
-    color: "#563d7c",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    name: "python",
+    label: "Python",
+    shortDescription:
+      "Powered AI Data Analysis Agent • Data Quality Monitor • RuTAG Research",
+    color: "#3776AB",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
   },
-  [SkillNames.REACT]: {
+
+  [SkillNames.JAVA]: {
     id: 5,
-    name: "react",
-    label: "React",
-    shortDescription: `"use using"
-using use = useUsing("use")`,
-    color: "#61dafb",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    name: "java",
+    label: "Java",
+    shortDescription:
+      "Applied in Object-Oriented Programming • Academic Projects • Software Engineering",
+    color: "#ED8B00",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
   },
-  [SkillNames.VUE]: {
+
+
+  [SkillNames.SQL]: {
     id: 6,
-    name: "vue",
-    label: "Vue",
+    name: "sql",
+    label: "SQL",
     shortDescription:
-      "the chill pill for your frontend, it hits different! 🟢😌",
-    color: "#41b883",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
-  },
-  [SkillNames.NEXTJS]: {
-    id: 7,
-    name: "nextjs",
-    label: "Next.js",
-    shortDescription:
-      "the drama queen of front-end frameworks, and we stan! 👑📜",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-  },
-  [SkillNames.TAILWIND]: {
-    id: 8,
-    name: "tailwind",
-    label: "Tailwind",
-    shortDescription: "utility classes hitting different fr fr 🌪️🔥",
-    color: "#38bdf8",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
-  },
-  [SkillNames.NODEJS]: {
-    id: 9,
-    name: "nodejs",
-    label: "Node.js",
-    shortDescription: "JavaScript said 'sike, I'm backend now', deadass! 🔙🔚",
-    color: "#6cc24a",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  },
-  [SkillNames.EXPRESS]: {
-    id: 10,
-    name: "express",
-    label: "Express",
-    shortDescription: "middlewares go dummy hard, no cap! 🚂💨",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-  },
-  [SkillNames.POSTGRES]: {
-    id: 11,
-    name: "postgres",
-    label: "PostgreSQL",
-    shortDescription: "SQL but make it fashion, purr 💅🐘",
+      "Queried AI Job Portal • PostgreSQL Database • Application Data",
     color: "#336791",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   },
-  [SkillNames.MONGODB]: {
-    id: 12,
-    name: "mongodb",
-    label: "MongoDB",
-    shortDescription: "flexin' with that NoSQL drip, respectfully! 💪🍃",
-    color: "#336791",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  },
-  [SkillNames.GIT]: {
-    id: 13,
-    name: "git",
-    label: "Git",
-    shortDescription: "the code's personal bodyguard, no cap! 🕵️‍♂️🔄",
-    color: "#f1502f",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-  },
-  [SkillNames.GITHUB]: {
-    id: 14,
-    name: "github",
-    label: "GitHub",
-    shortDescription: "sliding into those pull requests, IYKYK! 🐙",
-    color: "#000000",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-  },
-  [SkillNames.PRETTIER]: {
-    id: 15,
-    name: "prettier",
-    label: "Prettier",
-    shortDescription: "making your code not a whole mess, thank u next 🧹✨",
-    color: "#f7b93a",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prettier/prettier-original.svg",
-  },
-  [SkillNames.NPM]: {
-    id: 16,
-    name: "npm",
-    label: "NPM",
-    shortDescription: "package manager said 'I gotchu fam', period! 📦💯",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
-  },
-  [SkillNames.FIREBASE]: {
-    id: 17,
-    name: "firebase",
-    label: "Firebase",
+
+  [SkillNames.MACHINE_LEARNING]: {
+    id: 7,
+    name: "ML",
+    label: "ML",
     shortDescription:
-      "your app's ultimate wingman, but watch out, vendor lock-in vibes! 🔥👌",
-    color: "#ffca28",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      "Developed Tamil Language Models • CICT Research • Intelligent Applications",
+    color: "#FF6F00",
+    icon: "https://cdn.simpleicons.org/tensorflow/FF6F00",
   },
-  [SkillNames.WORDPRESS]: {
+
+  [SkillNames.LANGCHAIN]: {
+    id: 8,
+    name: "LangChain",
+    label: "LangChain",
+    shortDescription:
+      "Engineered AI Data Analysis Agent • LLM Pipelines • Tool Calling",
+    color: "#1C3C3C",
+    icon: "https://cdn.simpleicons.org/langchain/1C3C3C",
+  },
+
+  [SkillNames.LANGGRAPH]: {
+    id: 9,
+    name: "LangGraph",
+    label: "LangGraph",
+    shortDescription:
+      "Orchestrated Multi-Agent Workflows • AI Data Analysis Agent • State Management",
+    color: "#6D28D9",
+    icon: "https://cdn.simpleicons.org/langgraph/6D28D9",
+  },
+
+  [SkillNames.OPENAI]: {
+    id: 10,
+    name: "OpenAI",
+    label: "OpenAI",
+    shortDescription:
+      "Integrated Conversational AI • Data Analysis Agent • LLM Applications",
+    color: "#412991",
+    icon: "https://cdn.simpleicons.org/openai/412991",
+  },
+
+  [SkillNames.RAG]: {
+    id: 11,
+    name: "RAG",
+    label: "RAG",
+    shortDescription:
+      "Enhanced Knowledge Retrieval • Bedrock Experiments • Context-Aware Responses",
+    color: "#0EA5E9",
+    icon: "https://cdn.simpleicons.org/vectorlogozone/0EA5E9",
+  },
+
+  [SkillNames.PANDAS]: {
+    id: 12,
+    name: "Pandas",
+    label: "Pandas",
+    shortDescription:
+      "Analyzed RuTAG Research • Experimental Datasets • Language Corpora",
+    color: "#150458",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+  },
+    [SkillNames.REACT]: {
+    id: 13,
+    name: "React",
+    label: "React",
+    shortDescription:
+      "Built AI Job Portal • CICT Platforms • Portfolio Website",
+    color: "#61DAFB",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+
+  [SkillNames.NODEJS]: {
+    id: 14,
+    name: "Node.js",
+    label: "Node.js",
+    shortDescription:
+      "Powered AI Job Portal Backend • CICT Platforms • REST APIs",
+    color: "#339933",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  },
+
+  [SkillNames.EXPRESS]: {
+    id: 15,
+    name: "Express.js",
+    label: "Express.js",
+    shortDescription:
+      "Developed Authentication APIs • Job Management • Backend Services",
+    color: "#FFFFFF",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+  },
+
+  [SkillNames.POSTGRESQL]: {
+    id: 16,
+    name: "Postgres",
+    label: "Postgres",
+    shortDescription:
+      "Managed User Accounts • Job Applications • Relational Data",
+    color: "#336791",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  },
+
+  [SkillNames.SUPABASE]: {
+    id: 17,
+    name: "Supabase",
+    label: "Supabase",
+    shortDescription:
+      "Handled Authentication • Resume Storage • Cloud Database",
+    color: "#3ECF8E",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+  },
+
+  [SkillNames.TAILWIND]: {
     id: 18,
-    name: "wordpress",
-    label: "WordPress",
-    shortDescription: "the grandpa of CMS, still rocking that cane 🧓👴",
-    color: "#007acc",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg",
+    name: "Tailwind",
+    label: "Tailwind",
+    shortDescription:
+      "Designed Portfolio Website • AI Job Portal • Responsive Interfaces",
+    color: "#06B6D4",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
   },
-  [SkillNames.LINUX]: {
-    id: 19,
-    name: "linux",
-    label: "Linux",
-    shortDescription: "where 'chmod 777' is the ultimate flex 🔓🙌",
-    color: "#fff",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-  },
-  [SkillNames.DOCKER]: {
-    id: 20,
-    name: "docker",
-    label: "Docker",
-    shortDescription: "The best containerization! 🐳🔥",
-    color: "#2496ed",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  },
-  [SkillNames.NGINX]: {
-    id: 21,
-    name: "nginx",
-    label: "NginX",
-    shortDescription: "reverse proxy go zoom zoom, sheesh! 🚗💨",
-    color: "#008000",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
-  },
+
   [SkillNames.AWS]: {
-    id: 22,
-    name: "aws",
+    id: 19,
+    name: "AWS",
     label: "AWS",
     shortDescription:
-      "always extra, making everything more complicated, period! 🌐👨‍💻",
-    color: "#ff9900",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original.svg",
+      "Powered Bedrock Experiments • S3 Storage • Cloud Infrastructure",
+    color: "#FF9900",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
   },
-  [SkillNames.GCP]: {
-    id: 25,
-    name: "gcp",
-    label: "Google Cloud",
+
+  [SkillNames.DOCKER]: {
+    id: 20,
+    name: "Docker",
+    label: "Docker",
     shortDescription:
-      "cloud computing but make it Google vibes, living rent free! ☁️🔥",
-    color: "#4285f4",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+      "Containerized Backend Services • Development Environment • Application Deployment",
+    color: "#2496ED",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   },
-  [SkillNames.VIM]: {
+
+  [SkillNames.GIT]: {
+    id: 21,
+    name: "Git",
+    label: "Git",
+    shortDescription:
+      "Versioned Project Development • Feature Branches • Team Collaboration",
+    color: "#F05032",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  },
+
+  [SkillNames.GITHUB]: {
+    id: 22,
+    name: "GitHub",
+    label: "GitHub",
+    shortDescription:
+      "Hosted Portfolio Website • Open-Source Projects • Version Control",
+    color: "#181717",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  },
+
+  [SkillNames.LINUX]: {
     id: 23,
-    name: "vim",
-    label: "Vim",
-    shortDescription: "exit? In this economy? Ight, imma head out! 🚪🏃",
-    color: "#e34c26",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vim/vim-original.svg",
-  },
-  [SkillNames.VERCEL]: {
-    id: 24,
-    name: "vercel",
-    label: "Vercel",
+    name: "Linux",
+    label: "Linux",
     shortDescription:
-      "The triangle compony, helps you deploy and go touch grass! 🚀🌿",
-    color: "#6cc24a",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+      "Configured Development Environment • Server Workflows • Command-Line Tools",
+    color: "#FCC624",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+  },
+
+  [SkillNames.DSA]: {
+    id: 24,
+    name: "DSA",
+    label: "DSA",
+    shortDescription:
+      "Mastered 184-Day LeetCode Streak • Competitive Programming • Problem Solving",
+    color: "#2563EB",
+    icon: "https://cdn.simpleicons.org/thealgorithms/2563EB",
   },
 };

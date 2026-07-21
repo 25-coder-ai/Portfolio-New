@@ -44,16 +44,16 @@ export function ProjectsHeading() {
       {/* Tiny label */}
       <motion.p
         variants={labelV}
-        className="text-[11px] font-semibold uppercase text-[#4F8EF7]"
+        className="text-[11px] font-semibold uppercase text-[#E8EEFF]"
         style={{ letterSpacing: "0.28em" }}
       >
-        Featured Projects
+        Selected Work
       </motion.p>
 
       {/* Big title */}
       <motion.h2
         variants={titleV}
-        className="mt-4 font-bold text-[#E8EEFF]"
+        className="mt-4 font-bold text-[#4f8ef7]"
         style={{
           fontFamily: FONT,
           fontSize: "clamp(56px, 8vw, 72px)",
@@ -61,7 +61,7 @@ export function ProjectsHeading() {
           letterSpacing: "-0.01em",
         }}
       >
-        Selected Work
+        Featured Projects
       </motion.h2>
     </motion.div>
   );

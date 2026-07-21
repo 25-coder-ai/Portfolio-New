@@ -14,7 +14,7 @@ export const COLORS = {
   textPrimary: "#E8EEFF",
   textSecondary: "#8892A4",
   textMuted: "#4A5568",
-  accentBlue: "#4F8EF7",
+  accentBlue: "#4f8ef7",
   accentPurple: "#A78BFA",
   accentGreen: "#34D399",
   accentAmber: "#F59E0B",

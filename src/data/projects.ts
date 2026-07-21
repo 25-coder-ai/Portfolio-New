@@ -36,7 +36,7 @@ export const projects: Project[] = [
     githubUrl: "YOUR_GITHUB_URL",
     category: "AI Application",
     year: "2026",
-    color: "#4F8EF7",
+    color: "#4f8ef7",
   },
 
   {

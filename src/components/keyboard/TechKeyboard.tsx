@@ -45,7 +45,7 @@ export type TechKeyboardProps = {
  *   - (optional) scrubs the keyboard's transform between page sections.
  */
 export const TechKeyboard = ({
-  scene = "/assets/skills-keyboard.spline",
+  scene = "/assets/skills_keyboard_copy.spline",
   theme = "dark",
   enableScrollSections = true,
   maxDpr = 2,
@@ -72,6 +72,7 @@ export const TechKeyboard = ({
   // --- Event Handlers ---
 
   const handleMouseHover = (e: SplineEvent) => {
+    console.log("Hover:", e.target.name);
     if (!splineApp || selectedSkillRef.current?.name === e.target.name) return;
 
     if (e.target.name === "body" || e.target.name === "platform") {
@@ -115,6 +116,7 @@ export const TechKeyboard = ({
       splineApp.setVariable("desc", "");
     });
     splineApp.addEventListener("keyDown", (e) => {
+      console.log("Pressed:", e.target.name);
       if (!splineApp || isInputFocused()) return;
       const skill = SKILLS[e.target.name as SkillNames];
       if (skill) {
