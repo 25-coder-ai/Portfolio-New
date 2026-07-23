@@ -116,6 +116,16 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.simpleicons.org/tensorflow/FF6F00",
   },
 
+   [SkillNames.RAG]: {
+    id: 11,
+    name: "RAG",
+    label: "RAG",
+    shortDescription:
+      "Enhanced Knowledge Retrieval • Bedrock Experiments • Context-Aware Responses",
+    color: "#0EA5E9",
+    icon: "https://cdn.simpleicons.org/vectorlogozone/0EA5E9",
+  },
+
   [SkillNames.LANGCHAIN]: {
     id: 8,
     name: "LangChain",
@@ -124,6 +134,24 @@ export const SKILLS: Record<SkillNames, Skill> = {
       "Engineered AI Data Analysis Agent • LLM Pipelines • Tool Calling",
     color: "#1C3C3C",
     icon: "https://cdn.simpleicons.org/langchain/1C3C3C",
+  },
+   [SkillNames.PANDAS]: {
+    id: 12,
+    name: "Pandas",
+    label: "Pandas",
+    shortDescription:
+      "Analyzed RuTAG Research • Experimental Datasets • Language Corpora",
+    color: "#150458",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+  },
+ [SkillNames.OPENAI]: {
+    id: 10,
+    name: "OpenAI",
+    label: "OpenAI",
+    shortDescription:
+      "Integrated Conversational AI • Data Analysis Agent • LLM Applications",
+    color: "#412991",
+    icon: "https://cdn.simpleicons.org/openai/412991",
   },
 
   [SkillNames.LANGGRAPH]: {
@@ -135,36 +163,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     color: "#6D28D9",
     icon: "https://cdn.simpleicons.org/langgraph/6D28D9",
   },
-
-  [SkillNames.OPENAI]: {
-    id: 10,
-    name: "OpenAI",
-    label: "OpenAI",
-    shortDescription:
-      "Integrated Conversational AI • Data Analysis Agent • LLM Applications",
-    color: "#412991",
-    icon: "https://cdn.simpleicons.org/openai/412991",
-  },
-
-  [SkillNames.RAG]: {
-    id: 11,
-    name: "RAG",
-    label: "RAG",
-    shortDescription:
-      "Enhanced Knowledge Retrieval • Bedrock Experiments • Context-Aware Responses",
-    color: "#0EA5E9",
-    icon: "https://cdn.simpleicons.org/vectorlogozone/0EA5E9",
-  },
-
-  [SkillNames.PANDAS]: {
-    id: 12,
-    name: "Pandas",
-    label: "Pandas",
-    shortDescription:
-      "Analyzed RuTAG Research • Experimental Datasets • Language Corpora",
-    color: "#150458",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-  },
+ 
     [SkillNames.REACT]: {
     id: 13,
     name: "React",

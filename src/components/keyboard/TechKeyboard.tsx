@@ -45,7 +45,7 @@ export type TechKeyboardProps = {
  *   - (optional) scrubs the keyboard's transform between page sections.
  */
 export const TechKeyboard = ({
-  scene = "/assets/skills_keyboard_copy.spline",
+  scene = "/assets/skills_keyboard_copy_present.spline",
   theme = "dark",
   enableScrollSections = true,
   maxDpr = 2,
