@@ -32,7 +32,7 @@ DOCKER = "Docker",
 GIT = "Git",
 GITHUB = "GitHub",
 LINUX = "Linux",
-DSA = "DSA",
+VERCEL = "Vercel",
 }
 
 export type Skill = {
@@ -275,13 +275,13 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
   },
 
-  [SkillNames.DSA]: {
+  [SkillNames.VERCEL]: {
     id: 24,
-    name: "DSA",
-    label: "DSA",
+    name: "Vercel",
+    label: "Vercel",
     shortDescription:
-      "Mastered 184-Day LeetCode Streak • Competitive Programming • Problem Solving",
-    color: "#2563EB",
-    icon: "https://cdn.simpleicons.org/thealgorithms/2563EB",
+      "Deployed Portfolio Website • AI Job Portal • Serverless Functions",
+    color: "#000000",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
   },
 };
