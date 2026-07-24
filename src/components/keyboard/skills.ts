@@ -224,7 +224,35 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
   },
 
-  [SkillNames.AWS]: {
+   [SkillNames.GITHUB]: {
+    id: 22,
+    name: "GitHub",
+    label: "GitHub",
+    shortDescription:
+      "Hosted Portfolio Website • Open-Source Projects • Version Control",
+    color: "#181717",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  },
+[SkillNames.DOCKER]: {
+    id: 20,
+    name: "Docker",
+    label: "Docker",
+    shortDescription:
+      "Containerized Backend Services • Development Environment • Application Deployment",
+    color: "#2496ED",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+  },
+ [SkillNames.LINUX]: {
+    id: 23,
+    name: "Linux",
+    label: "Linux",
+    shortDescription:
+      "Configured Development Environment • Server Workflows • Command-Line Tools",
+    color: "#FCC624",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+  },
+
+[SkillNames.AWS]: {
     id: 19,
     name: "AWS",
     label: "AWS",
@@ -234,15 +262,17 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
   },
 
-  [SkillNames.DOCKER]: {
-    id: 20,
-    name: "Docker",
-    label: "Docker",
+
+  [SkillNames.VERCEL]: {
+    id: 24,
+    name: "Vercel",
+    label: "Vercel",
     shortDescription:
-      "Containerized Backend Services • Development Environment • Application Deployment",
-    color: "#2496ED",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+      "Deployed Portfolio Website • AI Job Portal • Serverless Functions",
+    color: "#000000",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
   },
+
 
   [SkillNames.GIT]: {
     id: 21,
@@ -254,33 +284,6 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
   },
 
-  [SkillNames.GITHUB]: {
-    id: 22,
-    name: "GitHub",
-    label: "GitHub",
-    shortDescription:
-      "Hosted Portfolio Website • Open-Source Projects • Version Control",
-    color: "#181717",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-  },
-
-  [SkillNames.LINUX]: {
-    id: 23,
-    name: "Linux",
-    label: "Linux",
-    shortDescription:
-      "Configured Development Environment • Server Workflows • Command-Line Tools",
-    color: "#FCC624",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-  },
-
-  [SkillNames.VERCEL]: {
-    id: 24,
-    name: "Vercel",
-    label: "Vercel",
-    shortDescription:
-      "Deployed Portfolio Website • AI Job Portal • Serverless Functions",
-    color: "#000000",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
-  },
+ 
 };
+ 
