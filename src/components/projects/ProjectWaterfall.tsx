@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { Project } from "@/types";
 import { GithubIcon } from "@/components/ui/Icons";
 import { Badge } from "@/components/ui/Badge";
@@ -39,115 +39,296 @@ const CARD_INTRO = {
 };
 
 // ----------------------------------------------------------------------------
-// Shared card visuals (used by both the 3D stack and the mobile fallback)
+// Card reveal choreography — a calm, Apple-style staggered entrance.
+// Order follows DOM order: watermark → title → category → role → description
+// → tech chips (one section) → "Explore Project".
 // ----------------------------------------------------------------------------
-function CardFace({ project }: { project: Project }) {
+const cardStagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+} as const;
+const itemReveal = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+} as const;
+const watermarkReveal = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 1.1, ease: EASE } },
+} as const;
+
+// Treat template placeholders ("YOUR_GITHUB_URL") as "no link".
+const isRealUrl = (u?: string) => !!u && /^https?:\/\//i.test(u);
+// The one-sentence "role summary" — the first sentence of the solution blurb.
+const firstSentence = (text: string) => {
+  const m = text.match(/^.*?[.!?](\s|$)/);
+  return (m ? m[0] : text).trim();
+};
+
+// ----------------------------------------------------------------------------
+// Shared card visuals (used by both the 3D stack and the mobile fallback).
+//
+// A premium, product-page card: an enormous ultra-subtle monochrome watermark
+// behind large typography, generous whitespace, tech chips, and a single
+// "Explore Project →" affordance that expands to reveal Key Features. No
+// screenshots, mockups, borders-for-borders'-sake or glassmorphism. The outer
+// dimensions never change on desktop, so the GSAP waterfall math is untouched;
+// the expansion simply grows into the card's whitespace (and grows the card
+// naturally in the non-pinned mobile list).
+// ----------------------------------------------------------------------------
+function CardFace({
+  project,
+  isActive = true,
+}: {
+  project: Project;
+  isActive?: boolean;
+}) {
   const c = project.color;
+  const [expanded, setExpanded] = useState(false);
+  const roleSummary = firstSentence(project.solution);
+
+  // Collapse again once this card is no longer the focused one (desktop).
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!isActive) setExpanded(false);
+  }, [isActive]);
+
+  const handleExplore = (e: React.MouseEvent) => {
+    // On a background card, let the click bubble so the waterfall glides here.
+    if (!isActive) return;
+    e.stopPropagation();
+    setExpanded((v) => !v);
+  };
+
   return (
     <div
       data-card-inner
-      className="relative flex h-full w-full overflow-hidden rounded-2xl"
+      className="relative h-full w-full overflow-hidden rounded-2xl"
       style={{
         transition: "transform 0.25s cubic-bezier(0.16,1,0.3,1)",
-        background:
-          "linear-gradient(155deg, #131c30 0%, #0e1626 55%, #0b1220 100%)",
-        // Visible, neutral border with a faint colored bloom — never pure blue.
-        border: "1px solid rgba(255,255,255,0.12)",
-        boxShadow: `0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px ${c}1f, 0 0 60px -28px ${c}66`,
+        background: "linear-gradient(180deg,#141d31 0%,#0f1727 100%)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "0 30px 80px -42px rgba(0,0,0,0.75)",
       }}
     >
-      {/* Accent rail — the card's identity colour, kept subtle */}
-      <span
-        className="absolute left-0 top-0 h-full w-[3px]"
-        style={{ background: `linear-gradient(${c}, ${c}00)` }}
-        aria-hidden="true"
-      />
+      <motion.div
+        className="relative flex h-full w-full flex-col p-8 md:p-10"
+        variants={cardStagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        {/* Watermark — enormous, ~5% opacity, blurred, monochrome. Fades in first. */}
+        <motion.div variants={watermarkReveal} className="absolute inset-0" aria-hidden>
+          <Watermark category={project.category} />
+        </motion.div>
 
-      {/* Left: the story */}
-      <div className="flex min-w-0 flex-1 flex-col p-7">
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Badge label={project.category} color={c} />
-          <Badge label={project.year} color="#8892A4" />
-        </div>
-
-        <h3 className="font-display text-2xl font-bold leading-tight text-[#E8EEFF] md:text-[28px]">
+        {/* Title — largest text, highest emphasis. */}
+        <motion.h3
+          variants={itemReveal}
+          className="relative line-clamp-2 font-display text-[26px] font-bold leading-[1.08] tracking-tight text-[#F4F7FF] sm:text-3xl md:text-4xl"
+        >
           {project.title}
-        </h3>
+        </motion.h3>
 
-        <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-[#9AA7BD]">
-          {project.solution}
-        </p>
+        {/* Category — tiny, letter-spaced metadata. */}
+        <motion.p
+          variants={itemReveal}
+          className="relative mt-2.5 text-[11px] font-medium uppercase tracking-[0.24em] text-[#6B7688]"
+        >
+          {project.category}
+        </motion.p>
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
+        {/* Role summary — exactly one sentence, medium weight. */}
+        <motion.p
+          variants={itemReveal}
+          className="relative mt-4 line-clamp-2 max-w-2xl text-[15px] font-medium leading-relaxed text-[#C6CEDE] md:text-base"
+        >
+          {roleSummary}
+        </motion.p>
+
+        {/* Description — the problem it solves, kept to a couple of lines. */}
+        <motion.p
+          variants={itemReveal}
+          className="relative mt-2.5 line-clamp-2 max-w-2xl text-[13px] leading-relaxed text-[#8892A4]"
+        >
+          {project.problem}
+        </motion.p>
+
+        {/* Expanded detail — Key Features, revealed on demand, one after another. */}
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              key="features"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="relative overflow-hidden"
+            >
+              <div className="pt-5">
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-[#6B7688]">
+                  Key Features
+                </p>
+                <ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
+                  {project.features.slice(0, 4).map((f, idx) => (
+                    <motion.li
+                      key={f}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: EASE, delay: 0.14 + idx * 0.09 }}
+                      className="flex items-start gap-2 text-[13px] leading-snug text-[#9AA7BD]"
+                    >
+                      <span
+                        className="mt-[6px] h-1 w-1 shrink-0 rounded-full"
+                        style={{ background: c }}
+                      />
+                      {f}
+                    </motion.li>
+                  ))}
+                </ul>
+                {isRealUrl(project.githubUrl) && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-4 inline-flex items-center gap-2 text-[12px] font-medium text-[#8892A4] transition-colors hover:text-[#E8EEFF]"
+                  >
+                    <GithubIcon size={14} />
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Whitespace — lets the title breathe and anchors the footer (desktop). */}
+        <div className="min-h-[16px] flex-1" />
+
+        {/* Technology chips — existing chip styling, animate together as one section. */}
+        <motion.div variants={itemReveal} className="relative flex flex-wrap gap-1.5">
           {project.techStack.slice(0, 6).map((t) => (
             <Badge key={t} label={t} color="#5B7290" />
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mt-auto flex gap-3 pt-5">
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-[#06101f] transition-transform hover:scale-[1.03]"
-              style={{ background: c, boxShadow: `0 6px 22px ${c}45` }}
-            >
-              <ExternalLink size={14} />
-              Live Demo
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center gap-2 rounded-lg border border-white/12 px-4 py-2 text-sm font-semibold text-[#E8EEFF] transition-colors hover:bg-white/[0.05]"
-            >
-              <GithubIcon size={14} />
-              GitHub
-            </a>
-          )}
-        </div>
-      </div>
+        {/* Explore Project → — typography, not a button-chrome; arrow nudges on hover. */}
+        <motion.div variants={itemReveal} className="relative mt-6">
+          <button
+            type="button"
+            onClick={handleExplore}
+            className="group/explore inline-flex items-center gap-2 text-[13px] font-semibold tracking-wide text-[#E8EEFF] outline-none"
+          >
+            {expanded ? "Show less" : "Explore Project"}
+            <ArrowRight
+              size={15}
+              className={`transition-transform duration-300 group-hover/explore:translate-x-1 ${
+                expanded ? "-rotate-90" : ""
+              }`}
+            />
+          </button>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
 
-      {/* Right: the demo video */}
-      <div
-        className="relative hidden w-[42%] shrink-0 overflow-hidden sm:block"
-        style={{
-          margin: 14,
-          borderRadius: 14,
-          background: `linear-gradient(135deg, ${c}33, #0a1120)`,
-          border: "1px solid rgba(255,255,255,0.08)",
-        }}
-      >
-        {project.video && (
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={project.video}
-            poster={project.poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-        )}
-        {/* readability + fallback texture when no video is present */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(8,14,26,0) 55%, rgba(8,14,26,0.55) 100%)",
-          }}
-        />
-        <span className="absolute bottom-2 right-3 font-mono-custom text-[9px] uppercase tracking-widest text-white/35">
-          {project.video ? "Demo" : "Preview"}
-        </span>
+// ----------------------------------------------------------------------------
+// Watermark — an enormous, faint, monochrome glyph behind the card content.
+// Chosen abstractly from the project's category so it registers subconsciously
+// rather than consciously. Never a screenshot, illustration or mockup.
+// ----------------------------------------------------------------------------
+function Watermark({ category }: { category: string }) {
+  const c = category.toLowerCase();
+  const glyph = c.includes("data") ? (
+    <DocGlyph />
+  ) : c.includes("full") ? (
+    <FlowGlyph />
+  ) : c.includes("ai") || c.includes("cloud") || c.includes("generative") ? (
+    <NetworkGlyph />
+  ) : (
+    <WireGlyph />
+  );
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="h-[78%] w-[78%] text-white opacity-[0.045] blur-[2px]">
+        {glyph}
       </div>
     </div>
+  );
+}
+
+function NetworkGlyph() {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      className="h-full w-full"
+    >
+      <path d="M100 52V88M92 106 47 111M108 106 153 111M96 111 74 158M104 111 126 158M47 119 66 154M153 119 134 154" />
+      <circle cx="100" cy="40" r="11" />
+      <circle cx="40" cy="112" r="11" />
+      <circle cx="160" cy="112" r="11" />
+      <circle cx="70" cy="168" r="11" />
+      <circle cx="130" cy="168" r="11" />
+      <circle cx="100" cy="100" r="13" />
+    </svg>
+  );
+}
+
+function DocGlyph() {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-full w-full"
+    >
+      <rect x="46" y="28" width="108" height="144" rx="12" />
+      <path d="M66 60H134M66 82H134M66 104H120M66 126H134M66 148H108" />
+    </svg>
+  );
+}
+
+function FlowGlyph() {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-full w-full"
+    >
+      <rect x="16" y="84" width="38" height="32" rx="8" />
+      <rect x="81" y="84" width="38" height="32" rx="8" />
+      <rect x="146" y="84" width="38" height="32" rx="8" />
+      <path d="M54 100H81M119 100H146M72 94l7 6-7 6M137 94l7 6-7 6" />
+    </svg>
+  );
+}
+
+function WireGlyph() {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinejoin="round"
+      className="h-full w-full"
+    >
+      <path d="M100 22 172 64V136L100 178 28 136V64L100 22Z" />
+      <path d="M100 22V178M28 64 172 136M172 64 28 136" />
+    </svg>
   );
 }
 
@@ -168,7 +349,7 @@ function ProjectList({
         {projects.map((p) => (
           <div
             key={p.id}
-            style={{ height: 380 }}
+            style={{ minHeight: 380 }}
             className="[perspective:1200px]"
           >
             <CardFace project={p} />
@@ -365,7 +546,7 @@ function WaterfallStack({
                   backfaceVisibility: "hidden",
                 }}
               >
-                <CardFace project={p} />
+                <CardFace project={p} isActive={i === active} />
               </div>
             ))}
           </div>

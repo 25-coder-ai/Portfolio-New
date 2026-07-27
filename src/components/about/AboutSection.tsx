@@ -44,7 +44,7 @@ export function AboutSection() {
       id="about"
       ref={ref}
       style={{ backgroundColor: ABOUT_BACKGROUND }}
-      className="section-padding px-6 relative overflow-hidden"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-16"
     >
       {/* Flowing data paths — behind everything, kept faint. Oversized so the
           parallax translate never reveals an edge; softly masked at the rim. */}
@@ -67,7 +67,7 @@ export function AboutSection() {
        
 
         {/* Heading — reveals line by line */}
-        <h2 className="font-display text-5xl font-bold leading-[1.08] text-[#E8EEFF] md:text-6xl lg:text-7xl">
+        <h2 className="font-display text-4xl font-bold leading-[1.08] text-[#E8EEFF] md:text-5xl lg:text-6xl">
           {HEADING_LINES.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-1">
               <motion.span
@@ -88,7 +88,7 @@ export function AboutSection() {
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
-          className="mt-7 h-px w-28 bg-gradient-to-r from-[#4f8ef7] via-[#A78BFA] to-transparent"
+          className="mt-5 h-px w-28 bg-gradient-to-r from-[#4f8ef7] via-[#A78BFA] to-transparent"
         />
 
         {/* Reading-guide beat 3 — the paragraph fades in */}
@@ -96,14 +96,14 @@ export function AboutSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
-          className="mt-8 max-w-3xl text-2xl font-medium leading-snug text-[#E8EEFF] md:text-3xl"
+          className="mt-5 max-w-3xl text-xl font-medium leading-snug text-[#E8EEFF] md:text-2xl"
         >
           I build software that transforms complex data into simple,{" "}
           <span className="gradient-text">meaningful experiences</span>.
         </motion.p>
 
         {/* Two-column content */}
-        <div className="mt-14 grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
           {/* Left — narrative + rotating keywords */}
           <div>
             {/* Main paragraph — animates only once on enter (fade + rise), then still */}
