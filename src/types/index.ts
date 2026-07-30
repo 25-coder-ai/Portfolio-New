@@ -33,6 +33,15 @@ export interface Project {
   solution: string;
   techStack: string[];
   features: string[];
+  /** What you personally owned/built — shown in the expanded "Responsibilities"
+   *  section. Optional; the section is hidden when absent. */
+  responsibilities?: string[];
+  /** How the system is put together — shown in the expanded "Architecture"
+   *  section. Optional; the section is hidden when absent. */
+  architecture?: string[];
+  /** Outcomes delivered — shown in the expanded "Results" section. Optional;
+   *  the section is hidden when absent. */
+  results?: string[];
   images: string[];
   /** Optional looping demo video embedded in the project card (autoplay, muted). */
   video?: string;

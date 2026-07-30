@@ -156,7 +156,7 @@ export function SpotlightGlassContact() {
             initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             transition={{ duration: 0.7, ease: EASE, delay: T.heading }}
-            className="text-[11px] font-medium uppercase tracking-[0.35em] text-[#4f8ef7]/80"
+            className="text-[11px] font-medium uppercase tracking-[0.35em] text-[#997953]/80"
           >
             Contact
           </motion.p>
@@ -237,7 +237,7 @@ function QuickLink({ link }: { link: LinkDef }) {
       {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 text-sm text-[#E8EEFF] backdrop-blur-md transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f8ef7]/70"
+      className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 text-sm text-[#E8EEFF] backdrop-blur-md transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#997953]/70"
     >
       <span className="text-[#8892A4] transition-colors duration-300 group-hover:text-[#E8EEFF]">
         {link.icon}
@@ -245,7 +245,7 @@ function QuickLink({ link }: { link: LinkDef }) {
       <span className="flex-1 font-medium">{link.title}</span>
       <ArrowUpRight
         size={15}
-        className="text-[#4A5568] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#4f8ef7]"
+        className="text-[#4A5568] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#997953]"
       />
     </motion.a>
   );
@@ -275,7 +275,7 @@ function ContactForm() {
 
   // Focus glow: a soft ring + halo that eases in when the field is active.
   const field =
-    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-300 focus:border-[#4f8ef7]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#4f8ef7]/25 focus:shadow-[0_0_0_4px_rgba(79,142,247,0.10),0_8px_26px_-10px_rgba(79,142,247,0.5)]";
+    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-300 focus:border-[#997953]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#997953]/25 focus:shadow-[0_0_0_4px_rgba(79,142,247,0.10),0_8px_26px_-10px_rgba(79,142,247,0.5)]";
 
   return (
     <form onSubmit={submit} className="space-y-3">
@@ -318,7 +318,7 @@ function ContactForm() {
         type="submit"
         whileHover={{ scale: 1.015, y: -1 }}
         whileTap={{ scale: 0.97 }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4f8ef7] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#997953] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
       >
         {sent ? "Opening your mail…" : "Send"}
         <Send size={16} />

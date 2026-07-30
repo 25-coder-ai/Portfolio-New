@@ -74,7 +74,7 @@ Border accent: rgba(79,142,247,0.25)
 Text primary:  #E8EEFF
 Text secondary:#8892A4
 Text muted:    #4A5568
-Accent blue:   #4f8ef7
+Accent blue:   #997953
 Accent purple: #A78BFA
 Accent green:  #34D399
 Accent amber:  #F59E0B

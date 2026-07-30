@@ -53,7 +53,7 @@ export function ProjectsHeading() {
       {/* Big title */}
       <motion.h2
         variants={titleV}
-        className="mt-4 font-bold text-[#4f8ef7]"
+        className="mt-4 font-bold text-[#997953]"
         style={{
           fontFamily: FONT,
           fontSize: "clamp(56px, 8vw, 72px)",

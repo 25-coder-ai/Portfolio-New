@@ -120,7 +120,7 @@ export function LayeredGlassContact() {
           <div className="rounded-[30px] border border-white/10 bg-white/[0.05] px-7 py-9 text-center backdrop-blur-2xl sm:px-10 sm:py-11">
             <GlassSheen />
             <RimLight />
-            <p className="relative text-[11px] font-medium uppercase tracking-[0.35em] text-[#4f8ef7]/80">
+            <p className="relative text-[11px] font-medium uppercase tracking-[0.35em] text-[#997953]/80">
               Contact
             </p>
             <h2 className="relative mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#E8EEFF] sm:text-[2.7rem]">
@@ -324,7 +324,7 @@ function LinkCard({
       transition={{ duration: 0.6, ease: EASE, delay }}
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-xl transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f8ef7]/70"
+      className="group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur-xl transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#997953]/70"
     >
       <RimLight />
       <div className="relative flex items-start justify-between">
@@ -333,7 +333,7 @@ function LinkCard({
         </span>
         <ArrowUpRight
           size={18}
-          className="text-[#8892A4] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#4f8ef7]"
+          className="text-[#8892A4] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#997953]"
         />
       </div>
       <div className="relative">
@@ -369,7 +369,7 @@ function ContactForm() {
   }
 
   const field =
-    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-200 focus:border-[#4f8ef7]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#4f8ef7]/30";
+    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-200 focus:border-[#997953]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#997953]/30";
 
   return (
     <form onSubmit={submit} className="relative space-y-3">
@@ -412,7 +412,7 @@ function ContactForm() {
         type="submit"
         whileHover={{ scale: 1.015, y: -1 }}
         whileTap={{ scale: 0.97 }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4f8ef7] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#997953] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
       >
         {sent ? "Opening your mail…" : "Send"}
         <Send size={16} />

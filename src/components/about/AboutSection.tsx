@@ -88,7 +88,7 @@ export function AboutSection() {
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
-          className="mt-5 h-px w-28 bg-gradient-to-r from-[#4f8ef7] via-[#A78BFA] to-transparent"
+          className="mt-5 h-px w-28 bg-gradient-to-r from-[#997953] via-[#A78BFA] to-transparent"
         />
 
         {/* Reading-guide beat 3 — the paragraph fades in */}
@@ -99,7 +99,18 @@ export function AboutSection() {
           className="mt-5 max-w-3xl text-xl font-medium leading-snug text-[#E8EEFF] md:text-2xl"
         >
           I build software that transforms complex data into simple,{" "}
-          <span className="gradient-text">meaningful experiences</span>.
+          <span
+            style={{
+              background:
+                "linear-gradient(135deg, #F0E4CF 0%, #DCC7A0 50%, #C2A67A 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            meaningful experiences
+          </span>
+          .
         </motion.p>
 
         {/* Two-column content */}

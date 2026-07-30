@@ -51,6 +51,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "JS",
     shortDescription:
       "Drove AI Job Portal • CICT Platforms • Portfolio Website",
+      
     color: "#F7DF1E",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   },
@@ -116,36 +117,20 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.simpleicons.org/tensorflow/FF6F00",
   },
 
-   [SkillNames.RAG]: {
-    id: 11,
-    name: "RAG",
-    label: "RAG",
+[SkillNames.LANGGRAPH]: {
+    id: 8,
+    name: "LangGraph",
+    label: "LangGraph",
     shortDescription:
-      "Enhanced Knowledge Retrieval • Bedrock Experiments • Context-Aware Responses",
-    color: "#0EA5E9",
-    icon: "https://cdn.simpleicons.org/vectorlogozone/0EA5E9",
+      "Orchestrated Multi-Agent Workflows • AI Data Analysis Agent • State Management",
+    color: "#6D28D9",
+    icon: "https://cdn.simpleicons.org/langgraph/6D28D9",
   },
 
-  [SkillNames.LANGCHAIN]: {
-    id: 8,
-    name: "LangChain",
-    label: "LangChain",
-    shortDescription:
-      "Engineered AI Data Analysis Agent • LLM Pipelines • Tool Calling",
-    color: "#1C3C3C",
-    icon: "https://cdn.simpleicons.org/langchain/1C3C3C",
-  },
-   [SkillNames.PANDAS]: {
-    id: 12,
-    name: "Pandas",
-    label: "Pandas",
-    shortDescription:
-      "Analyzed RuTAG Research • Experimental Datasets • Language Corpora",
-    color: "#150458",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
-  },
- [SkillNames.OPENAI]: {
-    id: 10,
+  
+
+[SkillNames.OPENAI]: {
+    id: 9,
     name: "OpenAI",
     label: "OpenAI",
     shortDescription:
@@ -154,26 +139,48 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.simpleicons.org/openai/412991",
   },
 
-  [SkillNames.LANGGRAPH]: {
-    id: 9,
-    name: "LangGraph",
-    label: "LangGraph",
+[SkillNames.PANDAS]: {
+    id: 10,
+    name: "Pandas",
+    label: "Pandas",
     shortDescription:
-      "Orchestrated Multi-Agent Workflows • AI Data Analysis Agent • State Management",
-    color: "#6D28D9",
-    icon: "https://cdn.simpleicons.org/langgraph/6D28D9",
+      "Analyzed RuTAG Research • Experimental Datasets • Language Corpora",
+    color: "#150458",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
   },
- 
-    [SkillNames.REACT]: {
-    id: 13,
-    name: "React",
-    label: "React",
+  [SkillNames.LANGCHAIN]: {
+    id: 11,
+    name: "LangChain",
+    label: "LangChain",
     shortDescription:
-      "Built AI Job Portal • CICT Platforms • Portfolio Website",
-    color: "#61DAFB",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "Engineered AI Data Analysis Agent • LLM Pipelines • Tool Calling",
+    color: "#1C3C3C",
+    icon: "https://cdn.simpleicons.org/langchain/1C3C3C",
+  },
+   
+ 
+   [SkillNames.RAG]: {
+    id: 12,
+    name: "RAG",
+    label: "RAG",
+    shortDescription:
+      "Enhanced Knowledge Retrieval • Bedrock Experiments • Context-Aware Responses",
+    color: "#0EA5E9",
+    icon: "https://cdn.simpleicons.org/vectorlogozone/0EA5E9",
   },
 
+ 
+   [SkillNames.TAILWIND]: {
+    id: 13,
+    name: "Tailwind",
+    label: "Tailwind",
+    shortDescription:
+      "Designed Portfolio Website • AI Job Portal • Responsive Interfaces",
+    color: "#06B6D4",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+  },
+
+   
   [SkillNames.NODEJS]: {
     id: 14,
     name: "Node.js",
@@ -184,15 +191,17 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   },
 
-  [SkillNames.EXPRESS]: {
+ 
+   [SkillNames.REACT]: {
     id: 15,
-    name: "Express.js",
-    label: "Express.js",
+    name: "React",
+    label: "React",
     shortDescription:
-      "Developed Authentication APIs • Job Management • Backend Services",
-    color: "#FFFFFF",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      "Built AI Job Portal • CICT Platforms • Portfolio Website",
+    color: "#61DAFB",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
+
 
   [SkillNames.POSTGRESQL]: {
     id: 16,
@@ -214,18 +223,19 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
   },
 
-  [SkillNames.TAILWIND]: {
+
+ [SkillNames.EXPRESS]: {
     id: 18,
-    name: "Tailwind",
-    label: "Tailwind",
+    name: "Express.js",
+    label: "Express.js",
     shortDescription:
-      "Designed Portfolio Website • AI Job Portal • Responsive Interfaces",
-    color: "#06B6D4",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      "Developed Authentication APIs • Job Management • Backend Services",
+    color: "#FFFFFF",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
   },
 
    [SkillNames.GITHUB]: {
-    id: 22,
+    id: 19,
     name: "GitHub",
     label: "GitHub",
     shortDescription:
@@ -243,7 +253,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   },
  [SkillNames.LINUX]: {
-    id: 23,
+    id: 21,
     name: "Linux",
     label: "Linux",
     shortDescription:
@@ -253,7 +263,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
   },
 
 [SkillNames.AWS]: {
-    id: 19,
+    id: 22,
     name: "AWS",
     label: "AWS",
     shortDescription:
@@ -264,7 +274,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
 
 
   [SkillNames.VERCEL]: {
-    id: 24,
+    id: 23,
     name: "Vercel",
     label: "Vercel",
     shortDescription:
@@ -275,7 +285,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
 
 
   [SkillNames.GIT]: {
-    id: 21,
+    id: 24,
     name: "Git",
     label: "Git",
     shortDescription:

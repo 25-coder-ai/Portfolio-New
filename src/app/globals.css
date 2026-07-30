@@ -12,7 +12,7 @@
   --color-text-primary: #E8EEFF;
   --color-text-secondary: #8892A4;
   --color-text-muted: #4A5568;
-  --color-accent-blue: #4f8ef7;
+  --color-accent-blue: #997953;
   --color-accent-purple: #A78BFA;
   --color-accent-green: #34D399;
   --color-accent-amber: #F59E0B;
@@ -53,7 +53,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #4f8ef7;
+  outline: 2px solid #997953;
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -84,7 +84,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #4f8ef7 0%, #A78BFA 50%, #34D399 100%);
+  background: linear-gradient(135deg, #997953 0%, #A78BFA 50%, #34D399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -176,7 +176,7 @@ canvas { display: block; outline: none; }
   z-index: 9999;
   width: 8px;
   height: 8px;
-  background: #4f8ef7;
+  background: #997953;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease;

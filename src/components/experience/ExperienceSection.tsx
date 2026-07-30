@@ -64,7 +64,7 @@ function IntroScene({
         viewport={{ once: true }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
         className="mt-7 block h-px w-28 origin-center"
-        style={{ background: "linear-gradient(90deg, transparent, #4f8ef7, transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, #997953, transparent)" }}
       />
 
       <motion.p
@@ -131,7 +131,7 @@ function CinematicExperience() {
     }
   };
 
-  const activeColor = active >= 1 ? CHAPTERS[active - 1].color : "#4f8ef7";
+  const activeColor = active >= 1 ? CHAPTERS[active - 1].color : "#997953";
 
   return (
     <section
@@ -255,7 +255,7 @@ function ExperienceStatic() {
     >
       <div className="mx-auto max-w-5xl">
         <div className="mb-16 text-center">
-          <p className="font-mono-custom text-xs uppercase tracking-[0.4em] text-[#4f8ef7]">
+          <p className="font-mono-custom text-xs uppercase tracking-[0.4em] text-[#997953]">
             Experience
           </p>
           <h2 className="mt-4 font-display text-4xl font-bold text-[#E8EEFF] md:text-5xl">
