@@ -318,7 +318,7 @@ function ContactForm() {
         type="submit"
         whileHover={{ scale: 1.015, y: -1 }}
         whileTap={{ scale: 0.97 }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#997953] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4F8EF7] via-[#7C87F3] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
       >
         {sent ? "Opening your mail…" : "Send"}
         <Send size={16} />

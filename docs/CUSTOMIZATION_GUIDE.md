@@ -142,12 +142,12 @@ In `src/app/globals.css`:
 
 ### Background Color
 
-The design spec requires `#111B2F`. To change:
+The design spec requires `#997953`. To change:
 
 In `src/lib/constants.ts`:
 ```ts
-export const HERO_BACKGROUND = "#111B2F";    // → Your new color
-export const CONTACT_BACKGROUND = "#111B2F"; // → Your new color
+export const HERO_BACKGROUND = "#997953";    // → Your new color
+export const CONTACT_BACKGROUND = "#997953"; // → Your new color
 ```
 
 ### Typography

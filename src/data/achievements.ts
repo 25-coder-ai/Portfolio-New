@@ -13,7 +13,7 @@ export const achievements: Achievement[] = [
     type: "certificate",
     date: "2025-07",
     description:
-      "Earned the AWS Certified Cloud Practitioner credential in my first year, building a strong foundation in cloud architecture that later supported full-stack and cloud projects.",
+      "Earned the AWS Certified Cloud Practitioner credential in my first year, building a strong foundation in cloud architecture.",
     credentialUrl: "https://www.credly.com/users/dakshithaa-venkatesan",
     skills: ["AWS Core Services", "Cloud Security", "Cost Optimization"],
     notes: "Foundation for hands-on work with S3, EC2 and IAM across later projects.",
@@ -33,12 +33,12 @@ export const achievements: Achievement[] = [
   },
   {
     id: "ach-leetcode",
-    title: "LeetCode Streak",
+    title: "LeetCode 200-Day Badge",
     issuer: "LeetCode",
     type: "competition",
     date: "2026-07",
     description:
-      "Maintained a 184-day LeetCode streak through consistent daily problem solving, strengthening algorithmic thinking and coding proficiency.",
+      "Earned LeetCode's 200-Day Badge through consistent daily problem solving and algorithmic practice.",
       credentialUrl: "https://leetcode.com/u/Dakshithaa/",
     skills: ["Data Structures", "Algorithms", "Problem Solving"],
     notes: "Consistent daily practice across arrays, graphs, and dynamic programming.",

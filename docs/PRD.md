@@ -66,7 +66,7 @@ A premium, interactive personal portfolio that feels like a curated product laun
 
 ### 6.1 Color System
 ```
-Background:    #111B2F  (HERO_BACKGROUND / CONTACT_BACKGROUND)
+Background:    #997953  (HERO_BACKGROUND / CONTACT_BACKGROUND)
 Surface:       #1A2540
 Surface+:      #1F2D4A
 Border:        rgba(255,255,255,0.07)
