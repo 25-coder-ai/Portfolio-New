@@ -61,7 +61,6 @@ export function AchievementsSection() {
         <SectionHeading
           label="Achievements"
           title="The Exhibition"
-          subtitle="Three milestones, each on its own pedestal."
           inView={inView}
         />
 
