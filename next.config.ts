@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // 70 is used by the hero image-trail; 75 is Next's default for everything
+    // else. Both must be whitelisted or Next warns at runtime.
+    qualities: [70, 75],
   },
   transpilePackages: ["three"],
   turbopack: {

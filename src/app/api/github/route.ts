@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { fetchGitHubContributions } from "@/lib/github";
-import { GITHUB_USERNAME, GITHUB_REVALIDATE_SECONDS } from "@/config/github";
+import {
+  GITHUB_USERNAME,
+  GITHUB_REVALIDATE_SECONDS,
+  GITHUB_FALLBACK_CONTRIBUTIONS,
+} from "@/config/github";
 
 // GET /api/github → live GitHub contribution totals.
 // Heavy caching lives in the upstream fetch (see lib/github); this handler
@@ -14,9 +18,12 @@ export async function GET() {
       },
     });
   } catch {
+    // Upstream unreachable (third-party API down / rate-limited). Serve the
+    // last-known-good number so the card never shows an empty "—", and cache it
+    // only briefly so the live source is retried soon.
     return NextResponse.json(
-      { error: "Unable to load contributions" },
-      { status: 502 },
+      { lastYear: GITHUB_FALLBACK_CONTRIBUTIONS, total: GITHUB_FALLBACK_CONTRIBUTIONS },
+      { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=60" } },
     );
   }
 }

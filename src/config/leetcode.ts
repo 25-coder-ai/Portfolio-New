@@ -17,3 +17,13 @@ export const LEETCODE_PROFILE_URL = `https://leetcode.com/u/Dakshithaa/`;
  * 6 hours is a good balance of "live" vs. respectful of the upstream API.
  */
 export const LEETCODE_REVALIDATE_SECONDS = 6 * 60 * 60;
+
+/**
+ * Last-known-good stats. Shown ONLY if the live LeetCode API is unreachable —
+ * LeetCode frequently rate-limits or blocks server-side requests from cloud
+ * (datacenter) IPs, so a deployed site can intermittently fail to fetch even
+ * though it works locally. Returning these keeps the card populated instead of
+ * showing "Unable to load statistics." The live values are always preferred;
+ * update these numbers occasionally so the offline fallback stays realistic.
+ */
+export const LEETCODE_FALLBACK = { totalSolved: 214, streak: 184 };

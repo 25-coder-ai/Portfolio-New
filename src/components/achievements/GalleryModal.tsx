@@ -164,7 +164,7 @@ export function GalleryModal({ achievement, onClose }: GalleryModalProps) {
               className="mt-6 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-transform hover:scale-[1.02]"
               style={{
                 background: achievement.color,
-                color: "#997953",
+                color: "#E0C58F",
                 boxShadow: `0 8px 24px ${achievement.color}33`,
               }}
             >

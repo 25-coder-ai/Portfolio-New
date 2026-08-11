@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Flame, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { achievements } from "@/data/achievements";
@@ -19,11 +19,11 @@ type Material = "metal" | "glass" | "matte";
 // semantic and the "physical" treatment lives with the presentation.
 const EXHIBIT: Record<
   string,
-  { material: Material; accent: string; glyph: "aws" | "gpa" | "flame" }
+  { material: Material; accent: string; glyph: "aws" | "gpa" | "leetcode" }
 > = {
   "ach-aws": { material: "metal", accent: "#FF9900", glyph: "aws" },
   "ach-gpa": { material: "glass", accent: "#CFE0FF", glyph: "gpa" },
-  "ach-leetcode": { material: "matte", accent: "#F59E0B", glyph: "flame" },
+  "ach-leetcode": { material: "matte", accent: "#F59E0B", glyph: "leetcode" },
 };
 
 // The direct action on each pedestal. CGPA has none.
@@ -39,21 +39,6 @@ function pedestalLink(ach: Achievement): { label: string; url: string } | null {
 
 export function AchievementsSection() {
   const { ref, inView } = useScrollAnimation();
-  const [leetStreak, setLeetStreak] = useState<number | null>(null);
-
-  // Live LeetCode streak for the third pedestal (server route is cached).
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/leetcode")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
-      .then((d: { streak: number }) => {
-        if (!cancelled) setLeetStreak(d.streak);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   return (
     <section
@@ -88,7 +73,6 @@ export function AchievementsSection() {
               achievement={ach}
               index={i}
               inView={inView}
-              leetStreak={ach.id === "ach-leetcode" ? leetStreak : null}
             />
           ))}
         </div>
@@ -105,12 +89,10 @@ function Pedestal({
   achievement,
   index,
   inView,
-  leetStreak,
 }: {
   achievement: Achievement;
   index: number;
   inView: boolean;
-  leetStreak: number | null;
 }) {
   const ex = EXHIBIT[achievement.id] ?? {
     material: "matte" as Material,
@@ -118,7 +100,9 @@ function Pedestal({
     glyph: "gpa" as const,
   };
   const { material, accent } = ex;
-  const isAws = ex.glyph === "aws";
+  // AWS & LeetCode show their full natural badge shape (no circular clip,
+  // border, or backdrop). Only the CGPA glyph stays a circular medallion.
+  const isBadge = ex.glyph === "aws" || ex.glyph === "leetcode";
   const link = pedestalLink(achievement);
 
   const surface: CSSProperties =
@@ -160,20 +144,20 @@ function Pedestal({
         />
         <div
           className={`relative z-10 flex items-center justify-center transition-transform duration-500 ease-out group-hover:-translate-y-3 ${
-            isAws
+            isBadge
               ? "h-24 w-24"
               : `h-20 w-20 overflow-hidden rounded-full border ${borderClass} shadow-[0_10px_30px_-12px_rgba(0,0,0,0.7)]`
           }`}
-          style={isAws ? undefined : surface}
+          style={isBadge ? undefined : surface}
         >
-          {!isAws && (
+          {!isBadge && (
             <span
               aria-hidden
               className="absolute inset-0 rounded-full"
               style={{ boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), inset 0 0 22px ${accent}22` }}
             />
           )}
-          <Glyph kind={ex.glyph} accent={accent} leetStreak={leetStreak} />
+          <Glyph kind={ex.glyph} accent={accent} />
         </div>
       </div>
 
@@ -258,11 +242,9 @@ function Pedestal({
 function Glyph({
   kind,
   accent,
-  leetStreak,
 }: {
-  kind: "aws" | "gpa" | "flame";
+  kind: "aws" | "gpa" | "leetcode";
   accent: string;
-  leetStreak: number | null;
 }) {
   if (kind === "aws") {
     // The AWS logo fills the whole circular medallion.
@@ -290,12 +272,16 @@ function Glyph({
       </span>
     );
   }
+  // LeetCode 200-day badge — a still, front-facing frame of the badge, shown
+  // the same way the AWS badge is (Next would keep an animated GIF spinning, so
+  // this is a static PNG extracted from the source GIF).
   return (
-    <span className="relative flex flex-col items-center leading-none" style={{ color: accent }}>
-      <Flame size={25} />
-      {leetStreak !== null && (
-        <span className="mt-1 text-[20px] font-bold tabular-nums">{leetStreak}</span>
-      )}
-    </span>
+    <Image
+      src="/images/achievements/200daybadge.png"
+      alt="LeetCode 200-Day Badge"
+      fill
+      sizes="96px"
+      className="object-contain"
+    />
   );
 }

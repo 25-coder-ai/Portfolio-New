@@ -29,11 +29,11 @@ export function SectionHeading({
           transition={{ duration: ANIMATION.durationBase, ease: ANIMATION.easingStandard }}
           className="inline-flex items-center gap-2 mb-4"
         >
-          <span className="h-px w-8 bg-[#997953]/60" />
-          <span className="text-[#997953] text-xs font-semibold tracking-[0.2em] uppercase font-mono-custom">
+          <span className="h-px w-8 bg-[#E0C58F]/60" />
+          <span className="text-[#E0C58F] text-xs font-semibold tracking-[0.2em] uppercase font-mono-custom">
             {label}
           </span>
-          <span className="h-px w-8 bg-[#997953]/60" />
+          <span className="h-px w-8 bg-[#E0C58F]/60" />
         </motion.div>
       )}
       <motion.h2

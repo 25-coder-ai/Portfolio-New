@@ -51,7 +51,7 @@ Each project appears as a page in the Blueprint Book.
   githubUrl: "https://github.com/...",
   category: "Big Data",
   year: "2024",
-  color: "#997953",  // Accent color for this project
+  color: "#E0C58F",  // Accent color for this project
 }
 ```
 
@@ -71,7 +71,7 @@ Each skill maps to a key on the 3D keyboard.
   levelPercent: 92,         // 0–100
   category: "language",     // language | framework | tool | concept | cloud
   description: "Your experience with this skill in 2-3 sentences.",
-  color: "#997953",         // Display color
+  color: "#E0C58F",         // Display color
   brandColor: "#3776AB",    // Official brand color
   icon: "🐍",               // Emoji icon shown on key
 }
@@ -98,7 +98,7 @@ Each experience appears as a box on the conveyor belt.
   ],
   technologies: ["Python", "AWS"],
   location: "Chennai, India",
-  color: "#997953",
+  color: "#E0C58F",
   icon: "💼",  // Emoji shown on conveyor box
 }
 ```
@@ -132,22 +132,22 @@ Each achievement becomes a display case in the gallery.
 
 In `src/lib/constants.ts`:
 ```ts
-accentBlue: "#997953",  // → Change to your preferred color
+accentBlue: "#E0C58F",  // → Change to your preferred color
 ```
 
 In `src/app/globals.css`:
 ```css
---color-accent-blue: #997953;  // → Match the above
+--color-accent-blue: #E0C58F;  // → Match the above
 ```
 
 ### Background Color
 
-The design spec requires `#997953`. To change:
+The design spec requires `#E0C58F`. To change:
 
 In `src/lib/constants.ts`:
 ```ts
-export const HERO_BACKGROUND = "#997953";    // → Your new color
-export const CONTACT_BACKGROUND = "#997953"; // → Your new color
+export const HERO_BACKGROUND = "#E0C58F";    // → Your new color
+export const CONTACT_BACKGROUND = "#E0C58F"; // → Your new color
 ```
 
 ### Typography

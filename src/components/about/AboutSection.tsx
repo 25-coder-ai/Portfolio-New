@@ -88,7 +88,7 @@ export function AboutSection() {
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
-          className="mt-5 h-px w-28 bg-gradient-to-r from-[#997953] via-[#A78BFA] to-transparent"
+          className="mt-5 h-px w-28 bg-gradient-to-r from-[#E0C58F] via-[#997953] to-transparent"
         />
 
         {/* Reading-guide beat 3 — the paragraph fades in */}

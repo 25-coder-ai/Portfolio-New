@@ -6,7 +6,7 @@ interface BadgeProps {
   className?: string;
 }
 
-export function Badge({ label, color = "#997953", className }: BadgeProps) {
+export function Badge({ label, color = "#E0C58F", className }: BadgeProps) {
   return (
     <span
       className={cn(

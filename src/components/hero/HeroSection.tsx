@@ -114,7 +114,7 @@ export function HeroSection() {
           variants={itemVariants}
           className="mt-8 mb-6 h-px w-64 mx-auto"
           style={{
-            background: "linear-gradient(90deg, transparent, #997953, #A78BFA, transparent)",
+            background: "linear-gradient(90deg, transparent, #E0C58F, #997953, transparent)",
           }}
         />
 
@@ -125,7 +125,7 @@ export function HeroSection() {
           </p>
           <p className="text-[#8892A4] text-base md:text-lg">
             Specialization in{" "}
-            <span className="text-[#997953] font-semibold">Big Data Analytics</span>
+            <span className="text-[#E0C58F] font-semibold">Big Data Analytics</span>
           </p>
         </motion.div>
 
@@ -133,14 +133,14 @@ export function HeroSection() {
         <motion.div variants={itemVariants} className="flex items-center gap-4 flex-wrap justify-center">
           <button
             onClick={() => scrollToSection("about")}
-            className="px-7 py-3 rounded-xl bg-[#997953] text-white font-semibold text-sm hover:bg-[#997953]/90 transition-all hover:scale-[1.03] active:scale-[0.97]"
+            className="px-7 py-3 rounded-xl bg-[#E0C58F] text-white font-semibold text-sm hover:bg-[#E0C58F]/90 transition-all hover:scale-[1.03] active:scale-[0.97]"
             style={{ boxShadow: "0 0 32px rgba(79,142,247,0.25)" }}
           >
             Explore Work
           </button>
           <button
             onClick={() => scrollToSection("contact")}
-            className="px-7 py-3 rounded-xl border border-white/10 text-[#E8EEFF] font-semibold text-sm hover:border-[#997953]/40 hover:bg-white/[0.03] transition-all"
+            className="px-7 py-3 rounded-xl border border-white/10 text-[#E8EEFF] font-semibold text-sm hover:border-[#E0C58F]/40 hover:bg-white/[0.03] transition-all"
           >
             Get in Touch
           </button>

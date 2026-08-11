@@ -16,3 +16,12 @@ export const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
  * upstream contributions API is hit at most once per window.
  */
 export const GITHUB_REVALIDATE_SECONDS = 60 * 60; // 1 hour
+
+/**
+ * Last-known-good contribution count. Shown ONLY if the live upstream API is
+ * unreachable (e.g. the third-party service is down or rate-limits our host),
+ * so the card never falls back to an empty "—" for a visitor. The live number
+ * is always preferred; this is just a floor. Update it occasionally to keep the
+ * offline value realistic.
+ */
+export const GITHUB_FALLBACK_CONTRIBUTIONS = 122;

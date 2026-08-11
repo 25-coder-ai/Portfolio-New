@@ -66,7 +66,7 @@ A premium, interactive personal portfolio that feels like a curated product laun
 
 ### 6.1 Color System
 ```
-Background:    #997953  (HERO_BACKGROUND / CONTACT_BACKGROUND)
+Background:    #E0C58F  (HERO_BACKGROUND / CONTACT_BACKGROUND)
 Surface:       #1A2540
 Surface+:      #1F2D4A
 Border:        rgba(255,255,255,0.07)
@@ -74,7 +74,7 @@ Border accent: rgba(79,142,247,0.25)
 Text primary:  #E8EEFF
 Text secondary:#8892A4
 Text muted:    #4A5568
-Accent blue:   #997953
+Accent blue:   #E0C58F
 Accent purple: #A78BFA
 Accent green:  #34D399
 Accent amber:  #F59E0B

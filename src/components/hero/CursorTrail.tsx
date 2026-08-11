@@ -30,6 +30,11 @@ const TrailImageView = memo(function TrailImageView({
         position: "absolute",
         left: item.x,
         top: item.y,
+        width: IMAGE_TRAIL.width,
+        height: IMAGE_TRAIL.height,
+        borderRadius: 2,
+        overflow: "hidden",
+        boxShadow: "0 8px 22px rgba(0,0,0,0.32)",
         pointerEvents: "none",
         willChange: "transform, opacity",
       }}
@@ -52,20 +57,13 @@ const TrailImageView = memo(function TrailImageView({
       <Image
         src={item.src}
         alt=""
-        width={IMAGE_TRAIL.width}
-        height={IMAGE_TRAIL.height}
+        fill
+        sizes="200px"
         quality={70}
         loading="eager"
         draggable={false}
         onError={() => onError(item.src)}
-        style={{
-          width: IMAGE_TRAIL.width,
-          height: IMAGE_TRAIL.height,
-          objectFit: "cover",
-          borderRadius: 2,
-          display: "block",
-          boxShadow: "0 8px 22px rgba(0,0,0,0.32)",
-        }}
+        style={{ objectFit: "cover" }}
       />
     </motion.div>
   );

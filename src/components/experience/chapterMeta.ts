@@ -11,7 +11,7 @@ export const TYPE_LABEL: Record<ExperienceType, string> = {
   research: "Research",
   volunteering: "Volunteering",
   academic: "Education",
-  club: "Community",
+  club: "Club",
 };
 
 const MONTHS = [

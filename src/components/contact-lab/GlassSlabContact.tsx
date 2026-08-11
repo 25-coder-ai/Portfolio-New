@@ -351,7 +351,7 @@ function ContactCard({
       transition={{ duration: 0.7, ease: EASE, delay }}
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.99 }}
-      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#997953]/70 sm:px-5"
+      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E0C58F]/70 sm:px-5"
     >
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[#E8EEFF] transition-colors duration-300 group-hover:border-white/25 group-hover:text-white">
         {card.icon}
@@ -366,7 +366,7 @@ function ContactCard({
       </span>
       <ArrowRight
         size={18}
-        className="shrink-0 text-[#8892A4] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#997953]"
+        className="shrink-0 text-[#8892A4] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#E0C58F]"
       />
     </motion.a>
   );
@@ -393,7 +393,7 @@ function ContactForm({ inView }: { inView: boolean }) {
   }
 
   const field =
-    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-200 focus:border-[#997953]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#997953]/30";
+    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-200 focus:border-[#E0C58F]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E0C58F]/30";
 
   return (
     <motion.form
@@ -442,7 +442,7 @@ function ContactForm({ inView }: { inView: boolean }) {
         type="submit"
         whileHover={{ scale: 1.015, y: -1 }}
         whileTap={{ scale: 0.97 }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#997953] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#E0C58F] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
       >
         {sent ? "Opening your mail…" : "Send"}
         <Send size={16} />

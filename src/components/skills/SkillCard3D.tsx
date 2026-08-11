@@ -19,7 +19,7 @@ const LEVEL_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  language: "#997953",
+  language: "#E0C58F",
   framework: "#A78BFA",
   tool: "#F59E0B",
   concept: "#34D399",
@@ -60,7 +60,7 @@ export function SkillTooltip({ skill }: { skill: Skill | null }) {
                 <p className="text-[#E8EEFF] font-bold text-sm">{skill.name}</p>
                 <Badge
                   label={LEVEL_LABELS[skill.level]}
-                  color={CATEGORY_COLORS[skill.category] || "#997953"}
+                  color={CATEGORY_COLORS[skill.category] || "#E0C58F"}
                 />
               </div>
             </div>

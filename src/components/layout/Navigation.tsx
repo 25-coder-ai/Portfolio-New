@@ -62,10 +62,10 @@ export function Navigation() {
           {/* Logo */}
           <button
             onClick={() => handleNavClick("#hero")}
-            className="font-display font-bold text-xl text-[#E8EEFF] hover:text-[#997953] transition-colors"
+            className="font-display font-bold text-xl text-[#E8EEFF] hover:text-[#E0C58F] transition-colors"
           >
             {profile.name.split(" ")[0]}
-            <span className="text-[#997953]">.</span>
+            <span className="text-[#E0C58F]">.</span>
           </button>
 
           {/* Desktop Nav */}
@@ -97,7 +97,7 @@ export function Navigation() {
             <a
               href={profile.resumeUrl}
               download
-              className="ml-4 px-4 py-2 text-sm font-semibold border border-[#997953]/40 text-[#997953] rounded-lg hover:bg-[#997953]/10 transition-all"
+              className="ml-4 px-4 py-2 text-sm font-semibold border border-[#E0C58F]/40 text-[#E0C58F] rounded-lg hover:bg-[#E0C58F]/10 transition-all"
             >
               Resume
             </a>
@@ -131,7 +131,7 @@ export function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07 }}
                 onClick={() => handleNavClick(item.href)}
-                className="text-2xl font-display font-semibold text-[#E8EEFF] hover:text-[#997953] transition-colors"
+                className="text-2xl font-display font-semibold text-[#E8EEFF] hover:text-[#E0C58F] transition-colors"
               >
                 {item.label}
               </motion.button>
@@ -142,7 +142,7 @@ export function Navigation() {
               transition={{ delay: NAV_ITEMS.length * 0.07 }}
               href={profile.resumeUrl}
               download
-              className="mt-4 px-6 py-3 border border-[#997953]/40 text-[#997953] rounded-xl text-lg font-semibold hover:bg-[#997953]/10 transition-all"
+              className="mt-4 px-6 py-3 border border-[#E0C58F]/40 text-[#E0C58F] rounded-xl text-lg font-semibold hover:bg-[#E0C58F]/10 transition-all"
             >
               Resume
             </motion.a>

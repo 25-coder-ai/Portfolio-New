@@ -8,8 +8,8 @@ export const profile: Profile = {
   name: "V Dakshithaa",                           // REPLACE: Your full name
   tagline: "Building the future with data.",   // REPLACE: Your personal tagline
   subtitle: "Computer Science Student · Big Data Analytics",
-  email: "your.email@example.com",            // REPLACE: Your email
-  phone: "+91 00000 00000",                   // REPLACE: Your phone number
+  email: "dakshuvenkat25@gmail.com",            // REPLACE: Your email
+  phone: "+91 8838573992",                   // REPLACE: Your phone number
   github: "https://github.com/25-coder-ai",  // REPLACE: Your GitHub URL
   linkedin: "https://www.linkedin.com/in/dakshithaa-venkatesan-a0400a332", // REPLACE: Your LinkedIn URL
   leetcode: "https://leetcode.com/u/Dakshithaa/", // REPLACE: Your LeetCode URL
