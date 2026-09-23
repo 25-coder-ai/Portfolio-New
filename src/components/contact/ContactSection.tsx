@@ -267,11 +267,10 @@ function ContactForm() {
     const name = String(data.get("name") ?? "");
     const email = String(data.get("email") ?? "");
     const message = String(data.get("message") ?? "");
-    const subject = encodeURIComponent(
+    openEmail(
       `Portfolio message from ${name || "a visitor"}`,
+      `${message}\n\n— ${name}\n${email}`,
     );
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     setSent(true);
   }
 
