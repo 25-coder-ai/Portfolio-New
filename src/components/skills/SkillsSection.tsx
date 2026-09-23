@@ -19,7 +19,7 @@ function MobileSkillGrid() {
           <button
             key={skill.id}
             onClick={() => setExpanded(expanded?.id === skill.id ? null : skill)}
-            className="glass rounded-xl p-4 text-left border border-white/[0.07] hover:border-[#E0C58F]/25 transition-all group"
+            className="glass rounded-xl p-4 text-left border border-white/[0.07] hover:border-[#A07856]/25 transition-all group"
             style={{ borderColor: expanded?.id === skill.id ? `${skill.brandColor}40` : undefined }}
           >
             <span className="text-xl block mb-2">{skill.icon}</span>
@@ -71,10 +71,7 @@ export function SkillsSection() {
         <div className="hidden md:block">
           <div
             className="relative w-full h-[600px] rounded-2xl overflow-hidden border border-white/[0.06]"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, #16203a 0%, #0c1424 70%, #0a1020 100%)",
-            }}
+            style={{ background: "#111B2F" }}
           >
             {/* Mounted only once the section scrolls into view to defer WebGL */}
             {inView && (

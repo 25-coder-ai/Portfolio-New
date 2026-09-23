@@ -6,15 +6,6 @@ import { projects } from "@/data/projects";
 export function ProjectsSection() {
   return (
     <section id="projects" className="relative">
-      {/* Soft depth backdrop */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.06), transparent 60%)",
-        }}
-      />
-
       {/* The waterfall pins this whole section: scrolling anywhere inside it
           advances the cards, and the next section only appears once every
           project has been viewed. Heading is passed in so it stays pinned too.

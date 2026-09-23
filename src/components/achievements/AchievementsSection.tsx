@@ -47,16 +47,6 @@ export function AchievementsSection() {
       style={{ backgroundColor: ACHIEVEMENT_BACKGROUND }}
       className="section-padding relative overflow-hidden px-6"
     >
-      {/* Gallery lighting — a soft wash from above, no particles. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-80 opacity-70"
-        style={{
-          background:
-            "radial-gradient(70% 100% at 50% 0%, rgba(120,150,210,0.12), transparent 70%)",
-        }}
-      />
-
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
           label="Achievements"

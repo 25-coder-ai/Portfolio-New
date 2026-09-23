@@ -51,17 +51,6 @@ export function AboutSection() {
       <div className="pointer-events-none absolute inset-x-0 -top-16 -bottom-16 [mask-image:radial-gradient(130%_120%_at_50%_40%,#000_60%,transparent_100%)]">
         <FlowingPaths />
       </div>
-      {/* Soft gradient blobs for depth. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 top-16 h-96 w-96 rounded-full opacity-[0.1] blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(79,142,247,0.28), transparent 70%)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-24 bottom-12 h-80 w-80 rounded-full opacity-[0.08] blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(167,139,250,0.24), transparent 70%)" }}
-      />
 
       <div className="relative mx-auto max-w-5xl">
        
@@ -88,7 +77,7 @@ export function AboutSection() {
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
           style={{ transformOrigin: "left" }}
-          className="mt-5 h-px w-28 bg-gradient-to-r from-[#E0C58F] via-[#997953] to-transparent"
+          className="mt-5 h-px w-28 bg-gradient-to-r from-[#A07856] via-[#A07856] to-transparent"
         />
 
         {/* Reading-guide beat 3 — the paragraph fades in */}

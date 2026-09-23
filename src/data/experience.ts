@@ -26,7 +26,6 @@ export const experiences: Experience[] = [
     technologies: [
       "React",
       "Node.js",
-      "",
       "Machine Learning",
       "REST APIs",
     ],
@@ -61,7 +60,6 @@ export const experiences: Experience[] = [
     ],
 
     technologies: [
-      "",
       "Google Colab",
       "Pandas",
       "NumPy",

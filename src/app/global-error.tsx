@@ -26,7 +26,7 @@ export default function GlobalError({
           <button
             onClick={() => unstable_retry()}
             style={{
-              background: "#E0C58F",
+              background: "#A07856",
               color: "#fff",
               border: "none",
               borderRadius: "8px",

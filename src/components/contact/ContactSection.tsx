@@ -26,6 +26,30 @@ interface LinkDef {
   href: string;
   download?: boolean;
   external?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}
+
+// `mailto:` silently does nothing on desktops without a default mail app
+// (common on Windows / for webmail users). On desktop, open Gmail's
+// compose window in a new tab instead; phones always have a mail app.
+function openEmail(subject = "", body = "") {
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  if (isMobile) {
+    const params = new URLSearchParams();
+    if (subject) params.set("subject", subject);
+    if (body) params.set("body", body);
+    const qs = params.toString().replace(/\+/g, "%20");
+    window.location.href = `mailto:${profile.email}${qs ? `?${qs}` : ""}`;
+    return;
+  }
+  const params = new URLSearchParams({ view: "cm", fs: "1", to: profile.email });
+  if (subject) params.set("su", subject);
+  if (body) params.set("body", body);
+  window.open(
+    `https://mail.google.com/mail/?${params.toString()}`,
+    "_blank",
+    "noopener,noreferrer",
+  );
 }
 
 const LINKS: LinkDef[] = [
@@ -55,6 +79,10 @@ const LINKS: LinkDef[] = [
     icon: <Mail size={18} />,
     title: "Email",
     href: `mailto:${profile.email}`,
+    onClick: (e) => {
+      e.preventDefault();
+      openEmail();
+    },
   },
 ];
 
@@ -98,8 +126,6 @@ export function ContactSection() {
       className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-24 sm:py-32"
       style={{ backgroundColor: CONTACT_BACKGROUND }}
     >
-      <BackgroundFX inView={inView} />
-
       <motion.div
         onMouseMove={onMove}
         onMouseEnter={onEnter}
@@ -156,7 +182,7 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
             transition={{ duration: 0.7, ease: EASE, delay: T.heading }}
-            className="text-[11px] font-medium uppercase tracking-[0.35em] text-[#E0C58F]/80"
+            className="text-[11px] font-medium uppercase tracking-[0.35em] text-[#A07856]/80"
           >
             Contact
           </motion.p>
@@ -200,31 +226,6 @@ export function ContactSection() {
 /* Background                                                          */
 /* ------------------------------------------------------------------ */
 
-function BackgroundFX({ inView }: { inView: boolean }) {
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-[640px] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(79,142,247,0.12) 0%, rgba(167,139,250,0.06) 42%, transparent 68%)",
-          filter: "blur(40px)",
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: inView ? 1 : 0 }}
-        transition={{ duration: 1.5, ease: EASE }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(120% 90% at 50% 45%, transparent 58%, rgba(0,0,0,0.5) 100%)",
-        }}
-      />
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /* Quick link                                                         */
 /* ------------------------------------------------------------------ */
@@ -235,9 +236,10 @@ function QuickLink({ link }: { link: LinkDef }) {
       href={link.href}
       {...(link.download ? { download: true } : {})}
       {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      onClick={link.onClick}
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 text-sm text-[#E8EEFF] backdrop-blur-md transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E0C58F]/70"
+      className="group relative flex items-center gap-2.5 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-3 text-sm text-[#E8EEFF] backdrop-blur-md transition-colors duration-300 hover:border-white/25 hover:bg-white/[0.09] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A07856]/70"
     >
       <span className="text-[#8892A4] transition-colors duration-300 group-hover:text-[#E8EEFF]">
         {link.icon}
@@ -245,7 +247,7 @@ function QuickLink({ link }: { link: LinkDef }) {
       <span className="flex-1 font-medium">{link.title}</span>
       <ArrowUpRight
         size={15}
-        className="text-[#4A5568] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#E0C58F]"
+        className="text-[#4A5568] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#A07856]"
       />
     </motion.a>
   );
@@ -275,7 +277,7 @@ function ContactForm() {
 
   // Focus glow: a soft ring + halo that eases in when the field is active.
   const field =
-    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-300 focus:border-[#E0C58F]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E0C58F]/25 focus:shadow-[0_0_0_4px_rgba(79,142,247,0.10),0_8px_26px_-10px_rgba(79,142,247,0.5)]";
+    "w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-[#E8EEFF] placeholder:text-[#4A5568] outline-none transition-all duration-300 focus:border-[#A07856]/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-[#A07856]/25 focus:shadow-[0_0_0_4px_rgba(79,142,247,0.10),0_8px_26px_-10px_rgba(79,142,247,0.5)]";
 
   return (
     <form onSubmit={submit} className="space-y-3">
@@ -318,7 +320,7 @@ function ContactForm() {
         type="submit"
         whileHover={{ scale: 1.015, y: -1 }}
         whileTap={{ scale: 0.97 }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#4F8EF7] via-[#7C87F3] to-[#A78BFA] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_36px_-12px_rgba(79,142,247,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(79,142,247,0.85)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#A07856] via-[#C2A67A] to-[#A07856] px-5 py-3 text-sm font-semibold text-[#1A130B] shadow-[0_14px_36px_-12px_rgba(153,121,83,0.7)] transition-shadow duration-300 hover:shadow-[0_18px_46px_-10px_rgba(153,121,83,0.85)]"
       >
         {sent ? "Opening your mail…" : "Send"}
         <Send size={16} />

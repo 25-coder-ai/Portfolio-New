@@ -18,15 +18,6 @@ function HeroBackground() {
       style={{ background: HERO_BACKGROUND }}
       aria-hidden="true"
     >
-      {/* Subtle radial gradient highlight */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(79,142,247,0.07) 0%, transparent 70%)",
-        }}
-      />
-
       {/* Fine grid */}
       <div
         className="absolute inset-0 opacity-40"
@@ -100,7 +91,7 @@ export function HeroSection() {
 
       {/* Content (z-10 — above trail cards) */}
       <div className="relative z-10 flex w-full flex-col items-center text-center">
-        {/* Oversized name with the written-on "portfolio" signature */}
+        {/* Oversized name */}
         <HeroNameSignature />
 
         <motion.div
@@ -114,7 +105,7 @@ export function HeroSection() {
           variants={itemVariants}
           className="mt-8 mb-6 h-px w-64 mx-auto"
           style={{
-            background: "linear-gradient(90deg, transparent, #E0C58F, #997953, transparent)",
+            background: "linear-gradient(90deg, transparent, #A07856, #A07856, transparent)",
           }}
         />
 
@@ -125,7 +116,7 @@ export function HeroSection() {
           </p>
           <p className="text-[#8892A4] text-base md:text-lg">
             Specialization in{" "}
-            <span className="text-[#E0C58F] font-semibold">Big Data Analytics</span>
+            <span className="text-[#A07856] font-semibold">Big Data Analytics</span>
           </p>
         </motion.div>
 
@@ -133,14 +124,14 @@ export function HeroSection() {
         <motion.div variants={itemVariants} className="flex items-center gap-4 flex-wrap justify-center">
           <button
             onClick={() => scrollToSection("about")}
-            className="px-7 py-3 rounded-xl bg-[#E0C58F] text-white font-semibold text-sm hover:bg-[#E0C58F]/90 transition-all hover:scale-[1.03] active:scale-[0.97]"
+            className="px-7 py-3 rounded-xl bg-[#A07856] text-white font-semibold text-sm hover:bg-[#A07856]/90 transition-all hover:scale-[1.03] active:scale-[0.97]"
             style={{ boxShadow: "0 0 32px rgba(79,142,247,0.25)" }}
           >
             Explore Work
           </button>
           <button
             onClick={() => scrollToSection("contact")}
-            className="px-7 py-3 rounded-xl border border-white/10 text-[#E8EEFF] font-semibold text-sm hover:border-[#E0C58F]/40 hover:bg-white/[0.03] transition-all"
+            className="px-7 py-3 rounded-xl border border-white/10 text-[#E8EEFF] font-semibold text-sm hover:border-[#A07856]/40 hover:bg-white/[0.03] transition-all"
           >
             Get in Touch
           </button>
